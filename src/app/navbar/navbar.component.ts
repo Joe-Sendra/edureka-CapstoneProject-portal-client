@@ -1,8 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { NavBarLink } from './navbar-link.model';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+
+  @Input()links: Array<NavBarLink>;
+  @Input()brand: string;
+  isLoggedIn = false;
+
+}

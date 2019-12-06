@@ -1,2 +1,7 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<app-navbar
+  brand="School Portal"
+  [links]="navbarLinks">
+</app-navbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
