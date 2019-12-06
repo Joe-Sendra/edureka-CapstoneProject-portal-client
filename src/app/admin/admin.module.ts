@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
-import { AdminNavComponent } from './admin-dashboard/admin-nav/admin-nav.component';
 
 // For development purposes only
 import { AdminDevComponent } from './admin-dev/admin-dev.component';
@@ -14,8 +13,7 @@ import { AdminDevService } from './admin-dev/admin-dev.service';
   declarations: [
     AdminDashboardComponent,
     AdminProfileComponent,
-    AdminDevComponent,
-    AdminNavComponent
+    AdminDevComponent
   ],
   imports: [
     HttpClientModule,
