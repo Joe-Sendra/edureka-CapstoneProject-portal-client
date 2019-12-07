@@ -1,24 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { LoginComponent } from './login/login.component';
 import { NavBarLink } from './navbar/navbar-link.model';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
+import { AuthService } from './auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'portal-client';
 
   navbarLinks: Array<NavBarLink>;
+  isLoggedIn = false;
+  loginSub: Subscription;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     this.router.config.unshift(
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'admin', component: AdminDashboardComponent },
+      { path: 'student', component: StudentDashboardComponent }
     );
     console.log(this.router.config);
 
+    // TODO create a service for links
     this.navbarLinks = [
       {
         text: 'home',
@@ -42,5 +52,16 @@ export class AppComponent {
         loggedOutRequired: false
       }
     ];
+  }
+
+  ngOnInit() {
+    this.loginSub = this.authService.getLoginStatus().subscribe(status => {
+      this.isLoggedIn = status;
+      console.log(this.isLoggedIn);
+    });
+  }
+
+  ngOnDestroy() {
+    this.loginSub.unsubscribe();
   }
 }

@@ -6,7 +6,15 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item" *ngFor="let link of links">
-        <a routerLinkActive="active" class="nav-link" [routerLink]="link.path">{{ link.text }}</a>
+        <a
+          *ngIf="(link.loggedInRequired && isLoggedIn)
+          || (link.loggedOutRequired && !isLoggedIn)
+          || (!link.loggedInRequired && !link.loggedOutRequired)"
+          routerLinkActive="active"
+          class="nav-link"
+          [routerLink]="link.path">
+            {{ link.text }}
+          </a>
       </li>
     </ul>
   </div>

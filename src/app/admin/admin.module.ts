@@ -19,6 +19,9 @@ import { AdminDevService } from './admin-dev/admin-dev.service';
     HttpClientModule,
     CommonModule
   ],
+  entryComponents: [
+    AdminDashboardComponent
+  ],
   providers: [
     AdminDevService
   ],
