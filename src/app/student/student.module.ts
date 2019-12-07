@@ -11,6 +11,9 @@ import { StudentDashboardComponent } from './student-dashboard/student-dashboard
   imports: [
     CommonModule
   ],
+  entryComponents: [
+    StudentDashboardComponent
+  ],
   providers: [],
   exports: [
     StudentDashboardComponent
