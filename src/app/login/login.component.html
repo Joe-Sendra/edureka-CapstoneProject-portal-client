@@ -1,8 +1,8 @@
 
 <div class="container">
-  <button class="btn btn-secondary" (click)="loginUser()">Login as User</button>
-  <button class="btn btn-primary" (click)="loginAdmin()">Login as Admin</button>
-  <button class="btn btn-info" (click)="logout()">Temp logout</button>
+  <button class="btn btn-secondary" (click)="loginUser()" *ngIf="!isLoggedIn">Login as User</button>
+  <button class="btn btn-primary" (click)="loginAdmin()" *ngIf="!isLoggedIn">Login as Admin</button>
+  <button class="btn btn-info" (click)="logout()" *ngIf="isLoggedIn">Temp logout</button>
   <hr />
   <p>Don't have an account?</p>
   <!-- <a href="signup" class="btn btn-success">Sign Up</a> -->
