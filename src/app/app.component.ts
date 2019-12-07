@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { LoginComponent } from './login/login.component';
-import { NavBarLink } from './navbar/navbar-link.model';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { AuthService } from './auth/auth.service';
-import { Subscription } from 'rxjs';
+import { AppNavbarService } from './app-navbar.service';
+import { NavBarLink } from './navbar/navbar-link.model';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,10 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   loginSub: Subscription;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private navbarService: AppNavbarService) {
     this.router.config.unshift(
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent, data: {isLogout: true} },
@@ -28,31 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
       { path: 'student', component: StudentDashboardComponent }
     );
     console.log(this.router.config);
-
-    // TODO create a service for links
-    this.navbarLinks = [
-      {
-        text: 'home',
-        type: 'routerLink',
-        path: '/home',
-        loggedInRequired: false,
-        loggedOutRequired: false
-      },
-      {
-        text: 'login',
-        type: 'routerLink',
-        path: '/login',
-        loggedInRequired: false,
-        loggedOutRequired: true
-      },
-      {
-        text: 'logout',
-        type: 'routerLink',
-        path: '/logout',
-        loggedInRequired: true,
-        loggedOutRequired: false
-      }
-    ];
+    this.navbarLinks = this.navbarService.getNavbarLinks();
   }
 
   ngOnInit() {
