@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private authService: AuthService) {
     this.router.config.unshift(
       { path: 'login', component: LoginComponent },
+      { path: 'logout', component: LoginComponent, data: {isLogout: true} },
       { path: 'admin', component: AdminDashboardComponent },
       { path: 'student', component: StudentDashboardComponent }
     );
@@ -57,7 +58,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loginSub = this.authService.getLoginStatus().subscribe(status => {
       this.isLoggedIn = status;
-      console.log(this.isLoggedIn);
     });
   }
 

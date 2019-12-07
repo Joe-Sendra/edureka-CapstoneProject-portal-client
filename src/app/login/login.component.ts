@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -13,15 +13,24 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   isLoggedIn: boolean;
   authSub: Subscription;
+  routeSub: Subscription;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.authSub = this.authService.getLoginStatus().subscribe(status => {
-      this.isLoggedIn = status;
+
+    this.routeSub = this.route.data.subscribe(data => {
+      if (data.isLogout) {
+        this.isLoggedIn = false;
+      } else {
+        this.authSub = this.authService.getLoginStatus().subscribe(status => {
+          this.isLoggedIn = status;
+        });
+      }
     });
+
   }
 
   loginUser() {
@@ -39,7 +48,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authSub.unsubscribe();
+    if (this.authSub) {
+      this.authSub.unsubscribe();
+    }
+    this.routeSub.unsubscribe();
   }
 
 }
