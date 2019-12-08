@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { LoginComponent } from './shared/login/login.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './shared/auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
 import { NavBarLink } from './main/navbar/navbar-link.model';
 import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';

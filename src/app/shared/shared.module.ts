@@ -5,6 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
+import { AuthService } from './auth/auth.service';
+
 @NgModule({
   declarations: [
     RegisterComponent,
@@ -16,6 +18,9 @@ import { LoginComponent } from './login/login.component';
   ],
   exports: [
     CommonModule
+  ],
+  providers: [
+    AuthService
   ],
   entryComponents: [
     RegisterComponent,

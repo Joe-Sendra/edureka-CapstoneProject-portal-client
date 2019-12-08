@@ -9,7 +9,6 @@ import { StudentModule } from './student/student.module';
 
 import { AppComponent } from './app.component';
 
-import { AuthService } from './auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { AppNavbarService } from './app-navbar.service';
   ],
   entryComponents: [],
   providers: [
-    AuthService,
     AppNavbarService
   ],
   bootstrap: [AppComponent]
