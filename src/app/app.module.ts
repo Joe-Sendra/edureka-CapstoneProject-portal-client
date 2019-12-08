@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 import { AuthService } from './auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
@@ -18,7 +19,8 @@ import { AppNavbarService } from './app-navbar.service';
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { AppNavbarService } from './app-navbar.service';
     StudentModule
   ],
   entryComponents: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     AuthService,

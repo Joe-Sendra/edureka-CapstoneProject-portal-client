@@ -15,6 +15,7 @@ import { AdminEnrollmentComponent } from './admin/admin-enrollment/admin-enrollm
 import { AdminSiteComponent } from './admin/admin-site/admin-site.component';
 import { StudentProfileComponent } from './student/student-profile/student-profile.component';
 import { StudentExamComponent } from './student/student-exam/student-exam.component';
+import { RegisterComponent } from './register/register.component';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +56,8 @@ export class AppComponent implements OnInit, OnDestroy {
           { path: 'profile', component: StudentProfileComponent},
           { path: 'exams', component: StudentExamComponent}
         ]
-      }
+      },
+      { path: 'register', component: RegisterComponent }
     );
     console.log(this.router.config);
 
