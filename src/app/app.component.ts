@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './shared/login/login.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { AuthService } from './auth/auth.service';
@@ -15,7 +15,7 @@ import { AdminEnrollmentComponent } from './admin/admin-enrollment/admin-enrollm
 import { AdminSiteComponent } from './admin/admin-site/admin-site.component';
 import { StudentProfileComponent } from './student/student-profile/student-profile.component';
 import { StudentExamComponent } from './student/student-exam/student-exam.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './shared/register/register.component';
 
 @Component({
   selector: 'app-root',
