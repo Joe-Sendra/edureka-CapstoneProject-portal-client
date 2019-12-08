@@ -40,8 +40,6 @@ import { AdminDevService } from './admin-dev/admin-dev.service';
   providers: [
     AdminDevService
   ],
-  exports: [
-    AdminDashboardComponent
-  ]
+  exports: []
 })
 export class AdminModule { }

@@ -21,8 +21,6 @@ import { StudentExamComponent } from './student-exam/student-exam.component';
     StudentExamComponent
   ],
   providers: [],
-  exports: [
-    StudentDashboardComponent
-  ]
+  exports: []
 })
 export class StudentModule { }
