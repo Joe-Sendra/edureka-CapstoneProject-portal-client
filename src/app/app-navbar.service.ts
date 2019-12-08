@@ -70,7 +70,7 @@ export class AppNavbarService {
     {
       text: 'Dashboard',
       type: 'routerLink',
-      path: '/student',
+      path: '/student/dashboard',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -79,7 +79,7 @@ export class AppNavbarService {
     {
       text: 'Profile',
       type: 'routerLink',
-      path: '/',
+      path: '/student/profile',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -88,7 +88,7 @@ export class AppNavbarService {
     {
       text: 'Exams',
       type: 'routerLink',
-      path: '/',
+      path: '/student/exams',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,

@@ -13,6 +13,8 @@ import { AdminStudentsComponent } from './admin/admin-students/admin-students.co
 import { AdminPublishComponent } from './admin/admin-publish/admin-publish.component';
 import { AdminEnrollmentComponent } from './admin/admin-enrollment/admin-enrollment.component';
 import { AdminSiteComponent } from './admin/admin-site/admin-site.component';
+import { StudentProfileComponent } from './student/student-profile/student-profile.component';
+import { StudentExamComponent } from './student/student-exam/student-exam.component';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +48,14 @@ export class AppComponent implements OnInit, OnDestroy {
         { path: 'site', component: AdminSiteComponent}
        ]
       },
-      { path: 'student', component: StudentDashboardComponent }
+      { path: 'student',
+        children: [
+          { path: '', redirectTo: '/student/dashboard', pathMatch: 'full'},
+          { path: 'dashboard', component: StudentDashboardComponent },
+          { path: 'profile', component: StudentProfileComponent},
+          { path: 'exams', component: StudentExamComponent}
+        ]
+      }
     );
     console.log(this.router.config);
 

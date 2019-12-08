@@ -2,17 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
+import { StudentProfileComponent } from './student-profile/student-profile.component';
+import { StudentExamComponent } from './student-exam/student-exam.component';
 
 
 @NgModule({
   declarations: [
-    StudentDashboardComponent
+    StudentDashboardComponent,
+    StudentProfileComponent,
+    StudentExamComponent
   ],
   imports: [
     CommonModule
   ],
   entryComponents: [
-    StudentDashboardComponent
+    StudentDashboardComponent,
+    StudentProfileComponent,
+    StudentExamComponent
   ],
   providers: [],
   exports: [
