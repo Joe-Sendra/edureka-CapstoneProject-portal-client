@@ -1,29 +1,51 @@
 import { Injectable } from '@angular/core';
+import { NavBarLink } from './navbar/navbar-link.model';
 
 @Injectable()
 export class AppNavbarService {
 
-  navbarLinks = [
+  navbarLinks: NavBarLink[] = [
     {
-      text: 'home',
+      text: 'Home',
       type: 'routerLink',
       path: '/home',
       loggedInRequired: false,
-      loggedOutRequired: false
+      loggedOutRequired: false,
+      requiresRole: false
     },
     {
-      text: 'login',
+      text: 'Dashboard',
+      type: 'routerLink',
+      path: '/admin',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
+      text: 'Dashboard',
+      type: 'routerLink',
+      path: '/student',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'student'
+    },
+    {
+      text: 'Login',
       type: 'routerLink',
       path: '/login',
       loggedInRequired: false,
-      loggedOutRequired: true
+      loggedOutRequired: true,
+      requiresRole: false
     },
     {
-      text: 'logout',
+      text: 'Logout',
       type: 'routerLink',
       path: '/logout',
       loggedInRequired: true,
-      loggedOutRequired: false
+      loggedOutRequired: false,
+      requiresRole: false
     }
   ];
 

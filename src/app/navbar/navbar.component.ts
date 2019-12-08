@@ -12,5 +12,6 @@ export class NavbarComponent {
   @Input()links: Array<NavBarLink>;
   @Input()brand: string;
   @Input()isLoggedIn = false;
+  @Input()role = '';
 
 }

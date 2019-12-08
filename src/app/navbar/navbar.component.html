@@ -7,9 +7,12 @@
     <ul class="navbar-nav">
       <li class="nav-item" *ngFor="let link of links">
         <a
-          *ngIf="(link.loggedInRequired && isLoggedIn)
-          || (link.loggedOutRequired && !isLoggedIn)
-          || (!link.loggedInRequired && !link.loggedOutRequired)"
+          *ngIf="((link.loggedInRequired && isLoggedIn)
+            || (link.loggedOutRequired && !isLoggedIn)
+            || (!link.loggedInRequired && !link.loggedOutRequired)
+            ) && (
+            (link.requiresRole && link.role === role)
+            || (!link.requiresRole))"
           routerLinkActive="active"
           class="nav-link"
           [routerLink]="link.path">

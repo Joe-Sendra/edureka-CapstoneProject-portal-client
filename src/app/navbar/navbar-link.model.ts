@@ -4,4 +4,6 @@ export class NavBarLink {
   path: string;
   loggedInRequired: boolean;
   loggedOutRequired: boolean;
+  requiresRole: boolean;
+  role?: string;
 }

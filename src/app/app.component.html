@@ -1,8 +1,10 @@
 <app-navbar
   brand="School Portal"
   [links]="navbarLinks"
-  [isLoggedIn]="isLoggedIn">
+  [isLoggedIn]="isLoggedIn"
+  [role]="loggedInRole">
 </app-navbar>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
+

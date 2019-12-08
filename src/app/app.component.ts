@@ -19,7 +19,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   navbarLinks: Array<NavBarLink>;
   isLoggedIn = false;
+  loggedInRole = '';
   loginSub: Subscription;
+  roleSub: Subscription;
 
   constructor(
     private router: Router,
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
       { path: 'student', component: StudentDashboardComponent }
     );
     console.log(this.router.config);
+
     this.navbarLinks = this.navbarService.getNavbarLinks();
   }
 
@@ -39,9 +42,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loginSub = this.authService.getLoginStatus().subscribe(status => {
       this.isLoggedIn = status;
     });
+    this.roleSub = this.authService.getRole().subscribe(authRole => {
+      this.loggedInRole = authRole;
+    });
   }
 
   ngOnDestroy() {
     this.loginSub.unsubscribe();
+    this.roleSub.unsubscribe();
   }
 }

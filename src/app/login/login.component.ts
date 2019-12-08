@@ -11,22 +11,19 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  isLoggedIn: boolean;
   authSub: Subscription;
   routeSub: Subscription;
 
-  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute) {}
-
-  ngOnInit() {
+  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute) {
     this.routeSub = this.route.data.subscribe(data => {
       if (data.isLogout) {
-        this.isLoggedIn = false;
-      } else {
-        this.authSub = this.authService.getLoginStatus().subscribe(status => {
-          this.isLoggedIn = status;
-        });
+        this.authService.updateLoginStatus(false, null);
       }
     });
+  }
+
+  ngOnInit() {
+    this.authSub = this.authService.getLoginStatus().subscribe();
   }
 
   loginUser() {
@@ -39,14 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.router.navigate(['admin']);
   }
 
-  logout() {
-    this.authService.updateLoginStatus(false, null);
-  }
-
   ngOnDestroy() {
-    if (this.authSub) {
-      this.authSub.unsubscribe();
-    }
+    this.authSub.unsubscribe();
     this.routeSub.unsubscribe();
   }
 
