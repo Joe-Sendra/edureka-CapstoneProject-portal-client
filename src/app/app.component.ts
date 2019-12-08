@@ -8,6 +8,7 @@ import { StudentDashboardComponent } from './student/student-dashboard/student-d
 import { AuthService } from './auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
 import { NavBarLink } from './navbar/navbar-link.model';
+import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent, data: {isLogout: true} },
       { path: 'admin', component: AdminDashboardComponent },
+      { path: 'profile', component: AdminProfileComponent},
       { path: 'student', component: StudentDashboardComponent }
     );
     console.log(this.router.config);

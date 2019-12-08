@@ -20,7 +20,8 @@ import { AdminDevService } from './admin-dev/admin-dev.service';
     CommonModule
   ],
   entryComponents: [
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminProfileComponent
   ],
   providers: [
     AdminDevService

@@ -23,9 +23,72 @@ export class AppNavbarService {
       role: 'admin'
     },
     {
+      text: 'Profile',
+      type: 'routerLink',
+      path: '/profile',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
+      text: 'Students',
+      type: 'routerLink',
+      path: '/',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
+      text: 'Publish',
+      type: 'routerLink',
+      path: '/',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
+      text: 'Enrollment',
+      type: 'routerLink',
+      path: '/',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
+      text: 'Site',
+      type: 'routerLink',
+      path: '/',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
       text: 'Dashboard',
       type: 'routerLink',
       path: '/student',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'student'
+    },
+    {
+      text: 'Profile',
+      type: 'routerLink',
+      path: '/',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'student'
+    },
+    {
+      text: 'Exams',
+      type: 'routerLink',
+      path: '/',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -45,6 +108,14 @@ export class AppNavbarService {
       path: '/logout',
       loggedInRequired: true,
       loggedOutRequired: false,
+      requiresRole: false
+    },
+    {
+      text: 'Register',
+      type: 'routerLink',
+      path: '/register',
+      loggedInRequired: false,
+      loggedOutRequired: true,
       requiresRole: false
     }
   ];
