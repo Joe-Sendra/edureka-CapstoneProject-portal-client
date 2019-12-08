@@ -7,7 +7,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { AuthService } from './auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
-import { NavBarLink } from './navbar/navbar-link.model';
+import { NavBarLink } from './main/navbar/navbar-link.model';
 import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';
 import { AdminStudentsComponent } from './admin/admin-students/admin-students.component';
 import { AdminPublishComponent } from './admin/admin-publish/admin-publish.component';

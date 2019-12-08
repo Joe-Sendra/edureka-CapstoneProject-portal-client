@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavBarLink } from './navbar/navbar-link.model';
+import { NavBarLink } from './main/navbar/navbar-link.model';
 
 @Injectable()
 export class AppNavbarService {
