@@ -16,7 +16,7 @@ export class AppNavbarService {
     {
       text: 'Dashboard',
       type: 'routerLink',
-      path: '/admin',
+      path: '/admin/dashboard',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -25,7 +25,7 @@ export class AppNavbarService {
     {
       text: 'Profile',
       type: 'routerLink',
-      path: '/profile',
+      path: '/admin/profile',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -34,7 +34,7 @@ export class AppNavbarService {
     {
       text: 'Students',
       type: 'routerLink',
-      path: '/',
+      path: '/admin/students',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -43,7 +43,7 @@ export class AppNavbarService {
     {
       text: 'Publish',
       type: 'routerLink',
-      path: '/',
+      path: '/admin/publish',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -52,7 +52,7 @@ export class AppNavbarService {
     {
       text: 'Enrollment',
       type: 'routerLink',
-      path: '/',
+      path: '/admin/enroll',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,
@@ -61,7 +61,7 @@ export class AppNavbarService {
     {
       text: 'Site',
       type: 'routerLink',
-      path: '/',
+      path: '/admin/site',
       loggedInRequired: true,
       loggedOutRequired: false,
       requiresRole: true,

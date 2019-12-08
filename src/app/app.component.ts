@@ -9,6 +9,10 @@ import { AuthService } from './auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
 import { NavBarLink } from './navbar/navbar-link.model';
 import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';
+import { AdminStudentsComponent } from './admin/admin-students/admin-students.component';
+import { AdminPublishComponent } from './admin/admin-publish/admin-publish.component';
+import { AdminEnrollmentComponent } from './admin/admin-enrollment/admin-enrollment.component';
+import { AdminSiteComponent } from './admin/admin-site/admin-site.component';
 
 @Component({
   selector: 'app-root',
@@ -31,8 +35,17 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.config.unshift(
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent, data: {isLogout: true} },
-      { path: 'admin', component: AdminDashboardComponent },
-      { path: 'profile', component: AdminProfileComponent},
+      { path: 'admin',
+       children: [
+        { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full'},
+        { path: 'dashboard', component: AdminDashboardComponent, pathMatch: 'full'},
+        { path: 'profile', component: AdminProfileComponent},
+        { path: 'students', component: AdminStudentsComponent},
+        { path: 'publish', component: AdminPublishComponent},
+        { path: 'enroll', component: AdminEnrollmentComponent},
+        { path: 'site', component: AdminSiteComponent}
+       ]
+      },
       { path: 'student', component: StudentDashboardComponent }
     );
     console.log(this.router.config);
