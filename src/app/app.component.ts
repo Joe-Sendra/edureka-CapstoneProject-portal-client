@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private navbarService: AppNavbarService) {
+    // TODO add auth guards, maybe move this to a service/config file
     this.router.config.unshift(
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent, data: {isLogout: true} },

@@ -13,6 +13,7 @@ import { AdminSiteComponent } from './admin-site/admin-site.component';
 // For development purposes only
 import { AdminDevComponent } from './admin-dev/admin-dev.component';
 import { AdminDevService } from './admin-dev/admin-dev.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AdminDevService } from './admin-dev/admin-dev.service';
   imports: [
     HttpClientModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   entryComponents: [
     AdminDashboardComponent,
