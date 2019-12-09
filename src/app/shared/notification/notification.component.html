@@ -1,0 +1,71 @@
+<!-- <div class="card-deck">
+  <div class="card" *ngFor="let notification of notifications">
+    <div class="card-header text-white bg-{{ notification.type}}">
+      {{ notification.header }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ notification.title }}</h5>
+      <p class="card-text">{{ notification.message}}</p>
+      <p class="card-text"><small class="text-muted">Created {{ notification.created }}</small></p>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <div class="container"> -->
+  	<section>
+        <ul class="list-group list-group-horizontal align-items-stretch flex-wrap">
+          <li class="list-group-item border-0" *ngFor="let notification of notifications">
+            <!-- <div class="card my-3">
+              <img src="http://placehold.it/560x560" class="card-img-top">
+              <div class="card-body">
+                <h4 class="card-title">Title</h4>
+                <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <button class="btn btn-primary" type="button">Button</button>
+              </div>
+            </div> -->
+            <div class="card">
+                <div class="card-header text-white bg-{{ notification.type}}">
+                  {{ notification.header }}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ notification.title }}</h5>
+                  <p class="card-text">{{ notification.message}}</p>
+                  <p class="card-text"><small class="text-muted">Created {{ notification.created }}</small></p>
+                </div>
+              </div>
+          </li>
+        </ul>
+      </section>
+<!-- </div> -->
+  <!-- <div class="card">
+    <div class="card-header text-white bg-info">
+      {{ notificationMessage }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header text-white bg-danger">
+      {{ notificationMessage }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header text-white bg-info">
+      {{ notificationMessage }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div> -->
