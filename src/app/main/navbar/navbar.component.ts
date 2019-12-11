@@ -14,4 +14,5 @@ export class NavbarComponent {
   @Input()isLoggedIn = false;
   @Input()role = '';
 
+  public isCollapsed = true;
 }

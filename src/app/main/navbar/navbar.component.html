@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">{{ brand }}</a>
-  <!-- TODO enable dropdown using a directive -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button (click)="isCollapsed = !isCollapsed" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item" *ngFor="let link of links">
+      <li  class="nav-item" *ngFor="let link of links">
         <a
+          (click)="isCollapsed = !isCollapsed"
           *ngIf="((link.loggedInRequired && isLoggedIn)
             || (link.loggedOutRequired && !isLoggedIn)
             || (!link.loggedInRequired && !link.loggedOutRequired)
