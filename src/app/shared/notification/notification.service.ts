@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class NotificationService {
 
+  // TODO connect to server to get notifications from DB (api);
   private notifications: NotificationInfo[] = [
     {
       id: '1',
