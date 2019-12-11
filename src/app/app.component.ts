@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       { path: 'register', component: RegisterComponent }
     );
-    console.log(this.router.config);
+    // console.log(this.router.config);
 
     this.navbarLinks = this.navbarService.getNavbarLinks();
   }
