@@ -1,5 +1,9 @@
+  <ul class="list-group list-group-horizontal align-items-stretch flex-wrap">
+    <li class="list-group-item border-0" *ngFor="let notification of notifications">
+      <app-notification [notification]="notification"></app-notification>
+    </li>
+  </ul>
 
-  <app-notification></app-notification>
   <hr>
   <h2>TODO - published circular</h2>
 
