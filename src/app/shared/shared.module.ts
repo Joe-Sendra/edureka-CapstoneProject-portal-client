@@ -29,6 +29,7 @@ import { NotificationListComponent } from './notification/notification-list/noti
   exports: [
     CommonModule,
     NgbModule,
+    ReactiveFormsModule,
     NotificationEditComponent,
     NotificationListComponent
   ],
