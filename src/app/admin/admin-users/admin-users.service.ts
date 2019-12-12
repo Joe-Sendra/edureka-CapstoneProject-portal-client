@@ -1,10 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Admin } from '../admin.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AdminUsersService {
 
-  adminUsers: Admin[] = [];
+  adminUsers: Admin[] = [{
+    email: 'admin@school.com',
+    name: {
+      first: 'John',
+      last: 'Smith'
+    },
+    office: {
+      building: 'Administration',
+      number: '100'
+    }
+  }];
 
   addUser(newUser) {
     const adminUser: Admin = {

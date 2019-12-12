@@ -43,8 +43,7 @@ import { SharedModule } from '../shared/shared.module';
     AdminSiteComponent
   ],
   providers: [
-    AdminDevService,
-    AdminUsersService
+    AdminDevService
   ],
   exports: []
 })
