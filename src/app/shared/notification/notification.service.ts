@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { NotificationInfo } from './notification-info.model';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationService {
 
   // TODO connect to server to get notifications from DB (api);

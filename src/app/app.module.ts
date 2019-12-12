@@ -26,8 +26,7 @@ import { NotificationService } from './shared/notification/notification.service'
   ],
   entryComponents: [],
   providers: [
-    AppNavbarService,
-    NotificationService
+    AppNavbarService
   ],
   bootstrap: [AppComponent]
 })
