@@ -1,1 +1,15 @@
-admin site works
+
+
+<div class="container">
+  <h3> Admin Site </h3>
+  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
+    <ngb-panel>
+      <ng-template ngbPanelHeader let-opened="opened">
+          <button ngbPanelToggle class="btn"><h4>Faculty Users</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-admin-users-edit></app-admin-users-edit>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
