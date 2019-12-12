@@ -13,6 +13,8 @@ export class NavbarComponent {
   @Input()brand: string;
   @Input()isLoggedIn = false;
   @Input()role = '';
+  @Input()showLoggedInUser = false;
+  @Input()loggedInUser = null;
 
   public isCollapsed = true;
 }
