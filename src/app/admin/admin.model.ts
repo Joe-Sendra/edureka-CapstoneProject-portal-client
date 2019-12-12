@@ -8,7 +8,7 @@ export class Admin {
     building: string;
     number: string;
   };
-  class: [{
+  class?: [{
     id: string;
     semester: string; // TODO consider replacing this with an object
     name: string;
