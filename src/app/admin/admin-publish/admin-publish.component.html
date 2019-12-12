@@ -1,6 +1,17 @@
-<h2>Publish</h2>
-<hr>
-<h3>Notifications</h3>
-<app-notification-edit></app-notification-edit>
-<hr>
-<h3>Circular</h3>
+<div class="container">
+  <h2>Publish</h2>
+  <hr>
+  <h3>Notifications</h3>
+  <app-notification-edit></app-notification-edit>
+  <br>
+  <button class="btn btn-primary" type="button" (click)="isListView = !isListView">show/hide list view</button>
+  <app-notification-list
+    *ngIf="isListView"
+    [showEditButton]="true"
+    [showDeleteButton]="true"
+    (editedNotification)="onEdit($event)">
+  </app-notification-list>
+  <hr>
+  <h3>Circular</h3>
+  <p>To do - circular component</p>
+</div>

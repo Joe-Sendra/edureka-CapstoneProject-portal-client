@@ -1,7 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
+      <!-- TODO display validation errors / hints -->
       <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()" (input)="onFormInput()">
+        <div class="form-group">
+          <input
+            type="text"
+            id="id"
+            formControlName="id"
+            class="form-control"
+            hidden
+            #id
+          />
+        </div>
         <div class="form-group">
           <label for="type">Type</label>
           <select
@@ -45,7 +56,6 @@
           />
         </div>
         <div class="form-group">
-          <!-- <label for="created">Created</label> -->
           <input
             type="text"
             id="created"

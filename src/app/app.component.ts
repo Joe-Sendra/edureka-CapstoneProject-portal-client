@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
         { path: 'profile', component: AdminProfileComponent},
         { path: 'students', component: AdminStudentsComponent},
         { path: 'publish', component: AdminPublishComponent},
+        { path: 'publish/:id', component: AdminPublishComponent},
         { path: 'enroll', component: AdminEnrollmentComponent},
         { path: 'site', component: AdminSiteComponent}
        ]
@@ -60,7 +61,6 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       { path: 'register', component: RegisterComponent }
     );
-    // console.log(this.router.config);
 
     this.navbarLinks = this.navbarService.getNavbarLinks();
   }

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationEditComponent } from './notification/notification-edit/notification-edit.component';
+import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NotificationEditComponent } from './notification/notification-edit/noti
     HomeComponent,
     LoginComponent,
     NotificationComponent,
-    NotificationEditComponent
+    NotificationEditComponent,
+    NotificationListComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { NotificationEditComponent } from './notification/notification-edit/noti
   ],
   exports: [
     CommonModule,
-    NotificationEditComponent
+    NotificationEditComponent,
+    NotificationListComponent
   ],
   providers: [
     AuthService

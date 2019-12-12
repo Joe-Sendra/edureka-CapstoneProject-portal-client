@@ -33,26 +33,40 @@ export class NotificationService {
     this.notificationSub.next(this.getNotifications());
   }
 
-  deleteNotification(id: string) {
+  updateNotification(id: string, newNotification: NotificationInfo) {
+    const index = this.findWithAttr(this.notifications, 'id', id);
+    this.notifications[index] = newNotification;
+    this.notificationSub.next(this.getNotifications());
+  }
 
-    const index = findWithAttr(this.notifications, 'id', id);
+  deleteNotification(id: string) {
+    const index = this.findWithAttr(this.notifications, 'id', id);
     if (index >= 0 ) {
       this.notifications.splice(index, 1);
       this.notificationSub.next(this.getNotifications());
     }
+  }
 
-    function findWithAttr(array, attr, value) {
-      for (let i = 0; i < array.length; i += 1) {
-          if (array[i][attr] === value) {
-              return i;
-          }
-      }
-      return -1;
-    }
-
+  getNotification(id: string) {
+    const index = this.findWithAttr(this.notifications, 'id', id);
+    return this.notifications[index];
   }
 
   getNotifications() {
     return this.notifications.slice();
   }
+
+  getCount() {
+    return this.notifications.length;
+  }
+
+  findWithAttr(array, attr, value) {
+    for (let i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { NotificationService } from '../notification.service';
@@ -11,6 +11,7 @@ import { NotificationInfo } from '../notification-info.model';
 })
 export class NotificationEditComponent implements OnInit {
 
+  id: string;
   editMode = false;
   notificationForm: FormGroup;
   notificationPreview: NotificationInfo;
@@ -18,30 +19,50 @@ export class NotificationEditComponent implements OnInit {
   constructor(private notificationService: NotificationService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    this.initForm();
-    this.updateNotificationPreview();
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.id = params.id;
+        this.editMode = params.id != null;
+        this.initForm();
+        this.updateNotificationPreview();
+      }
+    );
+
   }
 
   onSubmit() {
-
     if (this.editMode) {
-      // TODO add updateNotification to notification service
+      this.notificationService.updateNotification(this.id, this.notificationForm.value);
     } else {
       this.notificationService.addNotification(this.notificationForm.value);
     }
     this.onCancel();
   }
+
   private initForm() {
 
-    // let notificationId = ''; TODO need to get unique id from backend
+    const uniqueId = (this.notificationService.getCount() + 1).toString(); // TODO for testing only until DB is implemented
+    let notificationId = uniqueId; // TODO need to get unique id from backend on create
     let notificationType = 'info';
     let notificationHeader = '';
     let notificationTitle = '';
     let notificationMessage = '';
-    let notificationCreated = new Date(Date.now()).toLocaleString();
+    const notificationCreated = new Date(Date.now()).toLocaleString();
+
+    // if in edit mode, populate form with existing values
+    if (this.editMode) {
+      const notification = this.notificationService.getNotification(this.id);
+      notificationId = notification.id;
+      notificationType = notification.type;
+      notificationHeader = notification.header;
+      notificationTitle = notification.title;
+      notificationMessage = notification.message;
+    }
 
     // this links the reactive code form to the html form
     this.notificationForm = new FormGroup({
+      id: new FormControl(notificationId),
       type: new FormControl(notificationType, Validators.required),
       header: new FormControl(notificationHeader, [Validators.required, Validators.maxLength(50)]),
       title: new FormControl(notificationTitle, [Validators.required, Validators.maxLength(50)]),
