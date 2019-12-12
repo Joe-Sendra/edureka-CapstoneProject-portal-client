@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from './auth/auth.service';
 
@@ -23,10 +23,12 @@ import { NotificationListComponent } from './notification/notification-list/noti
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   exports: [
     CommonModule,
+    NgbModule,
     NotificationEditComponent,
     NotificationListComponent
   ],
