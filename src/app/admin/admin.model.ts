@@ -12,6 +12,6 @@ export class Admin {
     id: string;
     semester: string; // TODO consider replacing this with an object
     name: string;
-    students: [string]; // TODO replace with Student[] once student model is created
+    students?: [string]; // TODO replace with Student[] once student model is created
   }];
 }
