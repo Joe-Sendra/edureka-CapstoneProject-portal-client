@@ -9,7 +9,7 @@ import { NotificationInfo } from 'src/app/shared/notification/notification-info.
 })
 export class AdminPublishComponent {
 
-  isListView: false;
+  isListView = false;
 
   constructor(private router: Router) {}
 
