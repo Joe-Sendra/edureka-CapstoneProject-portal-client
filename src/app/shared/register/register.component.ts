@@ -22,16 +22,25 @@ export class RegisterComponent implements OnInit {
   private initForm() {
     let email = '';
     let regNumber = '';
+    let firstName = '';
+    let lastName = '';
+
     this.registerForm = new FormGroup({
       email: new FormControl(email, [Validators.email, Validators.required]),
-      regNumber: new FormControl(regNumber, Validators.required)
+      regNumber: new FormControl(regNumber, Validators.required),
+      firstName: new FormControl(firstName, Validators.required),
+      lastName: new FormControl(firstName, Validators.required)
     });
   }
 
   onSubmit() {
     const studentRegister: Student = {
       email: this.registerForm.controls.email.value,
-      registrationNumber: this.registerForm.controls.regNumber.value
+      registrationNumber: this.registerForm.controls.regNumber.value,
+      name: {
+        first: this.registerForm.controls.firstName.value,
+        last: this.registerForm.controls.lastName.value
+      }
     };
     this.studentService.enrollStudent(studentRegister);
   }

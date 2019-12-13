@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Student } from './student.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,18 @@ export class StudentService {
   students: Student[] = [];
   devFakeUniqueID = 0; // TODO remove. for dev only
 
+  studentsSub = new BehaviorSubject<Student[]>(this.students.slice());
+  nonRegisteredStudentsSub = new BehaviorSubject<Student[]>(this.getNonRegisteredStudents());
+
+  constructor() {}
+
+  getNonRegisteredStudents(): Student[] {
+    let nonRegistered = this.students.slice();
+    nonRegistered = nonRegistered.filter(student => !student.isRegistered);
+    return nonRegistered;
+  }
+
+
   addEnrollment(studentEmail: string) {
     if (!this.hasRegistrationNumber(studentEmail)) {
       this.devFakeUniqueID++; // TODO remove. for dev only
@@ -18,8 +31,10 @@ export class StudentService {
         registrationNumber: this.devFakeUniqueID.toString(),
         isRegistered: false
       });
+      this.nonRegisteredStudentsSub.next(this.getNonRegisteredStudents());
+      console.log('Registration number: ' + this.devFakeUniqueID + ' assigned to this email.');
     } else {
-      // TODO return message already enrolled
+      console.log('This student already has a registration number!');
     }
     console.log(this.students);
   }
@@ -29,9 +44,14 @@ export class StudentService {
       const index = this.findWithAttr(this.students, 'email', student.email);
       if (this.verifyRegistrationNumber(student.email, student.registrationNumber)) {
         console.log('need to update: ', this.students[index], ' with: ', student);
+        this.students[index] = { ...student, isRegistered: true };
+        console.log('after: ', this.students[index]);
+        this.nonRegisteredStudentsSub.next(this.getNonRegisteredStudents());
       } else {
         console.log('invalid registration number');
       }
+    } else {
+      console.log('Error: can not enroll (can possibly already be enrolled)');
     }
   }
 
