@@ -1,1 +1,20 @@
-admin enrollment works
+<form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        #email
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-success m-4"
+      [disabled]="!enrollmentForm.valid">
+        Save
+    </button>
+  </form>
+<br>
+{{ studentEnrollment | json }}
