@@ -1,28 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { EnrollmentItem } from './enrollment.model';
-import { EnrollmentService } from './enrollment.service';
+import { StudentService } from 'src/app/student/student.service';
 
 @Component({
   selector: 'app-admin-enrollment',
   templateUrl: './admin-enrollment.component.html',
   styleUrls: ['./admin-enrollment.component.css']
 })
-export class AdminEnrollmentComponent implements OnInit, OnDestroy {
-
-  studentEnrollment: EnrollmentItem[];
-  enrollmentSub: Subscription;
+export class AdminEnrollmentComponent implements OnInit {
 
   enrollmentForm: FormGroup;
 
-  constructor(private enrollmentService: EnrollmentService) {}
+  constructor(private studentService: StudentService) {}
 
   ngOnInit() {
-    this.enrollmentSub = this.enrollmentService.enrollmentSub.subscribe(enrollment => {
-      this.studentEnrollment = enrollment;
-    });
     this.initForm();
   }
 
@@ -34,11 +27,7 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.enrollmentService.addEnrollment(this.enrollmentForm.value);
-  }
-
-  ngOnDestroy() {
-    this.enrollmentSub.unsubscribe();
+    this.studentService.addEnrollment(this.enrollmentForm.controls.email.value);
   }
 
 }

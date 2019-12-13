@@ -76,7 +76,6 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.userSub = this.authService.getUser().subscribe(user => {
 
-      console.log(user);
       if (user) {
         if (user.email) {
           this.loggedInUser = user.email;
