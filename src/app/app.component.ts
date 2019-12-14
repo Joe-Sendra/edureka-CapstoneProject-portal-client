@@ -50,6 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
         { path: 'publish', component: AdminPublishComponent},
         { path: 'publish/:id', component: AdminPublishComponent},
         { path: 'enroll', component: AdminEnrollmentComponent},
+        { path: 'register', component: RegisterComponent },
         { path: 'site', component: AdminSiteComponent}
        ]
       },

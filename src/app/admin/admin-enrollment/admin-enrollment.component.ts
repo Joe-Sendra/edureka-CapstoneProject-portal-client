@@ -37,6 +37,10 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
     console.log(this.studentService.getNonRegisteredStudents());
   }
 
+  onEmail() {
+    this.studentService.sendEmails(this.nonRegisteredStudents);
+  }
+
   ngOnDestroy() {
     this.enrollmentSub.unsubscribe();
   }

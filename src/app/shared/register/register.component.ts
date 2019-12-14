@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { StudentService } from 'src/app/student/student.service';
@@ -12,27 +13,34 @@ import { Student } from 'src/app/student/student.model';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  email = '';
+  regNumber = '';
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.email = params.get('email');
+      this.regNumber = params.get('reg');
+    });
+
     this.initForm();
   }
 
   private initForm() {
-    let email = '';
-    let regNumber = '';
+
     let firstName = '';
     let lastName = '';
 
     this.registerForm = new FormGroup({
-      email: new FormControl(email, [Validators.email, Validators.required]),
-      regNumber: new FormControl(regNumber, Validators.required),
+      email: new FormControl(this.email, [Validators.email, Validators.required]),
+      regNumber: new FormControl(this.regNumber, Validators.required),
       firstName: new FormControl(firstName, Validators.required),
-      lastName: new FormControl(firstName, Validators.required)
+      lastName: new FormControl(lastName, Validators.required)
     });
   }
 
+  // TODO add more profile fields (include on form template)
   onSubmit() {
     const studentRegister: Student = {
       email: this.registerForm.controls.email.value,

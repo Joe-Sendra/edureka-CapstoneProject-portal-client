@@ -18,10 +18,19 @@ export class StudentService {
 
   getNonRegisteredStudents(): Student[] {
     let nonRegistered = this.students.slice();
-    nonRegistered = nonRegistered.filter(student => !student.isRegistered);
+    nonRegistered = nonRegistered.filter(student => !student.isRegistered).map(student => {
+      return {email: student.email, registrationNumber: student.registrationNumber};
+    });
     return nonRegistered;
   }
 
+  sendEmail(student: Student) {
+    console.log('TODO send student to server for an email to be sent: ', student);
+  }
+
+  sendEmails(students: Student[]) {
+    console.log('TODO send students to server for an emails to be sent: ', students);
+  }
 
   addEnrollment(studentEmail: string) {
     if (!this.hasRegistrationNumber(studentEmail)) {
@@ -36,7 +45,7 @@ export class StudentService {
     } else {
       console.log('This student already has a registration number!');
     }
-    console.log(this.students);
+    // console.log(this.students);
   }
 
   enrollStudent(student: Student) {

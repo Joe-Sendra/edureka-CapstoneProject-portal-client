@@ -1,26 +1,30 @@
 <div class="container">
-  <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-        #email
-      />
+  <div class="row">
+    <div class="col-12 col-lg-5 enroll-form">
+      <h4>Add student email</h4>
+      <form [formGroup]="enrollmentForm" class="form-inline justify-content-center" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="mr-2" for="email">Email </label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            #email
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-success m-4"
+          [disabled]="!enrollmentForm.valid">
+            Save
+        </button>
+      </form>
     </div>
-    <button
-      type="submit"
-      class="btn btn-success m-4"
-      [disabled]="!enrollmentForm.valid">
-        Save
-    </button>
-  </form>
-  <br>
-  <hr>
-  <h4>Students that have not enrolled</h4>
-  <li *ngFor="let student of nonRegisteredStudents">
-    {{ student.email }}
-  </li>
+    <div class="col-lg-1 d-lg-none d-xl-none"><hr></div>
+    <div class="col-12 col-lg-6 student-list">
+      <h4>Students that have not enrolled <button class="btn btn-info btn-sm" (click)="onEmail()">Email All</button></h4>
+      <app-admin-enrollment-list></app-admin-enrollment-list>
+    </div>
+  </div>
 </div>

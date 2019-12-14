@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Registration Number</th>
+        <th>Send invite email</th>
+        <th>Enroll</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.email }}</td>
+        <td>{{ student.registrationNumber }}</td>
+        <td><button class="btn btn-primary btn-sm" (click)="onSendEmail(student)">Send Email</button></td>
+        <td><button class="btn btn-danger btn-sm" (click)="onEnroll(student)">Enroll</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
