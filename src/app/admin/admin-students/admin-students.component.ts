@@ -14,7 +14,7 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
   studentsSub: Subscription;
   leaveSub: Subscription;
   students: Student[];
-  leaveRequests: {email: string, leave: Leave}[];
+  leaveRequests: {email: string, requestID: string, requestDate: Date, status: string, startDate: Date, endDate: Date}[];
 
   constructor(private studentService: StudentService) {}
 
@@ -29,8 +29,8 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
 
   // TODO remove. for dev only
   onAddLeave(student) {
-    console.log(this.leaveRequests.length);
-    const reqID = this.leaveRequests[0] == null ? '1' : (this.leaveRequests.length + 1).toString();
+    // const reqID = this.leaveRequests[0] == null ? '1' : (this.leaveRequests.length + 1).toString();
+    const reqID = this.studentService.getUniqueID();
     const tempLeave: Leave = {
       requestID: reqID,
       requestDate: new Date(Date.now()),
@@ -43,11 +43,12 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
   }
 
   onLeaveReview(request, isApproved) {
-    this.studentService.voteLeave(request.email, request.leave.requestID, isApproved);
+    this.studentService.voteLeave(request.email, request.requestID, isApproved);
   }
 
   onBlockStudent(student) {
     console.log('TODO block this student: ', student);
+    this.studentService.blockStudent(student.email, true);
   }
 
   onResetPassword(student) {

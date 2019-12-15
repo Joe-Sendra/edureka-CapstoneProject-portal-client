@@ -19,14 +19,14 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
   constructor(private studentService: StudentService) {}
 
   ngOnInit() {
-    this.enrollmentSub = this.studentService.nonRegisteredStudentsSub.subscribe(students => {
+    this.enrollmentSub = this.studentService.getNonRegistered().subscribe(students => {
       this.nonRegisteredStudents = students;
     });
     this.initForm();
   }
 
   private initForm() {
-    let email = '';
+    const email = '';
     this.enrollmentForm = new FormGroup({
       email: new FormControl(email, [Validators.email, Validators.required])
     });

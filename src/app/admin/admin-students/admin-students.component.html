@@ -46,9 +46,9 @@
             <td *ngIf="request"><button class="btn btn-success btn-sm" (click)="onLeaveReview(request, true)">Approve</button></td>
             <td *ngIf="request"><button class="btn btn-danger btn-sm" (click)="onLeaveReview(request, false)">Deny</button></td>
             <td *ngIf="request">{{ request.email }}</td>
-            <td *ngIf="request">{{ request.leave.requestDate | date: 'mediumDate' }}</td>
-            <td *ngIf="request">{{ request.leave.startDate | date: 'mediumDate' }}</td>
-            <td *ngIf="request">{{ request.leave.endDate | date: 'mediumDate' }}</td>
+            <td *ngIf="request">{{ request.requestDate | date: 'mediumDate' }}</td>
+            <td *ngIf="request">{{ request.startDate | date: 'mediumDate' }}</td>
+            <td *ngIf="request">{{ request.endDate | date: 'mediumDate' }}</td>
           </tr>
         </tbody>
     </table>

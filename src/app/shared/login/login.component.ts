@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   adminUsers: Admin[] = []; // TODO remove. for dev only
 
+  // TODO check for is blocked before logging in
+
   ngOnInit() {
     this.authSub = this.authService.getLoginStatus().subscribe();
   }

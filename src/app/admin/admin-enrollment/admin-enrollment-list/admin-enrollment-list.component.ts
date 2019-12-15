@@ -19,7 +19,7 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
   constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit() {
-    this.nonRegisteredSub = this.studentService.nonRegisteredStudentsSub.subscribe(students => {
+    this.nonRegisteredSub = this.studentService.getNonRegistered().subscribe(students => {
       this.students = students;
     });
   }
