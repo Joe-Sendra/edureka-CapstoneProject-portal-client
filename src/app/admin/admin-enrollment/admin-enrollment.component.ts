@@ -33,8 +33,12 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.studentService.addEnrollment(this.enrollmentForm.controls.email.value);
-    console.log(this.studentService.getNonRegisteredStudents());
+    if (this.studentService.addEnrollment(this.enrollmentForm.controls.email.value)) {
+      this.enrollmentForm.reset();
+    } else {
+      // this.statusMessage = 'Student could not be added!';
+      console.log('Student could not be added!');
+    }
   }
 
   onEmail() {

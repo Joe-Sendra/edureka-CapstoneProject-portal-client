@@ -21,7 +21,6 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.nonRegisteredSub = this.studentService.nonRegisteredStudentsSub.subscribe(students => {
       this.students = students;
-      console.log('nonRegistered students: ', this.students);
     });
   }
 
@@ -31,7 +30,6 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
 
   onEnroll(student: Student) {
     this.router.navigate(['admin', 'register', {email: student.email, reg: student.registrationNumber}]);
-    console.log('TODO - enroll this student: ', student);
   }
 
   ngOnDestroy() {

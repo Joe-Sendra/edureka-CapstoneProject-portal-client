@@ -1,1 +1,56 @@
-admin of students works
+<div class="container">
+  <h4>All Students</h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Block</th>
+          <th>Reset Password</th>
+          <th>dev add leave</th>
+          <th>Email</th>
+          <th>Registration Number</th>
+          <th>Registered</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td><button class="btn btn-danger btn-sm" (click)="onBlockStudent(student)">Block</button></td>
+          <td><button class="btn btn-info btn-sm" (click)="onResetPassword(student)">Reset</button></td>
+          <td><button class="btn btn-warning btn-sm" (click)="onAddLeave(student)">Add Leave</button></td>
+          <td>{{ student.email }}</td>
+          <td>{{ student.registrationNumber }}</td>
+          <td>{{ student.isRegistered }}</td>
+          <td><span *ngIf="student.name">{{ student.name.first }}</span></td>
+          <td><span *ngIf="student.name">{{ student.name.last }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h4>Leave Requests</h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Approve</th>
+          <th>Deny</th>
+          <th>Email</th>
+          <th>Date Requested</th>
+          <th>Requested Start Date</th>
+          <th>Requested End Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of leaveRequests">
+            <td *ngIf="request"><button class="btn btn-success btn-sm" (click)="onLeaveReview(request, true)">Approve</button></td>
+            <td *ngIf="request"><button class="btn btn-danger btn-sm" (click)="onLeaveReview(request, false)">Deny</button></td>
+            <td *ngIf="request">{{ request.email }}</td>
+            <td *ngIf="request">{{ request.leave.requestDate | date: 'mediumDate' }}</td>
+            <td *ngIf="request">{{ request.leave.startDate | date: 'mediumDate' }}</td>
+            <td *ngIf="request">{{ request.leave.endDate | date: 'mediumDate' }}</td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>

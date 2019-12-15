@@ -1,3 +1,11 @@
+export class Leave {
+  requestID: string;
+  requestDate: Date;
+  status: string; // TODO approved, pending, rejected
+  startDate: Date;
+  endDate: Date;
+}
+
 export class Student {
   email: string; // TODO can this be used as the id?
   registrationNumber: string;
@@ -19,11 +27,6 @@ export class Student {
     work: string;
     mobile: string;
   };
-  leave?: [{
-    requestDate: Date;
-    status: string; // TODO approved, pending, rejected
-    startDate: Date;
-    endDate: Date;
-  }];
+  leave?: [Leave];
   class?: [{}]; // TODO define class (for both student and faculty)
 }
