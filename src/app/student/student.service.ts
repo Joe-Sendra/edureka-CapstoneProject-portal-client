@@ -77,6 +77,14 @@ export class StudentService {
   }
 
 
+  // Password ***********************************
+  resetPassword(email, isReset) {
+    const index = this.findWithAttr(this.students, 'email', email);
+    this.students[index].resetPassword = isReset;
+    this.updateSubs();
+  }
+
+
   // Leave **************************************
   private hasLeavePending() {
 

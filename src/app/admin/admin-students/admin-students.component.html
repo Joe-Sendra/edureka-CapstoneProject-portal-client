@@ -16,8 +16,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let student of students">
-          <td><button class="btn btn-danger btn-sm" (click)="onBlockStudent(student)">Block</button></td>
-          <td><button class="btn btn-info btn-sm" (click)="onResetPassword(student)">Reset</button></td>
+          <td><button class="btn btn-danger btn-sm" (click)="onBlockStudent(student)" [disabled]="student.isLockedOut">Block</button></td>
+          <td><button class="btn btn-info btn-sm" (click)="onResetPassword(student)" [disabled]="student.resetPassword">Reset</button></td>
           <td><button class="btn btn-warning btn-sm" (click)="onAddLeave(student)">Add Leave</button></td>
           <td>{{ student.email }}</td>
           <td>{{ student.registrationNumber }}</td>

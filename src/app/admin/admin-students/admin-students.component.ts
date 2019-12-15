@@ -53,6 +53,7 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
 
   onResetPassword(student) {
     console.log('TODO reset this student password: ', student);
+    this.studentService.resetPassword(student.email, true);
   }
 
   ngOnDestroy() {
