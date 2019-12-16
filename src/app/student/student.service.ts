@@ -16,9 +16,18 @@ export class StudentService {
       last: 'Sendra'
     },
     registrationNumber: '1'
+  },
+  {
+    email: 'test@school.com',
+    isRegistered: true,
+    name: {
+      first: 'Test',
+      last: 'Guy'
+    },
+    registrationNumber: '2'
   }];
 
-  devFakeUniqueID = 0; // TODO remove. for dev only
+  devFakeUniqueID = 2; // TODO remove. for dev only
 
   private studentsSub = new BehaviorSubject<Student[]>(this.students.slice());
   private nonRegisteredStudentsSub = new BehaviorSubject<Student[]>(this.getNonRegisteredStudents());
@@ -123,6 +132,14 @@ export class StudentService {
     this.updateSubs();
   }
 
+  // TODO determine if this needs to be an observable
+  getStudentLeaves(email: string) {
+    const index = this.findWithAttr(this.students, 'email', email);
+    if (this.students[index].hasOwnProperty('leave')) {
+      return this.students[index].leave;
+    }
+  }
+
 
   // Registration *******************************
   private getNonRegisteredStudents(): Student[] {
@@ -161,6 +178,14 @@ export class StudentService {
       return this.students[index].isRegistered;
     }
     return false;
+  }
+
+
+  // Profile ************************************
+  updateStudent(email, newStudentInfo: Student) {
+    const index = this.findWithAttr(this.students, 'email', email);
+    this.students[index] = newStudentInfo;
+    this.updateSubs();
   }
 
 

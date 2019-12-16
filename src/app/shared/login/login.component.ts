@@ -5,6 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { AdminUsersService } from 'src/app/admin/admin-users/admin-users.service';
 import { Admin } from 'src/app/admin/admin.model';
+import { StudentService } from 'src/app/student/student.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private adminUsersService: AdminUsersService
+    private adminUsersService: AdminUsersService,
+    private studentService: StudentService
     ) {
     this.routeSub = this.route.data.subscribe(data => {
       if (data.isLogout) {
@@ -38,7 +40,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginUser() {
-    this.authService.updateLoginStatus(true, 'student', null);
+    let user;
+    this.studentService.getStudents().subscribe(students => {
+      user = students[1];
+    });
+    this.authService.updateLoginStatus(true, 'student', user);
     this.router.navigate(['student']);
   }
 
