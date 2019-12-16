@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-5 enroll-form">
+      <h4>Add student email</h4>
+      <form [formGroup]="enrollmentForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Email"
+            #email
+          />
+          <div class="input-group-append">
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!enrollmentForm.valid">
+                Save
+            </button>
+          </div>
+        </div>
+      </form>
+      <!-- <div *ngIf="(email.dirty || email.touched) && email.invalid && (enrollmentForm.controls['email'].errors.required)" class="invalid-feedback">
+        test
+        <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.email">Must be an email address</div>
+      </div> -->
+      <!-- <span [class]="">{{ statusMessage }}</span> -->
+    </div>
+    <div class="col-md-1"><hr class="d-md-none d-md-none"></div>
+    <div class="col-12 col-md-6 student-list">
+      <h4>Students that have not enrolled <button class="btn btn-info btn-sm" (click)="onEmail()">Email All</button></h4>
+      <app-admin-enrollment-list></app-admin-enrollment-list>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+  <h3> Publish / Post </h3>
+  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
+    <ngb-panel>
+      <ng-template ngbPanelHeader let-opened="opened">
+          <button ngbPanelToggle class="btn"><h4>Notifications</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-notification-edit></app-notification-edit>
+        <br>
+        <button class="btn btn-primary" type="button" (click)="isListView = !isListView">show/hide list view</button>
+        <app-notification-list
+          *ngIf="isListView"
+          [showEditButton]="true"
+          [showDeleteButton]="true"
+          (editedNotification)="onEdit($event)">
+        </app-notification-list>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+          <button ngbPanelToggle class="btn"><h4>Circular</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        To do - circular component
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+          <button ngbPanelToggle class="btn"><h4>Exam time table</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        To do - exam component
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+          <button ngbPanelToggle class="btn"><h4>Exam gate pass</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        To do - exam gate pass component
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+          <button ngbPanelToggle class="btn"><h4>Faculty</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        To do - post change in faculty
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

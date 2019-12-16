@@ -1,0 +1,73 @@
+<div class="container">
+  <h3> Student Management </h3>
+  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
+    <ngb-panel>
+      <ng-template ngbPanelHeader let-opened="opened">
+          <button ngbPanelToggle class="btn"><h4>All Students</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div class="table-responsive"> <!-- TODO add search and filter -->
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Block</th>
+                <th>Reset Password</th>
+                <th>Change Password</th>
+                <!-- <th>dev add leave</th> -->
+                <th>Email</th>
+                <th>Registration Number</th>
+                <th>Registered</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of students">
+                <td><button class="btn btn-danger btn-sm" (click)="onBlockStudent(student)" [disabled]="student.isLockedOut">Block</button></td>
+                <td><button class="btn btn-info btn-sm" (click)="onResetPassword(student)" [disabled]="student.resetPassword">Reset</button></td>
+                <td><button class="btn btn-info btn-sm" disabled>Change</button></td>
+                <!-- <td><button class="btn btn-warning btn-sm" (click)="onAddLeave(student)">Add Leave</button></td> -->
+                <td>{{ student.email }}</td>
+                <td>{{ student.registrationNumber }}</td>
+                <td>{{ student.isRegistered }}</td>
+                <td><span *ngIf="student.name">{{ student.name.first }}</span></td>
+                <td><span *ngIf="student.name">{{ student.name.last }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader let-opened="opened">
+          <button ngbPanelToggle class="btn"><h4>Leave Requests</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Approve</th>
+                <th>Deny</th>
+                <th>Email</th>
+                <th>Date Requested</th>
+                <th>Requested Start Date</th>
+                <th>Requested End Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let request of leaveRequests">
+                  <td *ngIf="request"><button class="btn btn-success btn-sm" (click)="onLeaveReview(request, true)">Approve</button></td>
+                  <td *ngIf="request"><button class="btn btn-danger btn-sm" (click)="onLeaveReview(request, false)">Deny</button></td>
+                  <td *ngIf="request">{{ request.email }}</td>
+                  <td *ngIf="request">{{ request.requestDate | date: 'mediumDate' }}</td>
+                  <td *ngIf="request">{{ request.startDate | date: 'mediumDate' }}</td>
+                  <td *ngIf="request">{{ request.endDate | date: 'mediumDate' }}</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

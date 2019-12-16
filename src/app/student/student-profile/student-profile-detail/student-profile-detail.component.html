@@ -1,0 +1,47 @@
+<button class="btn btn-info" type="button" disabled>Change Password</button>
+<button class="btn btn-danger" type="button" disabled>Reset Password</button>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input formControlName="email" class="form-control" type="email"/>
+  </div>
+  <div class="form-group">
+    <label for="nameFirst">First Name</label>
+    <input formControlName="nameFirst" class="form-control" type="nameFirst"/>
+  </div>
+  <div class="form-group">
+    <label for="nameLast">Last Name</label>
+    <input formControlName="nameLast" class="form-control" type="nameLast"/>
+  </div>
+  <div class="form-group">
+    <label for="street">Street</label>
+    <input formControlName="street" class="form-control" type="street"/>
+  </div>
+  <div class="form-group">
+    <label for="city">City</label>
+    <input formControlName="city" class="form-control" type="city"/>
+  </div>
+  <div class="form-group">
+    <label for="state">State</label>
+    <input formControlName="state" class="form-control" type="state"/>
+  </div>
+  <div class="form-group">
+    <label for="zipcode">Zipcode</label>
+    <input formControlName="zipcode" class="form-control" type="zipcode"/>
+  </div>
+  <div class="form-group">
+    <label for="phoneHome">Home Phone</label>
+    <input formControlName="phoneHome" class="form-control" type="phoneHome"/>
+  </div>
+  <div class="form-group">
+    <label for="phoneWork">Work Phone</label>
+    <input formControlName="phoneWork" class="form-control" type="phoneWork"/>
+  </div>
+  <div class="form-group">
+    <label for="phoneMobile">Mobile Phone</label>
+    <input formControlName="phoneMobile" class="form-control" type="phoneMobile"/>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid">Save</button>
+  <button (click)="onCancel()" type="button" class="btn btn-danger">Cancel</button>
+</form>

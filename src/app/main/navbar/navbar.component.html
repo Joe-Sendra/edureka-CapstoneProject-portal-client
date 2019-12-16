@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">{{ brand }}</a>
+  <button (click)="isCollapsed = !isCollapsed" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li  class="nav-item" *ngFor="let link of links">
+        <a
+          (click)="isCollapsed = !isCollapsed"
+          *ngIf="((link.loggedInRequired && isLoggedIn)
+            || (link.loggedOutRequired && !isLoggedIn)
+            || (!link.loggedInRequired && !link.loggedOutRequired)
+            ) && (
+            (link.requiresRole && link.role === role)
+            || (!link.requiresRole))"
+          routerLinkActive="active"
+          class="nav-link"
+          [routerLink]="link.path">
+            {{ link.text }}
+          </a>
+      </li>
+    </ul>
+    <span
+      *ngIf="showLoggedInUser && isLoggedIn && loggedInUser"
+      class="navbar-text">
+        {{ loggedInUser }}
+    </span>
+  </div>
+</nav>
