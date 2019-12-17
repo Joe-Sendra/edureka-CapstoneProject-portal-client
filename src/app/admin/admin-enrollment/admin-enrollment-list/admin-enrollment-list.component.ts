@@ -13,12 +13,13 @@ import { Router } from '@angular/router';
 })
 export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
 
-  students: Student[];
+  students: {email: string, registrationNumber: string}[];
   nonRegisteredSub: Subscription;
 
   constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit() {
+    this.studentService.getNonRegisteredStudents();
     this.nonRegisteredSub = this.studentService.getNonRegistered().subscribe(students => {
       this.students = students;
     });

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 import { Student, Leave } from './student.model';
 
@@ -9,11 +11,12 @@ import { Student, Leave } from './student.model';
 export class StudentService {
 
   students: Student[] = [];
+  nonRegisteredStudents: { email: string, registrationNumber: string }[] = [];
 
   devFakeUniqueID = 2; // TODO remove. for dev only
 
   private studentsSub = new BehaviorSubject<Student[]>(this.students.slice());
-  private nonRegisteredStudentsSub = new BehaviorSubject<Student[]>(this.getNonRegisteredStudents());
+  private nonRegisteredStudentsSub = new BehaviorSubject<any>(this.nonRegisteredStudents.slice());
   private leavePendingSub = new BehaviorSubject<{
     email: string,
     requestID: string,
@@ -23,7 +26,7 @@ export class StudentService {
     endDate: Date
   }[]>(this.hasLeavePending());
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   // DEV ONLY
   getUniqueID() {
@@ -125,12 +128,29 @@ export class StudentService {
 
 
   // Registration *******************************
-  private getNonRegisteredStudents(): Student[] {
-    let nonRegistered = this.students.slice();
-    nonRegistered = nonRegistered.filter(student => !student.isRegistered).map(student => {
-      return {email: student.email, registrationNumber: student.registrationNumber};
+  getNonRegisteredStudents() {
+
+    this.httpClient.get<[{_id: any, email: string}]>
+    ('http://localhost:3000/api/v1/users/enroll').pipe(
+      map((enrollUserData) => {
+        return enrollUserData.map((user) => {
+          return { email: user.email, registrationNumber: user._id };
+        });
+      })
+    )
+    .subscribe(transformedStudentData => {
+      // update this instance
+      this.nonRegisteredStudents = transformedStudentData;
+      // update subscribers
+      this.nonRegisteredStudentsSub.next(transformedStudentData);
     });
-    return nonRegistered;
+
+
+    // let nonRegistered = this.students.slice();
+    // nonRegistered = nonRegistered.filter(student => !student.isRegistered).map(student => {
+    //   return {email: student.email, registrationNumber: student.registrationNumber};
+    // });
+    // return nonRegistered;
   }
 
   verifyRegistrationNumber(email: string, registrationNumber: string): boolean {
