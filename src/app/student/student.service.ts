@@ -203,19 +203,24 @@ export class StudentService {
 
 
   // Enrollment *********************************
-  addEnrollment(studentEmail: string) {
-    if (!this.hasRegistrationNumber(studentEmail)) {
-      this.students.push({
-        email: studentEmail,
-        registrationNumber: this.getUniqueID(),
-        isRegistered: false
-      });
-      this.updateSubs();
-      return true;
-    } else {
-      console.log('This student already has a registration number!');
-      return false;
-    }
+  addEnrollment(studentEmail: string): Promise<boolean | {error: string}> {
+
+    return new Promise(resolve => {
+      this.httpClient.post<{ message: string, id: string}>
+      ('http://localhost:3000/api/v1/users/enroll', {email: studentEmail})
+        .subscribe(responseData => {
+          if (responseData.id) {
+            this.updateSubs();
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
   }
 
   enrollStudent(student: Student) {

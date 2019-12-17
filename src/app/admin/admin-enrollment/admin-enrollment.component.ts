@@ -13,15 +13,15 @@ import { Student } from 'src/app/student/student.model';
 export class AdminEnrollmentComponent implements OnInit, OnDestroy {
 
   enrollmentForm: FormGroup;
-  enrollmentSub: Subscription;
-  nonRegisteredStudents: Student[];
+  // enrollmentSub: Subscription;
+  // nonRegisteredStudents: Student[];
 
   constructor(private studentService: StudentService) {}
 
   ngOnInit() {
-    this.enrollmentSub = this.studentService.getNonRegistered().subscribe(students => {
-      this.nonRegisteredStudents = students;
-    });
+    // this.enrollmentSub = this.studentService.getNonRegistered().subscribe(students => {
+    //   this.nonRegisteredStudents = students;
+    // });
     this.initForm();
   }
 
@@ -33,19 +33,22 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.studentService.addEnrollment(this.enrollmentForm.controls.email.value)) {
-      this.enrollmentForm.reset();
-    } else {
-      // this.statusMessage = 'Student could not be added!';
-      console.log('Student could not be added!');
-    }
+    this.studentService.addEnrollment(this.enrollmentForm.controls.email.value).then(response => {
+      console.log(response);
+      // if (isSuccess) {
+      //   this.enrollmentForm.reset();
+      // } else {
+      //   // this.statusMessage = 'Student could not be added!';
+      //   console.log('Student could not be added!');
+      // }
+    });
   }
 
-  onEmail() {
-    this.studentService.sendEmails(this.nonRegisteredStudents);
-  }
+  // onEmail() {
+  //   this.studentService.sendEmails(this.nonRegisteredStudents);
+  // }
 
   ngOnDestroy() {
-    this.enrollmentSub.unsubscribe();
+    // this.enrollmentSub.unsubscribe();
   }
 }
