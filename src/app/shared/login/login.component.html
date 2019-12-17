@@ -1,6 +1,33 @@
 
 <div class="container" style="text-align: center;">
+  <!-- <input #email type="text" placeholder="email"/>
+  <input #password type="text" placeholder="password"/>
+  <button type="button" (click)="onLoginSubmit(email.value, password.value)">use inputs to login</button> -->
+  <hr>
+  <button class="btn btn-secondary m-3" (click)="onLoginSubmit()">test login</button>
   <button class="btn btn-secondary m-3" (click)="loginUser()">Login as User</button>
   <button class="btn btn-primary m-3" (click)="loginAdmin()">Login as Admin</button>
-  <hr />
+  <hr>
+</div>
+
+<div class="container">
+  <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(email.value, password.value)">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" formControlName="email" #email />
+      <label for="password">Password</label>
+      <input class="form-control" type="password" formControlName="password" #password />
+      <label for="userType">Login as:</label>
+      <div class="input-group">
+        <select class="form-control" name="userType">
+          <option value="student" selected>Student</option>
+          <option value="admin">Faculty</option>
+        </select>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-success">Login</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
 </div>

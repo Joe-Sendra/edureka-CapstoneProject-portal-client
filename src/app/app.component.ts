@@ -29,9 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   loggedInRole = '';
   loggedInUser = null;
-  loginSub: Subscription;
-  roleSub: Subscription;
-  userSub: Subscription;
+  authSub: Subscription;
 
   constructor(
     private router: Router,
@@ -69,29 +67,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loginSub = this.authService.getLoginStatus().subscribe(status => {
-      this.isLoggedIn = status;
-    });
-    this.roleSub = this.authService.getRole().subscribe(authRole => {
-      this.loggedInRole = authRole;
-    });
-    this.userSub = this.authService.getUser().subscribe(user => {
-
-      if (user) {
-        if (user.email) {
-          this.loggedInUser = user.email;
-        } else {
-          this.loggedInUser = user;
-        }
-      } else {
-        this.loggedInUser = null;
-      }
+    this.authSub = this.authService.getAuthStatusListener().subscribe(status => {
+      this.isLoggedIn = status.isLoggedIn;
+      this.loggedInRole = status.role;
+      this.loggedInUser = status.user;
     });
   }
 
   ngOnDestroy() {
-    this.loginSub.unsubscribe();
-    this.roleSub.unsubscribe();
-    this.userSub.unsubscribe();
+    this.authSub.unsubscribe();
   }
+
 }
