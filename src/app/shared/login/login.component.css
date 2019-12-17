@@ -1,0 +1,8 @@
+/* TODO styling */
+#loginSection {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+}

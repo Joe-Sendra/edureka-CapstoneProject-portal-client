@@ -1,33 +1,21 @@
-
-<div class="container" style="text-align: center;">
-  <!-- <input #email type="text" placeholder="email"/>
-  <input #password type="text" placeholder="password"/>
-  <button type="button" (click)="onLoginSubmit(email.value, password.value)">use inputs to login</button> -->
-  <hr>
-  <button class="btn btn-secondary m-3" (click)="onLoginSubmit()">test login</button>
-  <button class="btn btn-secondary m-3" (click)="loginUser()">Login as User</button>
-  <button class="btn btn-primary m-3" (click)="loginAdmin()">Login as Admin</button>
-  <hr>
-</div>
-
-<div class="container">
-  <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(email.value, password.value)">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input class="form-control" type="email" formControlName="email" #email />
-      <label for="password">Password</label>
-      <input class="form-control" type="password" formControlName="password" #password />
-      <label for="userType">Login as:</label>
-      <div class="input-group">
-        <select class="form-control" name="userType">
-          <option value="student" selected>Student</option>
-          <option value="admin">Faculty</option>
-        </select>
-        <div class="input-group-append">
-          <button type="submit" class="btn btn-success">Login</button>
+<section id="loginSection">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <h3>Login</h3>
+        <div class="px-2">
+        <form class="justify-content-center" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit(email.value, password.value)">
+          <div class="form-group">
+            <!-- <label for="email">Email</label> -->
+            <input class="form-control m-2" type="email" formControlName="email" placeholder="Email" #email />
+            <!-- <label for="password">Password</label> -->
+            <input class="form-control m-2" type="password" formControlName="password" placeholder="Password" #password />
+            <button type="submit" class="btn btn-success m-2">Login</button>
+          </div>
+        </form>
         </div>
       </div>
-
     </div>
-  </form>
-</div>
+  </div>
+</section>
+
