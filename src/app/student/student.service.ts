@@ -8,24 +8,7 @@ import { Student, Leave } from './student.model';
 })
 export class StudentService {
 
-  students: Student[] = [{
-    email: 'j@j.com',
-    isRegistered: true,
-    name: {
-      first: 'Joe',
-      last: 'Sendra'
-    },
-    registrationNumber: '1'
-  },
-  {
-    email: 'test@school.com',
-    isRegistered: true,
-    name: {
-      first: 'Test',
-      last: 'Guy'
-    },
-    registrationNumber: '2'
-  }];
+  students: Student[] = [];
 
   devFakeUniqueID = 2; // TODO remove. for dev only
 
