@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationEditComponent } from './notification/notification-edit/notification-edit.component';
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NotificationListComponent } from './notification/notification-list/noti
     LoginComponent,
     NotificationComponent,
     NotificationEditComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { NotificationListComponent } from './notification/notification-list/noti
     NgbModule,
     ReactiveFormsModule,
     NotificationEditComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AlertComponent
   ],
   providers: [
     AuthService

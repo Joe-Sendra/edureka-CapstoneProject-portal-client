@@ -12,6 +12,7 @@ import { StudentService } from '../../student.service';
 export class StudentProfileDetailComponent implements OnInit {
 
   @Input()student: Student;
+  updateStudentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
   profileForm: FormGroup;
 
   constructor(private studentService: StudentService) {}
@@ -65,7 +66,7 @@ export class StudentProfileDetailComponent implements OnInit {
     const formControls = this.profileForm.controls;
     const newStudentInfo: Student = {
       email: this.student.email,
-      registrationNumber: this.student.registrationNumber,
+      role: 'student',
       name: {
         first: formControls.nameFirst.value,
         last: formControls.nameLast.value
@@ -82,7 +83,9 @@ export class StudentProfileDetailComponent implements OnInit {
         mobile: formControls.phoneMobile.value
       }
     };
-    this.studentService.updateStudent(this.student.email, newStudentInfo);
+    this.studentService.updateStudent(this.student._id, newStudentInfo).then(response => {
+      this.updateStudentMessage = response;
+    });
   }
 
 }

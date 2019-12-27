@@ -1,3 +1,4 @@
+<!-- TODO Styling -->
 <div class="container">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -47,4 +48,5 @@
         Save
     </button>
   </form>
+  <app-alert [type]="'Large'" [isSuccess]="registerStudentMessage.isSuccess" [message]="registerStudentMessage.message"></app-alert>
 </div>

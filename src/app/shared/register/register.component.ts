@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   email = '';
   regNumber = '';
+  registerStudentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
 
   constructor(private studentService: StudentService, private route: ActivatedRoute) {}
 
@@ -41,16 +42,27 @@ export class RegisterComponent implements OnInit {
   }
 
   // TODO add more profile fields (include on form template)
+  // TODO need to include a password
   onSubmit() {
     const studentRegister: Student = {
       email: this.registerForm.controls.email.value,
-      registrationNumber: this.registerForm.controls.regNumber.value,
+      role: 'student',
       name: {
         first: this.registerForm.controls.firstName.value,
         last: this.registerForm.controls.lastName.value
       }
     };
-    this.studentService.enrollStudent(studentRegister);
+    const registrationNumber = this.registerForm.controls.regNumber.value;
+    this.studentService.enrollStudent(studentRegister, registrationNumber).then(isSuccess => {
+      if (isSuccess) {
+        this.registerForm.reset();
+        this.registerStudentMessage.isSuccess = true;
+        this.registerStudentMessage.message = 'Student successfully registered';
+      } else {
+        this.registerStudentMessage.isSuccess = false;
+        this.registerStudentMessage.message = 'Student could not be registered.';
+      }
+    });
   }
 
 }

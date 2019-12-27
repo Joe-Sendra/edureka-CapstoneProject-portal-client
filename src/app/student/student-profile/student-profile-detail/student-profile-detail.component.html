@@ -1,6 +1,5 @@
 <button class="btn btn-info" type="button" disabled>Change Password</button>
 <button class="btn btn-danger" type="button" disabled>Reset Password</button>
-
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-horizontal">
   <div class="form-group">
     <label for="email">Email</label>
@@ -45,3 +44,5 @@
   <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid">Save</button>
   <button (click)="onCancel()" type="button" class="btn btn-danger">Cancel</button>
 </form>
+<br>
+<app-alert [type]="'Large'" [isSuccess]="updateStudentMessage.isSuccess" [message]="updateStudentMessage.message"></app-alert>

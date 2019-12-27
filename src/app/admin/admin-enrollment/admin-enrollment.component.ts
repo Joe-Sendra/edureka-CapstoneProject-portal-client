@@ -13,6 +13,7 @@ import { Student } from 'src/app/student/student.model';
 export class AdminEnrollmentComponent implements OnInit, OnDestroy {
 
   enrollmentForm: FormGroup;
+  addEnrollmentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
   // enrollmentSub: Subscription;
   // nonRegisteredStudents: Student[];
 
@@ -33,20 +34,22 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.studentService.addEnrollment(this.enrollmentForm.controls.email.value).then(response => {
-      console.log(response);
-      // if (isSuccess) {
-      //   this.enrollmentForm.reset();
-      // } else {
-      //   // this.statusMessage = 'Student could not be added!';
-      //   console.log('Student could not be added!');
-      // }
+    this.studentService.addEnrollment(this.enrollmentForm.controls.email.value).then(isSuccess => {
+      if (isSuccess) {
+        this.enrollmentForm.reset();
+        this.addEnrollmentMessage.message = 'Student successfully added!';
+        this.addEnrollmentMessage.isSuccess = true;
+      } else {
+        this.addEnrollmentMessage.message = 'Student could not be added, may aleady be enrolled!';
+        this.addEnrollmentMessage.isSuccess = false;
+      }
     });
   }
 
-  // onEmail() {
-  //   this.studentService.sendEmails(this.nonRegisteredStudents);
-  // }
+  onEmail() {
+    // TODO onEmail()
+    // this.studentService.sendEmails(this.nonRegisteredStudents);
+  }
 
   ngOnDestroy() {
     // this.enrollmentSub.unsubscribe();
