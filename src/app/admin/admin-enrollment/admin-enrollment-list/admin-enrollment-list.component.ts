@@ -19,7 +19,6 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
   constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit() {
-    this.studentService.getNonRegisteredStudents();
     this.nonRegisteredSub = this.studentService.getNonRegistered().subscribe(students => {
       this.students = students;
     });
@@ -29,7 +28,7 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
     this.studentService.sendEmail(student);
   }
 
-  onEnroll(student: Student) {
+  onRegister(student: {email: string, registrationNumber: string}) {
     this.router.navigate(['admin', 'register', {email: student.email, reg: student.registrationNumber}]);
   }
 

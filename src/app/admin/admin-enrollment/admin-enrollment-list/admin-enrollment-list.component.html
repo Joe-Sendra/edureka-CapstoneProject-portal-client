@@ -12,8 +12,8 @@
       <tr *ngFor="let student of students">
         <td>{{ student.email }}</td>
         <td>{{ student.registrationNumber }}</td>
-        <td><button class="btn btn-primary btn-sm" (click)="onSendEmail(student)">Send Email</button></td>
-        <td><button class="btn btn-danger btn-sm" (click)="onEnroll(student)">Enroll</button></td>
+        <td><button class="btn btn-primary btn-sm" (click)="onSendEmail(student)">Email</button></td>
+        <td><button class="btn btn-danger btn-sm" (click)="onRegister(student)">Register</button></td>
       </tr>
     </tbody>
   </table>
