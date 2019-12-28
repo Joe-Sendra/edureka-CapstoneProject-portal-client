@@ -15,28 +15,27 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  authenticateUser(user: {email: string, password: string}, returnUrl): boolean | void {
-    this.httpClient.post<{_id: string, token: string, role: string}>
-      ('http://localhost:3000/api/v1/auth/login', user).subscribe(res => {
+  authenticateUser(user: {email: string, password: string}, returnUrl): Promise<boolean | {error: string}> {
+    return new Promise(resolve => {
+      this.httpClient.post<{_id: string, token: string, role: string}>
+        ('http://localhost:3000/api/v1/auth/login', user).subscribe(res => {
 
-      const token = res.token;
-      const role = res.role;
-      const _id = res._id;
-      if (token) {
-        this.authStatusListener.next({isLoggedIn: true, user: user.email, _id, role});
-        if (returnUrl) {
-          // login successful so redirect to return url
-          this.router.navigateByUrl(returnUrl);
-        } else {
-          this.router.navigate([role]);
+        const token = res.token;
+        const role = res.role;
+        const _id = res._id;
+        if (token) {
+          this.authStatusListener.next({isLoggedIn: true, user: user.email, _id, role});
+          if (returnUrl) {
+            // login successful so redirect to return url
+            this.router.navigateByUrl(returnUrl);
+          } else {
+            this.router.navigate([role]);
+          }
+          resolve(true);
         }
-      }
-    }, err => {
-      if (err.status === 401) {
-        return false;
-      } else {
-        console.log(err);
-      }
+      }, err => {
+        resolve(false);
+      });
     });
   }
 

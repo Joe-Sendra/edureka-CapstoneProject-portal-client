@@ -239,10 +239,9 @@ export class StudentService {
 
   enrollStudent(student: Student, registrationNumber: string): Promise<boolean | {error: string}> {
 
-    // TODO need to include password
     const studentEnroll =    {
       email: student.email,
-      password: 'temp',
+      password: student.password,
       registrationNumber,
       role: 'student',
       name: {

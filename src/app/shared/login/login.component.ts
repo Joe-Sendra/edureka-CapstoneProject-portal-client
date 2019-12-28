@@ -62,10 +62,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       email,
       password
     };
-    if (!this.authService.authenticateUser(user, this.returnUrl)) {
-      this.loginMessage.isSuccess = false;
-      this.loginMessage.message = 'Invalid email or password!';
-    }
+    this.authService.authenticateUser(user, this.returnUrl).then(isSuccess => {
+      if (!isSuccess) {
+        this.loginMessage.isSuccess = false;
+        this.loginMessage.message = 'Invalid email or password!';
+      }
+    });
   }
 
   ngOnDestroy() {
