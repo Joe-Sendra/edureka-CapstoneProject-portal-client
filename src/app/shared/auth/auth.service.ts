@@ -15,9 +15,10 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  authenticateUser(user: {email: string, password: string}, returnUrl) {
+  authenticateUser(user: {email: string, password: string}, returnUrl): boolean | void {
     this.httpClient.post<{_id: string, token: string, role: string}>
       ('http://localhost:3000/api/v1/auth/login', user).subscribe(res => {
+
       const token = res.token;
       const role = res.role;
       const _id = res._id;
@@ -29,6 +30,12 @@ export class AuthService {
         } else {
           this.router.navigate([role]);
         }
+      }
+    }, err => {
+      if (err.status === 401) {
+        return false;
+      } else {
+        console.log(err);
       }
     });
   }
