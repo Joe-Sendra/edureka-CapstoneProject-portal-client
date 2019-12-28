@@ -9,6 +9,7 @@ export class LeaveRequest {
 export class Student {
   _id?: string;
   email: string;
+  password?: string;
   role: string;
   isLockedOut?: boolean;
   resetPassword?: boolean;

@@ -12,6 +12,9 @@ import { NotificationComponent } from './notification/notification.component';
 import { NotificationEditComponent } from './notification/notification-edit/notification-edit.component';
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
 import { AlertComponent } from './alert/alert.component';
+import { RouterModule } from '@angular/router';
+import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
+import { ResetPasswordResponseComponent } from './password/reset-password/reset-password-response/reset-password-response.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import { AlertComponent } from './alert/alert.component';
     NotificationComponent,
     NotificationEditComponent,
     NotificationListComponent,
-    AlertComponent
+    AlertComponent,
+    ResetPasswordComponent,
+    ResetPasswordResponseComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     NgbModule
   ],
@@ -41,7 +47,9 @@ import { AlertComponent } from './alert/alert.component';
   ],
   entryComponents: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ResetPasswordComponent,
+    ResetPasswordResponseComponent
   ]
 })
 export class SharedModule {}
