@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 
 import { StudentService } from 'src/app/student/student.service';
 import { Student } from 'src/app/student/student.model';
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   regNumber = '';
   registerStudentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
 
-  constructor(private studentService: StudentService, private route: ActivatedRoute) {}
+  constructor(private studentService: StudentService, private route: ActivatedRoute, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -28,17 +28,50 @@ export class RegisterComponent implements OnInit {
     this.initForm();
   }
 
+
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
+
   private initForm() {
 
-    let firstName = '';
-    let lastName = '';
+    // const firstName = '';
+    // const lastName = '';
 
-    this.registerForm = new FormGroup({
-      email: new FormControl(this.email, [Validators.email, Validators.required]),
-      regNumber: new FormControl(this.regNumber, Validators.required),
-      firstName: new FormControl(firstName, Validators.required),
-      lastName: new FormControl(lastName, Validators.required)
-    });
+    // this.registerForm = new FormGroup({
+    //   email: new FormControl(this.email, [Validators.email, Validators.required]),
+    //   regNumber: new FormControl(this.regNumber, Validators.required),
+    //   firstName: new FormControl(firstName, Validators.required),
+    //   lastName: new FormControl(lastName, Validators.required)
+    // });
+
+    this.registerForm = this.formBuilder.group({
+      email: [this.email, [Validators.required, Validators.email]],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmNewPassword: ['', Validators.required],
+      regNumber: [this.regNumber, Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
+    }, {validator: this.MustMatch('newPassword', 'confirmNewPassword')});
+  }
+
+  // Validator function to compare password with confirm password
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    };
   }
 
   // TODO add more profile fields (include on form template)
@@ -46,6 +79,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     const studentRegister: Student = {
       email: this.registerForm.controls.email.value,
+      password: this.registerForm.controls.newPassword.value,
       role: 'student',
       name: {
         first: this.registerForm.controls.firstName.value,
