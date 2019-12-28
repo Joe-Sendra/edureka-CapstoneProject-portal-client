@@ -8,15 +8,36 @@ export class PasswordService {
 
   constructor(private httpClient: HttpClient) {}
 
-  resetPassword(email) {
-    // /api/v1/users/reset-password
-    this.httpClient.post<{students: []}>
-    ('http://localhost:3000/api/v1/users/reset-password', {email})
-    .subscribe(
-      response => {
-        console.log(response);
-      },
-      err => console.log('Error resetting password')
-    );
+  sendResetEmail(email) {
+    return new Promise(resolve => {
+      this.httpClient.post<{message: string}>
+      ('http://localhost:3000/api/v1/users/reset-password', {email})
+      .subscribe(
+        response => {
+          resolve(true);
+        },
+        err => {
+          console.log('Error resetting password: ', err.error.message);
+          resolve(false);
+        }
+      );
+    });
   }
+
+  resetPassword(email, token, newPassword) {
+    return new Promise(resolve => {
+      this.httpClient.post<{message: string}>
+      ('http://localhost:3000/api/v1/auth/reset', {email, token, newPassword})
+      .subscribe(
+        response => {
+          resolve(true);
+        },
+        err => {
+          console.log('Error resetting password: ', err.error.message);
+          resolve(false);
+        }
+      );
+    });
+  }
+
 }
