@@ -12,7 +12,6 @@ export class Student {
   password?: string;
   role: string;
   isLockedOut?: boolean;
-  resetPassword?: boolean;
   name?: {
     first: string;
     last: string;
