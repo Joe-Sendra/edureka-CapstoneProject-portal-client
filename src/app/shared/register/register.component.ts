@@ -33,17 +33,6 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   private initForm() {
-
-    // const firstName = '';
-    // const lastName = '';
-
-    // this.registerForm = new FormGroup({
-    //   email: new FormControl(this.email, [Validators.email, Validators.required]),
-    //   regNumber: new FormControl(this.regNumber, Validators.required),
-    //   firstName: new FormControl(firstName, Validators.required),
-    //   lastName: new FormControl(lastName, Validators.required)
-    // });
-
     this.registerForm = this.formBuilder.group({
       email: [this.email, [Validators.required, Validators.email]],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
@@ -74,8 +63,6 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  // TODO add more profile fields (include on form template)
-  // TODO need to include a password
   onSubmit() {
     const studentRegister: Student = {
       email: this.registerForm.controls.email.value,
