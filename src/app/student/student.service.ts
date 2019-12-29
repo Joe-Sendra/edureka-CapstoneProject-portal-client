@@ -206,12 +206,18 @@ export class StudentService {
 
 
   // Email **************************************
-  sendEmail(student: Student) {
-    console.log('TODO send student to server for an email to be sent: ', student);
-  }
-
-  sendEmails(students: Student[]) {
-    console.log('TODO send students to server for an emails to be sent: ', students);
+  sendEmails(students: {email: string, registrationNumber: string}[]): Promise<boolean | {error: string}> {
+    return new Promise(resolve => {
+      this.httpClient.post<any>
+      ('http://localhost:3000/api/v1/users/enroll/register/email', {students})
+        .subscribe(responseData => {
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
   }
 
 

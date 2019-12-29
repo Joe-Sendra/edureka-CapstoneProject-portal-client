@@ -3,7 +3,6 @@
     <div class="col-12 col-xl-5 enroll-form">
       <h4>Add student email</h4>
       <div class="row">
-
         <div class="col-sm-2 col-md-3 d-xl-none"></div>
         <div class="col-sm-8 col-md-6 col-xl-12">
           <form [formGroup]="enrollmentForm" class="form-horizontal" (ngSubmit)="onSubmit()">
@@ -15,6 +14,7 @@
                 class="form-control"
                 placeholder="Email"
                 #email
+                [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }"
               />
               <div class="input-group-append">
                 <button
@@ -24,27 +24,24 @@
                     Save
                 </button>
               </div>
+              <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
             </div>
           </form>
         </div>
         <div class="col-sm-2 col-md-3 d-xl-none"></div>
-
         <div class="col-12 d-flex justify-content-center">
           <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="addEnrollmentMessage.isSuccess" [message]="addEnrollmentMessage.message"></app-alert>
         </div>
-      <!-- TODO validation errors/hints -->
-      <!-- <div *ngIf="(email.dirty || email.touched) && email.invalid && (enrollmentForm.controls['email'].errors.required)" class="invalid-feedback">
-        test
-        <div *ngIf="email.errors.required">Email is required</div>
-        <div *ngIf="email.errors.email">Must be an email address</div>
-      </div> -->
-      <!-- <span [class]="">{{ statusMessage }}</span> -->
       </div>
     </div>
     <div class="col-md-1"><hr class="d-md-none"></div>
     <div class="col-12 col-xl-6 student-list">
-      <h4>Enrolled students that have not registered <button class="btn btn-info btn-sm" (click)="onEmail()" disabled>Email All</button></h4>
+      <h4>Enrolled students that have not registered <button class="btn btn-info btn-sm" (click)="onEmail()">Email All</button></h4>
+      <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="emailMessage.isSuccess" [message]="emailMessage.message"></app-alert>
       <app-admin-enrollment-list></app-admin-enrollment-list>
-    </div>
-  </div>
+    </div> <!-- End of student-list -->
+  </div> <!-- End of row-->
 </div>

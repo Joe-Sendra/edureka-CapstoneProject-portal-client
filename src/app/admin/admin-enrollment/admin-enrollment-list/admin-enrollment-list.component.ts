@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { StudentService } from 'src/app/student/student.service';
-
-import { Student } from 'src/app/student/student.model';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-enrollment-list',
@@ -15,6 +13,7 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
 
   students: {email: string, registrationNumber: string}[];
   nonRegisteredSub: Subscription;
+  emailMessage: {isSuccess: boolean, message: string, studentIndex: number} = { isSuccess: null, message: null, studentIndex: null};
 
   constructor(private studentService: StudentService, private router: Router) {}
 
@@ -24,8 +23,17 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSendEmail(student: Student) {
-    this.studentService.sendEmail(student);
+  onSendEmail(student) {
+    this.studentService.sendEmails([student]).then(isSuccess => {
+      this.emailMessage.studentIndex = this.students.indexOf(student);
+      if (isSuccess) {
+        this.emailMessage.message = 'Email successfully sent!';
+        this.emailMessage.isSuccess = true;
+      } else {
+        this.emailMessage.message = 'Error: Problem sending email';
+        this.emailMessage.isSuccess = false;
+      }
+    });
   }
 
   onRegister(student: {email: string, registrationNumber: string}) {

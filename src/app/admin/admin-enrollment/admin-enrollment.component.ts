@@ -1,28 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
 import { StudentService } from 'src/app/student/student.service';
-import { Student } from 'src/app/student/student.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-enrollment',
   templateUrl: './admin-enrollment.component.html',
   styleUrls: ['./admin-enrollment.component.css']
 })
-export class AdminEnrollmentComponent implements OnInit, OnDestroy {
+export class AdminEnrollmentComponent implements OnInit {
 
   enrollmentForm: FormGroup;
   addEnrollmentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
-  // enrollmentSub: Subscription;
-  // nonRegisteredStudents: Student[];
-
+  emailMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
   constructor(private studentService: StudentService) {}
 
   ngOnInit() {
-    // this.enrollmentSub = this.studentService.getNonRegistered().subscribe(students => {
-    //   this.nonRegisteredStudents = students;
-    // });
     this.initForm();
   }
 
@@ -32,6 +26,9 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
       email: new FormControl(email, [Validators.email, Validators.required])
     });
   }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.enrollmentForm.controls; }
 
   onSubmit() {
     this.studentService.addEnrollment(this.enrollmentForm.controls.email.value).then(isSuccess => {
@@ -47,11 +44,18 @@ export class AdminEnrollmentComponent implements OnInit, OnDestroy {
   }
 
   onEmail() {
-    // TODO onEmail()
-    // this.studentService.sendEmails(this.nonRegisteredStudents);
+    this.studentService.getNonRegistered().pipe(take(1)).subscribe(students => {
+      this.studentService.sendEmails(students).then(isSuccess => {
+        if (isSuccess) {
+          this.emailMessage.message = 'Emails successfully sent!';
+          this.emailMessage.isSuccess = true;
+        } else {
+          this.emailMessage.message = 'Error: Problem sending emails';
+          this.emailMessage.isSuccess = false;
+        }
+      });
+    });
+
   }
 
-  ngOnDestroy() {
-    // this.enrollmentSub.unsubscribe();
-  }
 }
