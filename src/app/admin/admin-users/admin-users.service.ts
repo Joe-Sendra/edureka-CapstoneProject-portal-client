@@ -1,42 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Admin } from '../admin.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminUsersService {
 
-  adminUsers: Admin[] = [{
-    email: 'admin@school.com',
-    name: {
-      first: 'John',
-      last: 'Smith'
-    },
-    office: {
-      building: 'Administration',
-      number: '100'
-    }
-  }];
+  constructor(private httpClient: HttpClient) {}
 
   addUser(newUser) {
-    const adminUser: Admin = {
+    // TODO define user model that works for both students and faculty
+    const adminUser = {
       email: newUser.email,
+      password: newUser.password,
+      role: 'admin',
       name: {
         first: newUser.firstName,
         last: newUser.lastName
       },
-      office: {
-        building: newUser.officeBuilding,
-        number: newUser.officeNumber
+      faculty: {
+        office: {
+          building: newUser.officeBuilding,
+          number: newUser.officeNumber
+        }
       },
       class: newUser.class ? newUser.class : [null]
     };
 
-    this.adminUsers.push(adminUser);
-  }
-
-  getUsers() {
-    return this.adminUsers.slice();
+    return new Promise(resolve => {
+      this.httpClient.post<any>
+      ('http://localhost:3000/api/v1/users', {studentEnroll: adminUser})
+        .subscribe(responseData => {
+          console.log(responseData);
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
   }
 
 }
