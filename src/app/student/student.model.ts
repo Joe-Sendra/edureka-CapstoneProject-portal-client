@@ -1,4 +1,4 @@
-export class Leave {
+export class LeaveRequest {
   requestID: string;
   requestDate: Date;
   status: string; // TODO approved, pending, rejected
@@ -7,11 +7,11 @@ export class Leave {
 }
 
 export class Student {
-  email: string; // TODO can this be used as the id?
-  registrationNumber: string;
-  isRegistered?: boolean;
+  _id?: string;
+  email: string;
+  password?: string;
+  role: string;
   isLockedOut?: boolean;
-  resetPassword?: boolean;
   name?: {
     first: string;
     last: string;
@@ -27,6 +27,6 @@ export class Student {
     work: string;
     mobile: string;
   };
-  leave?: [Leave];
+  leave?: [LeaveRequest];
   class?: [{}]; // TODO define class (for both student and faculty)
 }

@@ -8,13 +8,21 @@
         <th>Enroll</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let student of students">
-        <td>{{ student.email }}</td>
-        <td>{{ student.registrationNumber }}</td>
-        <td><button class="btn btn-primary btn-sm" (click)="onSendEmail(student)">Send Email</button></td>
-        <td><button class="btn btn-danger btn-sm" (click)="onEnroll(student)">Enroll</button></td>
-      </tr>
+    <tbody *ngFor="let student of students">
+        <tr>
+          <td>{{ student.email }}</td>
+          <td>{{ student.registrationNumber }}</td>
+          <td><button class="btn btn-primary btn-sm" (click)="onSendEmail(student)">Email</button></td>
+          <td><button class="btn btn-danger btn-sm" (click)="onRegister(student)">Register</button></td>
+        </tr>
+        <tr *ngIf="emailMessage.studentIndex === students.indexOf(student)">
+          <td colspan="4">
+            <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="emailMessage.isSuccess" [message]="emailMessage.message"></app-alert>
+          </td>
+        </tr>
+
+
+
     </tbody>
   </table>
 </div>

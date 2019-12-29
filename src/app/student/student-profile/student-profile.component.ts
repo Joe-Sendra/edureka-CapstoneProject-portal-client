@@ -1,33 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { StudentService } from '../student.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { Leave, Student } from '../student.model';
+import { LeaveRequest, Student } from '../student.model';
 
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
   styleUrls: ['./student-profile.component.css']
 })
-export class StudentProfileComponent implements OnInit {
+export class StudentProfileComponent implements OnInit, OnDestroy {
 
   user: Student;
-  userSub: Subscription;
+  authSub: Subscription;
   leaveRequestForm: FormGroup;
 
-  leaves: Leave[]; // DEV TEST
+  leaves: LeaveRequest[]; // DEV TEST
 
   constructor(private studentService: StudentService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.userSub = this.authService.getUser().subscribe(user => {
-      this.user = user;
+    this.authSub = this.authService.getAuthStatusListener().subscribe(status => {
+      this.studentService.getStudent(status._id).then(student => {
+          this.user = student;
+      });
     });
     this.initForm();
 
-    this.leaves = this.studentService.getStudentLeaves(this.user.email);
+    // this.leaves = this.studentService.getStudentLeaves(this.user.email);
   }
 
   private initForm() {
@@ -54,15 +56,20 @@ export class StudentProfileComponent implements OnInit {
   // }
 
   onLeaveRequest() {
-    const reqID = this.studentService.getUniqueID();
-    const leaveRequest: Leave = {
-      requestID: reqID,
-      requestDate: new Date(Date.now()),
-      status: 'pending',
-      startDate: this.leaveRequestForm.controls.startDate.value,
-      endDate: this.leaveRequestForm.controls.endDate.value
-    };
-    this.studentService.addLeave(leaveRequest, this.user.email);
-    this.studentService.getLeavePending();
+    // const reqID = this.studentService.getUniqueID();
+    // const leaveRequest: Leave = {
+    //   requestID: reqID,
+    //   requestDate: new Date(Date.now()),
+    //   status: 'pending',
+    //   startDate: this.leaveRequestForm.controls.startDate.value,
+    //   endDate: this.leaveRequestForm.controls.endDate.value
+    // };
+    // this.studentService.addLeave(leaveRequest, this.user.email);
+    // this.studentService.getLeavePending();
   }
+
+  ngOnDestroy() {
+    this.authSub.unsubscribe();
+  }
+
 }

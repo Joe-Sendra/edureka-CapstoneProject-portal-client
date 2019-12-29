@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Student } from '../../student.model';
 import { StudentService } from '../../student.service';
@@ -12,9 +13,10 @@ import { StudentService } from '../../student.service';
 export class StudentProfileDetailComponent implements OnInit {
 
   @Input()student: Student;
+  updateStudentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
   profileForm: FormGroup;
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit() {
     this.initForm();
@@ -61,11 +63,15 @@ export class StudentProfileDetailComponent implements OnInit {
     this.initForm();
   }
 
+  onChangePassword() {
+    this.router.navigate(['change-password']);
+  }
+
   onSubmit() {
     const formControls = this.profileForm.controls;
     const newStudentInfo: Student = {
       email: this.student.email,
-      registrationNumber: this.student.registrationNumber,
+      role: 'student',
       name: {
         first: formControls.nameFirst.value,
         last: formControls.nameLast.value
@@ -82,7 +88,9 @@ export class StudentProfileDetailComponent implements OnInit {
         mobile: formControls.phoneMobile.value
       }
     };
-    this.studentService.updateStudent(this.student.email, newStudentInfo);
+    this.studentService.updateStudent(this.student._id, newStudentInfo).then(response => {
+      this.updateStudentMessage = response;
+    });
   }
 
 }

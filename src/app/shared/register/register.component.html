@@ -1,50 +1,109 @@
-<div class="container">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-        #email
-      />
+<section id="registerSection">
+  <div class="container">
+    <app-alert [type]="'Large'" [isSuccess]="registerStudentMessage.isSuccess" [message]="registerStudentMessage.message"></app-alert>
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <h3>Registration</h3>
+        <div class="px-2">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <!-- <label for="email">Email</label> -->
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control mt-4"
+                placeholder="Email"
+                #email
+                [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }"
+              />
+              <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <!-- <label for="regNumber">Registration Number</label> -->
+              <input
+                type="text"
+                id="regNumber"
+                formControlName="regNumber"
+                class="form-control"
+                placeholder="Registration Number"
+                #regNumber
+                [ngClass]="{ 'is-invalid': f.regNumber.touched && f.regNumber.errors }"
+              />
+              <div *ngIf="f.regNumber.touched && f.regNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.regNumber.errors.required">Registration number is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="password"
+                formControlName="newPassword"
+                placeholder="Password"
+                [ngClass]="{ 'is-invalid': f.newPassword.touched && f.newPassword.errors }"
+              />
+              <div *ngIf="f.newPassword.touched && f.newPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.newPassword.errors.required">Password is required</div>
+                <div *ngIf="f.newPassword.errors.minlength">Password must be at least 8 characters</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="password"
+                formControlName="confirmNewPassword"
+                placeholder="Confirm password"
+                [ngClass]="{ 'is-invalid': f.confirmNewPassword.touched && f.confirmNewPassword.errors }"
+              />
+              <div *ngIf="f.confirmNewPassword.touched && f.confirmNewPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.confirmNewPassword.errors.required">Confirm Password is required</div>
+                <div *ngIf="f.confirmNewPassword.errors.mustMatch">Passwords must match</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <!-- <label for="firstName">First Name</label> -->
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="form-control"
+                placeholder="First Name"
+                #firstName
+                [ngClass]="{ 'is-invalid': f.firstName.touched && f.firstName.errors }"
+              />
+              <div *ngIf="f.firstName.touched && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">First name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <!-- <label for="lastName">Last Name</label> -->
+              <input
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="form-control"
+                placeholder="Last Name"
+                #lastName
+                [ngClass]="{ 'is-invalid': f.lastName.touched && f.lastName.errors }"
+              />
+              <div *ngIf="f.lastName.touched && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required">Last name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="!registerForm.valid">
+                  Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="regNumber">Registration Number</label>
-      <input
-        type="text"
-        id="regNumber"
-        formControlName="regNumber"
-        class="form-control"
-        #regNumber
-      />
-    </div>
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        formControlName="firstName"
-        class="form-control"
-        #firstName
-      />
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        formControlName="lastName"
-        class="form-control"
-        #lastName
-      />
-    </div>
-    <button
-      type="submit"
-      class="btn btn-success m-4"
-      [disabled]="!registerForm.valid">
-        Save
-    </button>
-  </form>
-</div>
+  </div>
+</section>

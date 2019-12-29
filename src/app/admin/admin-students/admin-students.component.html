@@ -11,25 +11,22 @@
             <thead>
               <tr>
                 <th>Block</th>
-                <th>Reset Password</th>
-                <th>Change Password</th>
-                <!-- <th>dev add leave</th> -->
                 <th>Email</th>
-                <th>Registration Number</th>
-                <th>Registered</th>
                 <th>First Name</th>
                 <th>Last Name</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let student of students">
-                <td><button class="btn btn-danger btn-sm" (click)="onBlockStudent(student)" [disabled]="student.isLockedOut">Block</button></td>
-                <td><button class="btn btn-info btn-sm" (click)="onResetPassword(student)" [disabled]="student.resetPassword">Reset</button></td>
-                <td><button class="btn btn-info btn-sm" disabled>Change</button></td>
-                <!-- <td><button class="btn btn-warning btn-sm" (click)="onAddLeave(student)">Add Leave</button></td> -->
+                <td>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    (click)="onBlockStudent(student)">
+                    <span *ngIf="student.isLockedOut">Unblock</span>
+                    <span *ngIf="!student.isLockedOut">Block</span>
+                  </button>
+                </td>
                 <td>{{ student.email }}</td>
-                <td>{{ student.registrationNumber }}</td>
-                <td>{{ student.isRegistered }}</td>
                 <td><span *ngIf="student.name">{{ student.name.first }}</span></td>
                 <td><span *ngIf="student.name">{{ student.name.last }}</span></td>
               </tr>

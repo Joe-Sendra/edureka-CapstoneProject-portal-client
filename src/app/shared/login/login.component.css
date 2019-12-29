@@ -1,0 +1,15 @@
+#loginSection {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.spacer {
+  visibility: hidden;
+}
+
+.reset-password {
+  width: 90px;
+}

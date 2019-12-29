@@ -11,6 +11,11 @@ import { LoginComponent } from './login/login.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationEditComponent } from './notification/notification-edit/notification-edit.component';
 import { NotificationListComponent } from './notification/notification-list/notification-list.component';
+import { AlertComponent } from './alert/alert.component';
+import { RouterModule } from '@angular/router';
+import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
+import { ResetPasswordResponseComponent } from './password/reset-password/reset-password-response/reset-password-response.component';
+import { ChangePasswordComponent } from './password/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +24,15 @@ import { NotificationListComponent } from './notification/notification-list/noti
     LoginComponent,
     NotificationComponent,
     NotificationEditComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AlertComponent,
+    ResetPasswordComponent,
+    ResetPasswordResponseComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     NgbModule
   ],
@@ -31,14 +41,18 @@ import { NotificationListComponent } from './notification/notification-list/noti
     NgbModule,
     ReactiveFormsModule,
     NotificationEditComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AlertComponent
   ],
   providers: [
     AuthService
   ],
   entryComponents: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ResetPasswordComponent,
+    ResetPasswordResponseComponent,
+    ChangePasswordComponent
   ]
 })
 export class SharedModule {}

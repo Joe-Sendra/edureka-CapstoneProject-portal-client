@@ -1,38 +1,47 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-5 enroll-form">
+    <div class="col-12 col-xl-5 enroll-form">
       <h4>Add student email</h4>
-      <form [formGroup]="enrollmentForm" class="form-horizontal" (ngSubmit)="onSubmit()">
-        <div class="input-group">
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            class="form-control"
-            placeholder="Email"
-            #email
-          />
-          <div class="input-group-append">
-            <button
-              type="submit"
-              class="btn btn-success"
-              [disabled]="!enrollmentForm.valid">
-                Save
-            </button>
-          </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-3 d-xl-none"></div>
+        <div class="col-sm-8 col-md-6 col-xl-12">
+          <form [formGroup]="enrollmentForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+            <div class="input-group">
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="Email"
+                #email
+                [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }"
+              />
+              <div class="input-group-append">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  [disabled]="!enrollmentForm.valid">
+                    Save
+                </button>
+              </div>
+              <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
-      <!-- <div *ngIf="(email.dirty || email.touched) && email.invalid && (enrollmentForm.controls['email'].errors.required)" class="invalid-feedback">
-        test
-        <div *ngIf="email.errors.required">Email is required</div>
-        <div *ngIf="email.errors.email">Must be an email address</div>
-      </div> -->
-      <!-- <span [class]="">{{ statusMessage }}</span> -->
+        <div class="col-sm-2 col-md-3 d-xl-none"></div>
+        <div class="col-12 d-flex justify-content-center">
+          <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="addEnrollmentMessage.isSuccess" [message]="addEnrollmentMessage.message"></app-alert>
+        </div>
+      </div>
     </div>
-    <div class="col-md-1"><hr class="d-md-none d-md-none"></div>
-    <div class="col-12 col-md-6 student-list">
-      <h4>Students that have not enrolled <button class="btn btn-info btn-sm" (click)="onEmail()">Email All</button></h4>
+    <div class="col-md-1"><hr class="d-md-none"></div>
+    <div class="col-12 col-xl-6 student-list">
+      <h4>Enrolled students that have not registered <button class="btn btn-info btn-sm" (click)="onEmail()">Email All</button></h4>
+      <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="emailMessage.isSuccess" [message]="emailMessage.message"></app-alert>
       <app-admin-enrollment-list></app-admin-enrollment-list>
-    </div>
-  </div>
+    </div> <!-- End of student-list -->
+  </div> <!-- End of row-->
 </div>

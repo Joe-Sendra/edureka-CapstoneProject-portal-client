@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
-import { AdminUsersService } from 'src/app/admin/admin-users/admin-users.service';
 import { Admin } from 'src/app/admin/admin.model';
-import { StudentService } from 'src/app/student/student.service';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +19,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   returnUrl: string;
 
+  loginMessage = {
+    isSuccess: null,
+    message: null
+  };
+
   constructor(
-    private router: Router,
     private authService: AuthService,
-    private route: ActivatedRoute,
-    private adminUsersService: AdminUsersService,
-    private studentService: StudentService
+    private route: ActivatedRoute
     ) {
       this.routeSub = this.route.data.subscribe(data => {
         if (data.isLogout) {
@@ -54,12 +54,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
   onLoginSubmit(email, password) {
     const user = {
       email,
       password
     };
-    this.authService.authenticateUser(user, this.returnUrl);
+    this.authService.authenticateUser(user, this.returnUrl).then(isSuccess => {
+      if (!isSuccess) {
+        this.loginMessage.isSuccess = false;
+        this.loginMessage.message = 'Invalid email or password!';
+      }
+    });
   }
 
   ngOnDestroy() {

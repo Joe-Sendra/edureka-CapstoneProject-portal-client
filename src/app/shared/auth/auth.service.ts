@@ -6,28 +6,36 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class AuthService {
 
-  private authStatusListener = new BehaviorSubject<{isLoggedIn: boolean, user: string, role: string }>({
+  private authStatusListener = new BehaviorSubject<{isLoggedIn: boolean, user: string, _id: string, role: string }>({
     isLoggedIn: null,
     user: null,
+    _id: null,
     role: null
   });
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  authenticateUser(user: {email: string, password: string}, returnUrl) {
-    this.httpClient.post<{token: string, role: string}>
-      ('http://localhost:3000/api/v1/auth/login', user).subscribe(res => {
-      const token = res.token;
-      const role = res.role;
-      if (token) {
-        this.authStatusListener.next({isLoggedIn: true, user: user.email, role});
-        if (returnUrl) {
-          // login successful so redirect to return url
-          this.router.navigateByUrl(returnUrl);
-        } else {
-          this.router.navigate([role]);
+  authenticateUser(user: {email: string, password: string}, returnUrl): Promise<boolean | {error: string}> {
+    return new Promise(resolve => {
+      this.httpClient.post<{_id: string, token: string, role: string}>
+        ('http://localhost:3000/api/v1/auth/login', user).subscribe(res => {
+
+        const token = res.token;
+        const role = res.role;
+        const _id = res._id;
+        if (token) {
+          this.authStatusListener.next({isLoggedIn: true, user: user.email, _id, role});
+          if (returnUrl) {
+            // login successful so redirect to return url
+            this.router.navigateByUrl(returnUrl);
+          } else {
+            this.router.navigate([role]);
+          }
+          resolve(true);
         }
-      }
+      }, err => {
+        resolve(false);
+      });
     });
   }
 
@@ -39,6 +47,7 @@ export class AuthService {
     this.authStatusListener.next({
       isLoggedIn: false,
       user: null,
+      _id: null,
       role: null
     });
 
