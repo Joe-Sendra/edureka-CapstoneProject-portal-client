@@ -15,6 +15,7 @@ import { AlertComponent } from './alert/alert.component';
 import { RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
 import { ResetPasswordResponseComponent } from './password/reset-password/reset-password-response/reset-password-response.component';
+import { ChangePasswordComponent } from './password/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ResetPasswordResponseComponent } from './password/reset-password/reset-
     NotificationListComponent,
     AlertComponent,
     ResetPasswordComponent,
-    ResetPasswordResponseComponent
+    ResetPasswordResponseComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { ResetPasswordResponseComponent } from './password/reset-password/reset-
     RegisterComponent,
     LoginComponent,
     ResetPasswordComponent,
-    ResetPasswordResponseComponent
+    ResetPasswordResponseComponent,
+    ChangePasswordComponent
   ]
 })
 export class SharedModule {}

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Student } from '../../student.model';
 import { StudentService } from '../../student.service';
@@ -15,7 +16,7 @@ export class StudentProfileDetailComponent implements OnInit {
   updateStudentMessage: {isSuccess: boolean, message: string} = { isSuccess: null, message: null};
   profileForm: FormGroup;
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit() {
     this.initForm();
@@ -60,6 +61,10 @@ export class StudentProfileDetailComponent implements OnInit {
   onCancel() {
     this.profileForm.reset();
     this.initForm();
+  }
+
+  onChangePassword() {
+    this.router.navigate(['change-password']);
   }
 
   onSubmit() {

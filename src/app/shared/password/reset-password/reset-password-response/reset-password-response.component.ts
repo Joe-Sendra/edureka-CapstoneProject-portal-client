@@ -27,7 +27,6 @@ export class ResetPasswordResponseComponent implements OnInit {
       this.token = params.get('token');
     });
     this.initForm();
-    console.log(this.resetPasswordForm.controls);
   }
 
   // convenience getter for easy access to form fields
@@ -76,7 +75,4 @@ export class ResetPasswordResponseComponent implements OnInit {
 
   }
 
-  onInput() {
-    console.log(this.resetPasswordForm);
-  }
 }

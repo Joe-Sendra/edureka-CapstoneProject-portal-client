@@ -1,5 +1,4 @@
-<button class="btn btn-info" type="button" disabled>Change Password</button>
-<button class="btn btn-danger" type="button" disabled>Reset Password</button>
+<button class="btn btn-info btn-sm change-password mb-2" type="button" (click)="onChangePassword()">Change Password</button>
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-horizontal">
   <div class="form-group">
     <label for="email">Email</label>

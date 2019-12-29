@@ -40,4 +40,21 @@ export class PasswordService {
     });
   }
 
+  changePassword(email: string, oldPassword: string, newPassword: string) {
+    return new Promise(resolve => {
+      // /api/v1/auth/change
+      this.httpClient.post<{message: string}>
+      ('http://localhost:3000/api/v1/auth/change', {email, oldPassword, newPassword})
+      .subscribe(
+        response => {
+          resolve(true);
+        },
+        err => {
+          console.log('Error resetting password: ', err.error.message);
+          resolve(false);
+        }
+      );
+    });
+  }
+
 }
