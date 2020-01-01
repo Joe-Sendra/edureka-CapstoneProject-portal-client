@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <select class="form-control" [(ngModel)]="selectedExam">
+        <option *ngFor="let id of examIdList" [ngValue]="id" >{{ id }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <app-gate-pass-listview [isStudentsWithGatepass]="true" [examId]="selectedExam"></app-gate-pass-listview>
+    </div>
+    <div class="col-6">
+      <app-gate-pass-listview [isStudentsWithGatepass]="false" [examId]="selectedExam"></app-gate-pass-listview>
+    </div>
+  </div>
+</div>

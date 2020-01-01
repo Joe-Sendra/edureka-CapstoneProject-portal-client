@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from './auth/auth.service';
@@ -17,6 +17,8 @@ import { ResetPasswordComponent } from './password/reset-password/reset-password
 import { ResetPasswordResponseComponent } from './password/reset-password/reset-password-response/reset-password-response.component';
 import { ChangePasswordComponent } from './password/change-password/change-password.component';
 import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
+import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-pass-listview/exam-gate-pass-listview.component';
+import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,12 @@ import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
     ResetPasswordComponent,
     ResetPasswordResponseComponent,
     ChangePasswordComponent,
-    ExamDetailComponent
+    ExamDetailComponent,
+    ExamGatePassListviewComponent,
+    ExamGatePassDashboardComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
@@ -45,7 +50,9 @@ import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
     NotificationEditComponent,
     NotificationListComponent,
     AlertComponent,
-    ExamDetailComponent
+    ExamDetailComponent,
+    ExamGatePassListviewComponent,
+    ExamGatePassDashboardComponent
   ],
   providers: [
     AuthService
