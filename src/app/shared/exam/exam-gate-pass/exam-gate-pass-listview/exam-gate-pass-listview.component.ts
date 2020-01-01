@@ -35,7 +35,7 @@ export class ExamGatePassListviewComponent implements OnInit, OnChanges, OnDestr
   }
 
   onRemoveGatePass(studentID: string) {
-    // TODO
+    this.examService.removeGatePass(this.examId, studentID);
   }
 
   ngOnDestroy() {

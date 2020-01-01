@@ -73,7 +73,22 @@ export class ExamService {
     });
   }
 
-  removeGatePass(examId, studentId) {}
+  removeGatePass(examId, studentId) {
+    return new Promise(resolve => {
+      // TODO add authorization header
+      this.httpClient.delete<{ message: string}>
+      (`http://localhost:3000/api/v1/exams/gp/${examId}/${studentId}`)
+        .subscribe(responseData => {
+          this.getStudentsWithGatePass(examId);
+          this.getStudentsWithoutGatePass(examId);
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
 
   private getStudentsWithGatePass(examId) {
     if (examId) {
