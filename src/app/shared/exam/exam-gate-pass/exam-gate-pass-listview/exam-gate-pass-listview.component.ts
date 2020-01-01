@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 
 import { ExamService } from '../../exam.service';
 import { Subscription } from 'rxjs';
+import { Student } from 'src/app/student/student.model';
 
 @Component({
   selector: 'app-gate-pass-listview',
@@ -16,20 +17,23 @@ export class ExamGatePassListviewComponent implements OnInit, OnChanges, OnDestr
   studentSub$: Subscription;
   studentList: string[];
 
+  students: Student[];
+
   constructor(private examService: ExamService) {}
 
   ngOnInit() {
-    this.studentSub$ = this.examService.getStudents(this.examId, this.isStudentsWithGatepass).subscribe(studentIDs => {
-      this.studentList = studentIDs;
+    this.studentSub$ = this.examService.getStudents(this.examId,this.isStudentsWithGatepass).subscribe(students => {
+      this.students = students;
     });
   }
 
   ngOnChanges() {
-    this.studentSub$ = this.examService.getStudents(this.examId, this.isStudentsWithGatepass).subscribe(studentIDs => {
-      this.studentList = studentIDs;
+    this.studentSub$ = this.examService.getStudents(this.examId,this.isStudentsWithGatepass).subscribe(students => {
+      this.students = students;
     });
   }
 
+  // TODO disable buttons and add updating spinner when add or remove is clicked
   onAddGatePass(studentID: string) {
     this.examService.addGatePass(this.examId, studentID);
   }

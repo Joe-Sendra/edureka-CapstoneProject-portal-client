@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <select class="form-control" [(ngModel)]="selectedExam">
-        <option *ngFor="let id of examIdList" [ngValue]="id" >{{ id }}</option>
+        <option *ngFor="let exam of exams" [ngValue]="exam._id" >{{ exam.examDate }} - {{ exam.examTime }} - {{ exam.name }} - {{ exam.location }}</option>
       </select>
     </div>
   </div>

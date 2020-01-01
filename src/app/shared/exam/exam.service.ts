@@ -8,8 +8,8 @@ import { Exam } from './exam.model';
 })
 export class ExamService {
 
-  studentIDsWithGatePass: string[] = [];
-  studentIDsWithoutGatePass: string[] = ['TODO students without gatepass'];
+  studentIDsWithGatePass = [];
+  studentIDsWithoutGatePass = [];
   exams: Exam[] = [];
 
   private studentsWithGatePassSub = new BehaviorSubject<any>(this.studentIDsWithGatePass.slice());
@@ -95,10 +95,18 @@ export class ExamService {
       return new Promise(resolve => {
         this.httpClient.get<{gatePassList: string[]}>
         ('http://localhost:3000/api/v1/exams/gp/' + examId)
-          .subscribe(responseData => {
-            this.studentIDsWithGatePass = responseData.gatePassList;
-            this.studentsWithGatePassSub.next(this.studentIDsWithGatePass.slice());
-            resolve(true);
+          .subscribe(gatePassData => {
+            // TODO lets return students not just the id
+            this.httpClient.get<any>
+            ('http://localhost:3000/api/v1/users/students')
+            .subscribe(
+              students => {
+                const studentsWithGatepass = students.students.filter(student => gatePassData.gatePassList.includes(student._id));
+                this.studentIDsWithGatePass = studentsWithGatepass;
+                this.studentsWithGatePassSub.next(this.studentIDsWithGatePass.slice());
+                resolve(true);
+              }, err => resolve(false)
+            );
           },
           (error => {
             resolve(false);
@@ -106,7 +114,6 @@ export class ExamService {
         );
       });
     }
-
   }
 
   private getStudentsWithoutGatePass(examId) {
@@ -120,8 +127,7 @@ export class ExamService {
             ('http://localhost:3000/api/v1/users/students')
             .subscribe(
               students => {
-                const allStudents = students.students.map(student => student._id);
-                const studentsWithoutGatepass = allStudents.filter(id => !gatePassData.gatePassList.includes(id));
+                const studentsWithoutGatepass = students.students.filter(student => !gatePassData.gatePassList.includes(student._id));
                 this.studentIDsWithoutGatePass = studentsWithoutGatepass;
                 this.studentsWithoutGatePassSub.next(this.studentIDsWithoutGatePass.slice());
                 resolve(true);
