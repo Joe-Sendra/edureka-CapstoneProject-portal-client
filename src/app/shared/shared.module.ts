@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
 import { ResetPasswordResponseComponent } from './password/reset-password/reset-password-response/reset-password-response.component';
 import { ChangePasswordComponent } from './password/change-password/change-password.component';
+import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ChangePasswordComponent } from './password/change-password/change-passw
     AlertComponent,
     ResetPasswordComponent,
     ResetPasswordResponseComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ExamDetailComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { ChangePasswordComponent } from './password/change-password/change-passw
     ReactiveFormsModule,
     NotificationEditComponent,
     NotificationListComponent,
-    AlertComponent
+    AlertComponent,
+    ExamDetailComponent
   ],
   providers: [
     AuthService
