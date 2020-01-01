@@ -62,7 +62,8 @@ export class ExamService {
         studentID: studentId
       })
         .subscribe(responseData => {
-          console.log(responseData);
+          this.getStudentsWithGatePass(examId);
+          this.getStudentsWithoutGatePass(examId);
           resolve(true);
         },
         (error => {

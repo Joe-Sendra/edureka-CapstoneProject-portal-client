@@ -1,5 +1,8 @@
 <li *ngFor="let studentID of studentList">
   <button class="btn btn-danger btn-sm m-2" *ngIf="isStudentsWithGatepass">remove</button>
-  <button class="btn btn-success btn-sm m-2" *ngIf="!isStudentsWithGatepass">add</button>
+  <button
+    class="btn btn-success btn-sm m-2"
+    *ngIf="!isStudentsWithGatepass"
+    (click)="onAddGatePass(studentID)">add</button>
   {{ studentID }}
 </li>
