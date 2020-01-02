@@ -35,8 +35,9 @@ export class ExamService {
   }
 
   getExams() {
-    this.getExamData();
-    return this.examsSub;
+    return  this.getExamData().then(isSuccess => {
+      return this.examsSub;
+    });
   }
 
   addExam(exam) {
@@ -44,7 +45,6 @@ export class ExamService {
       this.httpClient.post<{ message: string}>
       ('http://localhost:3000/api/v1/exams', {exam})
         .subscribe(responseData => {
-          console.log(responseData);
           resolve(true);
         },
         (error => {

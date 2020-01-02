@@ -22,13 +22,13 @@ export class ExamGatePassListviewComponent implements OnInit, OnChanges, OnDestr
   constructor(private examService: ExamService) {}
 
   ngOnInit() {
-    this.studentSub$ = this.examService.getStudents(this.examId,this.isStudentsWithGatepass).subscribe(students => {
+    this.studentSub$ = this.examService.getStudents(this.examId, this.isStudentsWithGatepass).subscribe(students => {
       this.students = students;
     });
   }
 
   ngOnChanges() {
-    this.studentSub$ = this.examService.getStudents(this.examId,this.isStudentsWithGatepass).subscribe(students => {
+    this.studentSub$ = this.examService.getStudents(this.examId, this.isStudentsWithGatepass).subscribe(students => {
       this.students = students;
     });
   }

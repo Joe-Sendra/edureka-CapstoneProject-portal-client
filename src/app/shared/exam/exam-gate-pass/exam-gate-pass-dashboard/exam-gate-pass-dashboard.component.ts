@@ -17,8 +17,11 @@ export class ExamGatePassDashboardComponent implements OnInit, OnDestroy {
   constructor(private examService: ExamService) {}
 
   ngOnInit() {
-    this.examsSub$ = this.examService.getExams().subscribe(exams => {
-      this.exams = exams;
+    this.examService.getExams().then(examsSubject => {
+      this.examsSub$ = examsSubject.subscribe(exams => {
+        this.exams = exams;
+        this.selectedExam = this.exams[0]._id;
+      });
     });
   }
 
