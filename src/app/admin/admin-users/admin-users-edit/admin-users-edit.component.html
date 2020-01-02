@@ -1,3 +1,4 @@
+<app-alert class="d-flex justify-content-center" [type]="'Large'" [isSuccess]="addAdminStatus.isSuccess" [message]="addAdminStatus.message"></app-alert>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="email">Email</label>
@@ -6,6 +7,7 @@
       id="email"
       formControlName="email"
       class="form-control"
+      autocomplete="off"
       #email
     />
   </div>
@@ -16,6 +18,7 @@
       id="password"
       formControlName="password"
       class="form-control"
+      autocomplete="off"
       #password
     />
   </div>

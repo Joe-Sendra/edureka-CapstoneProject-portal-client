@@ -13,6 +13,10 @@ export class AdminUsersEditComponent implements OnInit {
 
   // editMode = false;
   userForm: FormGroup;
+  addAdminStatus = {
+    isSuccess: null,
+    message: null
+  };
   // isViewUsers = false;
   // adminUsers: Admin[];
   // adminUser: Admin;
@@ -57,8 +61,17 @@ export class AdminUsersEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.adminUserService.addUser(this.userForm.value);
-    // this.adminUsers = this.adminUserService.getUsers();
+    this.adminUserService.addUser(this.userForm.value).then(isSuccess => {
+      console.log('onsubmit isSuccess', isSuccess);
+      if (isSuccess) {
+        this.addAdminStatus.isSuccess = true;
+        this.addAdminStatus.message = 'Admin user successfully added';
+        this.userForm.reset();
+      } else {
+        this.addAdminStatus.isSuccess = false;
+        this.addAdminStatus.message = 'Admin user could not be added at this time.';
+      }
+    });
   }
 
 }
