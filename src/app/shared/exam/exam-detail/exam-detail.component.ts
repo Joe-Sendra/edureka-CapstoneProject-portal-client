@@ -10,6 +10,10 @@ import { ExamService } from '../exam.service';
 export class ExamDetailComponent implements OnInit {
 
   examDetailForm: FormGroup;
+  addExamMessage = {
+    isSuccess: null,
+    message: null
+  };
 
   constructor(private formBuilder: FormBuilder, private examService: ExamService) {}
 
@@ -22,7 +26,7 @@ export class ExamDetailComponent implements OnInit {
 
   initForm() {
     this.examDetailForm = this.formBuilder.group({
-      examId: [''],
+      examId: [{value: '', disabled: true}],
       examDate: ['', [Validators.required]],
       examTime: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -32,7 +36,14 @@ export class ExamDetailComponent implements OnInit {
 
   onSubmit() {
     this.examService.addExam(this.examDetailForm.value).then(isSuccess => {
-      console.log(isSuccess);
+      if (isSuccess) {
+        this.addExamMessage.isSuccess = true;
+        this.addExamMessage.message = 'Exam was successfully added.';
+        this.examDetailForm.reset();
+      } else {
+        this.addExamMessage.isSuccess = false;
+        this.addExamMessage.message = 'Exam could not be added.';
+      }
     });
   }
 
