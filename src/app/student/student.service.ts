@@ -12,17 +12,21 @@ export class StudentService {
 
   students: Student[] = [];
   nonRegisteredStudents: { email: string, registrationNumber: string }[] = [];
+  studentLeavePending: {
+    studentId: string,
+    email: string,
+    leaveRequest: {
+        _id: string,
+        requestDate: string,
+        status: string,
+        startDate: string,
+        endDate: string
+    }
+  }[] = [];
 
   private studentsSub = new BehaviorSubject<any>(this.students.slice());
   private nonRegisteredStudentsSub = new BehaviorSubject<any>(this.nonRegisteredStudents.slice());
-  // private leavePendingSub = new BehaviorSubject<{
-  //   email: string,
-  //   requestID: string,
-  //   requestDate: Date,
-  //   status: string,
-  //   startDate: Date,
-  //   endDate: Date
-  // }[]>(this.hasLeavePending());
+  private leavePendingSub = new BehaviorSubject<any>(this.studentLeavePending.slice());
 
   constructor(private httpClient: HttpClient) {
     this.loadInitialData();
@@ -34,6 +38,9 @@ export class StudentService {
 
     // Non Registered Students
     this.getNonRegisteredStudents();
+
+    //
+    this.hasLeavePending();
   }
 
 
@@ -67,16 +74,16 @@ export class StudentService {
   private updateSubs() {
     this.nonRegisteredStudentsSub.next(this.getNonRegisteredStudents());
     this.studentsSub.next(this.getAllStudents());
-    // this.leavePendingSub.next(this.hasLeavePending());
+    this.leavePendingSub.next(this.hasLeavePending());
   }
 
   getStudents() {
     return this.studentsSub;
   }
 
-  // getLeavePending() {
-  //   return this.leavePendingSub;
-  // }
+  getLeavePending() {
+    return this.leavePendingSub;
+  }
 
   getNonRegistered() {
     return this.nonRegisteredStudentsSub;
@@ -100,59 +107,85 @@ export class StudentService {
   }
 
 
-  // Password ***********************************
-  // resetPassword(email, isReset) {
-  //   const index = this.findWithAttr(this.students, 'email', email);
-  //   this.students[index].resetPassword = isReset;
-  //   this.updateSubs();
-  // }
-
-
   // Leave **************************************
-  // private hasLeavePending() {
+  private hasLeavePending() {
+    return new Promise<[{
+      studentId: string,
+      email: string,
+      leaveRequest: {
+          _id: string,
+          requestDate: string,
+          status: string,
+          startDate: string,
+          endDate: string
+      }
+    }] | boolean>(resolve => {
+      this.httpClient.get<[{
+        studentId: string,
+        email: string,
+        leaveRequest: {
+            _id: string,
+            requestDate: string,
+            status: string,
+            startDate: string,
+            endDate: string
+        }
+      }]>
+      (`http://localhost:3000/api/v1/users/students/leave/pending`)
+        .subscribe(leaveRequestData => {
+          this.studentLeavePending = leaveRequestData;
+          this.leavePendingSub.next(this.studentLeavePending.slice());
+          resolve(leaveRequestData);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
 
-  //   const allPendingRequests = new Array();
+  addLeave(leaveRequest: LeaveRequest, studentID) {
+    return new Promise(resolve => {
+      this.httpClient.post<{ message: string, id: string}>
+      (`http://localhost:3000/api/v1/users/students/${studentID}/leave`, {
+        requestDate: leaveRequest.requestDate,
+        status: leaveRequest.status,
+        startDate: leaveRequest.startDate,
+        endDate: leaveRequest.endDate
+      })
+        .subscribe(responseData => {
+          if (responseData.id) {
+            this.updateSubs();
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
 
-  //   this.students
-  //     .filter(student => {
-  //       return (student.hasOwnProperty('leave'));
-  //     })
-  //     .map(student => {
-  //       student.leave.map(leaveRequest => {
-  //         if (leaveRequest.status === 'pending') {
-  //           allPendingRequests.push({email: student.email, ...leaveRequest});
-  //         }
-  //       });
-  //     });
+  voteLeave(studentID, leaveId, isApproved) {
 
-  //   return allPendingRequests;
+    return new Promise(resolve => {
 
-  // }
+      const newStatus = isApproved ? 'approved' : 'denied';
 
-  // addLeave(leave, email) {
-  //   const index = this.findWithAttr(this.students, 'email', email);
-  //   if (this.students[index].hasOwnProperty('leave')) {
-  //     this.students[index].leave.push(leave);
-  //   } else {
-  //     this.students[index] = {...this.students[index], leave: [leave]};
-  //   }
-  //   this.updateSubs();
-  // }
-
-  // voteLeave(email, leaveId, isApproved) {
-  //   const studentIndex = this.findWithAttr(this.students, 'email', email);
-  //   const leaveIndex = this.findWithAttr(this.students[studentIndex].leave, 'requestID', leaveId);
-  //   this.students[studentIndex].leave[leaveIndex].status = isApproved ? 'Approved' : 'Denied';
-  //   this.updateSubs();
-  // }
-
-  // TODO determine if this needs to be an observable
-  // getStudentLeaves(email: string) {
-  //   const index = this.findWithAttr(this.students, 'email', email);
-  //   if (this.students[index].hasOwnProperty('leave')) {
-  //     return this.students[index].leave;
-  //   }
-  // }
+      this.httpClient.patch<{ message: string}>
+      (`http://localhost:3000/api/v1/users/students/${studentID}/leave/${leaveId}`, {status: newStatus})
+        .subscribe(responseData => {
+          this.updateSubs();
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
 
 
   // Registration *******************************
@@ -198,11 +231,6 @@ export class StudentService {
         );
     });
   }
-  // updateStudent(email, newStudentInfo: Student) {
-  //   const index = this.findWithAttr(this.students, 'email', email);
-  //   this.students[index] = newStudentInfo;
-  //   this.updateSubs();
-  // }
 
 
   // Email **************************************

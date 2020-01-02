@@ -56,15 +56,14 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   // }
 
   onLeaveRequest() {
-    // const reqID = this.studentService.getUniqueID();
-    // const leaveRequest: Leave = {
-    //   requestID: reqID,
-    //   requestDate: new Date(Date.now()),
-    //   status: 'pending',
-    //   startDate: this.leaveRequestForm.controls.startDate.value,
-    //   endDate: this.leaveRequestForm.controls.endDate.value
-    // };
-    // this.studentService.addLeave(leaveRequest, this.user.email);
+    const leaveRequest: LeaveRequest = {
+      requestDate: new Date(Date.now()),
+      status: 'pending',
+      startDate: this.leaveRequestForm.controls.startDate.value,
+      endDate: this.leaveRequestForm.controls.endDate.value
+    };
+    this.studentService.addLeave(leaveRequest, this.user._id);
+    // TODO alert status
     // this.studentService.getLeavePending();
   }
 
