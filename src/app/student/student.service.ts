@@ -154,12 +154,7 @@ export class StudentService {
         endDate: leaveRequest.endDate
       })
         .subscribe(responseData => {
-          if (responseData.id) {
-            this.updateSubs();
-            resolve(true);
-          } else {
-            resolve(false);
-          }
+          resolve(true);
         },
         (error => {
           resolve(false);

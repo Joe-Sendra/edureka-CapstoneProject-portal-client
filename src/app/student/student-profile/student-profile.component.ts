@@ -19,6 +19,11 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
   leaves: LeaveRequest[]; // DEV TEST
 
+  requestLeaveAlert = {
+    isSuccess: null,
+    message: null
+  };
+
   constructor(private studentService: StudentService, private authService: AuthService) {}
 
   ngOnInit() {
@@ -62,8 +67,16 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       startDate: this.leaveRequestForm.controls.startDate.value,
       endDate: this.leaveRequestForm.controls.endDate.value
     };
-    this.studentService.addLeave(leaveRequest, this.user._id);
-    // TODO alert status
+    this.studentService.addLeave(leaveRequest, this.user._id).then(isSuccess => {
+      if (isSuccess) {
+        this.requestLeaveAlert.isSuccess = true;
+        this.requestLeaveAlert.message = 'Request submitted';
+        this.leaveRequestForm.reset();
+      } else {
+        this.requestLeaveAlert.isSuccess = false;
+        this.requestLeaveAlert.message = 'Error submitting request';
+      }
+    });
     // this.studentService.getLeavePending();
   }
 

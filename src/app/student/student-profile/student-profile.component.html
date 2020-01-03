@@ -23,6 +23,7 @@
               <button type="button" class="btn btn-info" (click)="onLeaveRequest()" [disabled]="!leaveRequestForm.valid">Request</button>
             </div>
           </div>
+          <app-alert [type]="'Small'" [isSuccess]="requestLeaveAlert.isSuccess" [message]="requestLeaveAlert.message"></app-alert>
         </form>
       </ng-template>
     </ngb-panel>
