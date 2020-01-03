@@ -1,0 +1,21 @@
+<h4>Exam info</h4>
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pass of gatePasses">
+      <td>{{ pass._id }}</td>
+      <td>{{ pass.name }}</td>
+      <td>{{ pass.examDate }}</td>
+      <td>{{ pass.examTime }}</td>
+      <td>{{ pass.location }}</td>
+    </tr>
+  </tbody>
+</table>

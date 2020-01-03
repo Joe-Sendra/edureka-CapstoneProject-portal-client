@@ -198,6 +198,22 @@ export class StudentService {
   }
 
 
+  // GatePass ***********************************
+  getStudentGatePasses(studentID) {
+    return new Promise<LeaveRequest[]>(resolve => {
+
+      this.httpClient.get<LeaveRequest[]>
+      (`http://localhost:3000/api/v1/exams/${studentID}/gp`)
+        .subscribe(studentGatePassData => {
+          resolve(studentGatePassData);
+        },
+        (error => {
+          resolve([]);
+        })
+      );
+    });
+  }
+
   // Registration *******************************
   private getNonRegisteredStudents() {
     this.httpClient.get<[{_id: any, email: string}]>
