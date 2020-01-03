@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminStudentsComponent } from './admin-students/admin-students.component';
 import { AdminPublishComponent } from './admin-publish/admin-publish.component';
@@ -19,7 +18,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    AdminDashboardComponent,
     AdminProfileComponent,
     AdminDevComponent,
     AdminStudentsComponent,
@@ -36,7 +34,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   entryComponents: [
-    AdminDashboardComponent,
     AdminProfileComponent,
     AdminStudentsComponent,
     AdminPublishComponent,

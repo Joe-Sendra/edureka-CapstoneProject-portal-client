@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { LoginComponent } from './shared/login/login.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { AuthService } from './shared/auth/auth.service';
 import { AppNavbarService } from './app-navbar.service';
 import { NavBarLink } from './main/navbar/navbar-link.model';
@@ -45,8 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
       { path: 'logout', component: LoginComponent, data: {isLogout: true} },
       { path: 'admin',
        children: [
-        { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full'},
-        { path: 'dashboard', component: AdminDashboardComponent, pathMatch: 'full'},
+        { path: '', redirectTo: '/admin/students', pathMatch: 'full'},
         { path: 'profile', component: AdminProfileComponent},
         { path: 'students', component: AdminStudentsComponent},
         { path: 'publish', component: AdminPublishComponent},
@@ -58,8 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       { path: 'student',
         children: [
-          { path: '', redirectTo: '/student/dashboard', pathMatch: 'full'},
-          { path: 'dashboard', component: StudentDashboardComponent },
+          { path: '', redirectTo: '/student/exams', pathMatch: 'full'},
           { path: 'profile', component: StudentProfileComponent},
           { path: 'exams', component: StudentExamComponent}
         ]

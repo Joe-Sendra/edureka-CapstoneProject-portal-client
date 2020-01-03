@@ -1,4 +1,5 @@
 export class NavBarLink {
+  enabled: boolean;
   text: string;
   type: string;
   path: string;
