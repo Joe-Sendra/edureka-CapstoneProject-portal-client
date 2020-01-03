@@ -6,10 +6,14 @@ h4 {
   margin: 30px auto;
 }
 
-.error-message {
+.email-all {
+  float: right;
+}
+/* .error-message {
   color: red;
 }
 
 .success-message {
   color: #28a745;
-}
+} */
+

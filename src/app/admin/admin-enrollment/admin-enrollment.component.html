@@ -13,6 +13,7 @@
                 formControlName="email"
                 class="form-control"
                 placeholder="Email"
+                autocomplete="off"
                 #email
                 [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }"
               />
@@ -39,7 +40,7 @@
     </div>
     <div class="col-md-1"><hr class="d-md-none"></div>
     <div class="col-12 col-xl-6 student-list">
-      <h4>Enrolled students that have not registered <button class="btn btn-info btn-sm" (click)="onEmail()">Email All</button></h4>
+      <h4>Enrolled students that have not registered <button class="btn btn-info btn-sm email-all" (click)="onEmail()">Email All</button></h4>
       <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="emailMessage.isSuccess" [message]="emailMessage.message"></app-alert>
       <app-admin-enrollment-list></app-admin-enrollment-list>
     </div> <!-- End of student-list -->

@@ -17,7 +17,12 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   leaveRequestForm: FormGroup;
 
-  leaves: LeaveRequest[]; // DEV TEST
+  leaveRequests: LeaveRequest[];
+
+  requestLeaveAlert = {
+    isSuccess: null,
+    message: null
+  };
 
   constructor(private studentService: StudentService, private authService: AuthService) {}
 
@@ -25,10 +30,10 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     this.authSub = this.authService.getAuthStatusListener().subscribe(status => {
       this.studentService.getStudent(status._id).then(student => {
           this.user = student;
+          this.getLeaveRequests();
       });
     });
     this.initForm();
-
     // this.leaves = this.studentService.getStudentLeaves(this.user.email);
   }
 
@@ -56,16 +61,30 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   // }
 
   onLeaveRequest() {
-    // const reqID = this.studentService.getUniqueID();
-    // const leaveRequest: Leave = {
-    //   requestID: reqID,
-    //   requestDate: new Date(Date.now()),
-    //   status: 'pending',
-    //   startDate: this.leaveRequestForm.controls.startDate.value,
-    //   endDate: this.leaveRequestForm.controls.endDate.value
-    // };
-    // this.studentService.addLeave(leaveRequest, this.user.email);
+    const leaveRequest: LeaveRequest = {
+      requestDate: new Date(Date.now()),
+      status: 'pending',
+      startDate: this.leaveRequestForm.controls.startDate.value,
+      endDate: this.leaveRequestForm.controls.endDate.value
+    };
+    this.studentService.addLeave(leaveRequest, this.user._id).then(isSuccess => {
+      if (isSuccess) {
+        this.requestLeaveAlert.isSuccess = true;
+        this.requestLeaveAlert.message = 'Request submitted';
+        this.leaveRequestForm.reset();
+        this.getLeaveRequests();
+      } else {
+        this.requestLeaveAlert.isSuccess = false;
+        this.requestLeaveAlert.message = 'Error submitting request';
+      }
+    });
     // this.studentService.getLeavePending();
+  }
+
+  getLeaveRequests() {
+    this.studentService.getStudentLeave(this.user._id).then(leaveRequests => {
+      this.leaveRequests = leaveRequests;
+    });
   }
 
   ngOnDestroy() {

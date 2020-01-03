@@ -1,5 +1,5 @@
 export class LeaveRequest {
-  requestID: string;
+  requestID?: string;
   requestDate: Date;
   status: string; // TODO approved, pending, rejected
   startDate: Date;

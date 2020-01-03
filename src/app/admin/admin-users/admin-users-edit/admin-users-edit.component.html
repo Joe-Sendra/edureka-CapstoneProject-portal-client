@@ -1,3 +1,4 @@
+<app-alert class="d-flex justify-content-center" [type]="'Large'" [isSuccess]="addAdminStatus.isSuccess" [message]="addAdminStatus.message"></app-alert>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="email">Email</label>
@@ -6,7 +7,19 @@
       id="email"
       formControlName="email"
       class="form-control"
+      autocomplete="off"
       #email
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="form-control"
+      autocomplete="off"
+      #password
     />
   </div>
   <div class="form-group">
@@ -53,11 +66,9 @@
     type="submit"
     class="btn btn-success m-4"
     [disabled]="!userForm.valid">
-      Save
+      Add
   </button>
 </form>
-<button class="btn btn-primary" type="button" (click)="isViewUsers = !isViewUsers">Show/Hide Admin Users</button>
-<hr>
+<!-- <button class="btn btn-primary" type="button" (click)="isViewUsers = !isViewUsers">Show/Hide Admin Users</button> -->
 
-<div *ngIf="isViewUsers">{{ adminUsers | json }}</div>
 
