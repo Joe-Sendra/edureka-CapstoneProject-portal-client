@@ -17,7 +17,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   leaveRequestForm: FormGroup;
 
-  leaves: LeaveRequest[]; // DEV TEST
+  leaveRequests: LeaveRequest[];
 
   requestLeaveAlert = {
     isSuccess: null,
@@ -30,10 +30,10 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     this.authSub = this.authService.getAuthStatusListener().subscribe(status => {
       this.studentService.getStudent(status._id).then(student => {
           this.user = student;
+          this.getLeaveRequests();
       });
     });
     this.initForm();
-
     // this.leaves = this.studentService.getStudentLeaves(this.user.email);
   }
 
@@ -72,12 +72,19 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
         this.requestLeaveAlert.isSuccess = true;
         this.requestLeaveAlert.message = 'Request submitted';
         this.leaveRequestForm.reset();
+        this.getLeaveRequests();
       } else {
         this.requestLeaveAlert.isSuccess = false;
         this.requestLeaveAlert.message = 'Error submitting request';
       }
     });
     // this.studentService.getLeavePending();
+  }
+
+  getLeaveRequests() {
+    this.studentService.getStudentLeave(this.user._id).then(leaveRequests => {
+      this.leaveRequests = leaveRequests;
+    });
   }
 
   ngOnDestroy() {

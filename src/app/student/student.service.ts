@@ -182,6 +182,21 @@ export class StudentService {
     });
   }
 
+  getStudentLeave(studentID) {
+    return new Promise<LeaveRequest[]>(resolve => {
+
+      this.httpClient.get<LeaveRequest[]>
+      (`http://localhost:3000/api/v1/users/students/${studentID}/leave`)
+        .subscribe(studentLeaveData => {
+          resolve(studentLeaveData);
+        },
+        (error => {
+          resolve([]);
+        })
+      );
+    });
+  }
+
 
   // Registration *******************************
   private getNonRegisteredStudents() {
