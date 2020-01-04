@@ -10,7 +10,6 @@ import { StudentModule } from './student/student.module';
 import { AppComponent } from './app.component';
 
 import { AppNavbarService } from './app-navbar.service';
-import { NotificationService } from './shared/notification/notification.service';
 
 @NgModule({
   declarations: [
