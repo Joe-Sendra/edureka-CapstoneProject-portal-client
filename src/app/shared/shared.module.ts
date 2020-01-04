@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPrintModule } from 'ngx-print';
 
 import { AuthService } from './auth/auth.service';
 
@@ -41,7 +42,8 @@ import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NgxPrintModule
   ],
   exports: [
     CommonModule,
@@ -52,7 +54,8 @@ import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-
     AlertComponent,
     ExamDetailComponent,
     ExamGatePassListviewComponent,
-    ExamGatePassDashboardComponent
+    ExamGatePassDashboardComponent,
+    NgxPrintModule
   ],
   providers: [
     AuthService

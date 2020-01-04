@@ -14,10 +14,6 @@ export class GatepassDetailComponent {
 
   constructor(public activeModal: NgbActiveModal) {}
 
-  onPrintGatepass() {
-    // TODO
-  }
-
   onDownloadGatepass() {
     // TODO
   }

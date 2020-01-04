@@ -32,7 +32,7 @@ export class StudentGatepassComponent implements OnInit, OnChanges {
     }
 
     openModal(pass) {
-      const modalRef = this.modalService.open(GatepassDetailComponent, { size: 'lg' });
+      const modalRef = this.modalService.open(GatepassDetailComponent);
       modalRef.componentInstance.gatePass = pass;
       modalRef.componentInstance.studentId = this.user._id;
     }
