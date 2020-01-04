@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -19,7 +20,8 @@ import { GatepassDetailComponent } from './student-gatepass/gatepass-detail/gate
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    NgxBarcodeModule
   ],
   entryComponents: [
     StudentProfileComponent,

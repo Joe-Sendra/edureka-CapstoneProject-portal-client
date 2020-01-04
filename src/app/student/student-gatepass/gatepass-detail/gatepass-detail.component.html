@@ -6,6 +6,7 @@
     <p class="card-text">Date: {{gatePass.examDate}}</p>
     <p class="card-text">Time: {{gatePass.examTime}}</p>
     <p class="card-text">Location: {{gatePass.location}}</p>
+    <ngx-barcode [bc-height]="30" [bc-value]="gatePass._id + studentId" [bc-display-value]="true" [bc-width]="1"></ngx-barcode>
     <div class="row">
       <button class="btn btn-secondary btn-sm m-2" (click)="activeModal.close('Close click')">Close</button>
       <button class="btn btn-primary btn-sm m-2" (click)="onPrintGatepass()">Print</button>
