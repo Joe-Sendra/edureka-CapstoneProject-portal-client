@@ -21,12 +21,12 @@ export class StudentExamComponent implements OnInit, OnDestroy {
       this.authSub = this.authService.getAuthStatusListener().subscribe(status => {
         this.studentService.getStudent(status._id).then(student => {
             this.user = student;
-            this.getLeaveRequests();
+            this.getGatePasses();
         });
       });
     }
 
-    getLeaveRequests() {
+    getGatePasses() {
       this.studentService.getStudentGatePasses(this.user._id).then(gatePasses => {
         this.gatePasses = gatePasses;
       });

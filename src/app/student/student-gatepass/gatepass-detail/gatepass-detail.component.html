@@ -1,18 +1,18 @@
 <div id="print-section">
   <div class="card">
     <h5 class="card-header">
-      Gate Pass - Exam ID: {{gatePass._id}}
+      Gate Pass ID: {{gatePass.gpID}}
       <ngx-barcode [bc-height]="30" [bc-value]="gatePass._id" [bc-width]="1"></ngx-barcode>
     </h5>
     <div class="card-body">
-      <h5 class="card-title">{{gatePass.name}}</h5>
+      <h5 class="card-title">{{gatePass.examName}}</h5>
       <p class="card-text">
         Student ID: {{studentId}}
         <ngx-barcode [bc-height]="30" [bc-value]="studentId" [bc-width]="1"></ngx-barcode>
       </p>
-      <p class="card-text">Date: {{gatePass.examDate}}</p>
-      <p class="card-text">Time: {{gatePass.examTime}}</p>
-      <p class="card-text">Location: {{gatePass.location}}</p>
+      <p class="card-text">Date: {{gatePass.shiftDate}}</p>
+      <p class="card-text">Time: {{gatePass.shiftTime}}</p>
+      <p class="card-text">Location: {{gatePass.examLocation}}</p>
 
       <div class="row d-flex justify-content-center">
         <button class="btn btn-secondary btn-sm m-2" (click)="activeModal.close('Close click')">Close</button>

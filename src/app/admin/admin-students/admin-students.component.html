@@ -20,7 +20,11 @@
               <tr *ngFor="let student of students">
                 <td>
                   <button
-                    class="btn btn-danger btn-sm"
+                    class="btn btn-sm"
+                    [ngClass]="{
+                      'btn-success': student.isLockedOut,
+                      'btn-danger': !student.isLockedOut
+                    }"
                     (click)="onBlockStudent(student)">
                     <span *ngIf="student.isLockedOut">Unblock</span>
                     <span *ngIf="!student.isLockedOut">Block</span>
