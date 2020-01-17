@@ -6,6 +6,7 @@ export class AppNavbarService {
 
   navbarLinks: NavBarLink[] = [
     {
+      enabled: true,
       text: 'Home',
       type: 'routerLink',
       path: '/home',
@@ -14,6 +15,7 @@ export class AppNavbarService {
       requiresRole: false
     },
     {
+      enabled: false,
       text: 'Dashboard',
       type: 'routerLink',
       path: '/admin/dashboard',
@@ -23,15 +25,7 @@ export class AppNavbarService {
       role: 'admin'
     },
     {
-      text: 'Profile',
-      type: 'routerLink',
-      path: '/admin/profile',
-      loggedInRequired: true,
-      loggedOutRequired: false,
-      requiresRole: true,
-      role: 'admin'
-    },
-    {
+      enabled: true,
       text: 'Students',
       type: 'routerLink',
       path: '/admin/students',
@@ -41,6 +35,7 @@ export class AppNavbarService {
       role: 'admin'
     },
     {
+      enabled: true,
       text: 'Publish',
       type: 'routerLink',
       path: '/admin/publish',
@@ -50,6 +45,7 @@ export class AppNavbarService {
       role: 'admin'
     },
     {
+      enabled: true,
       text: 'Enrollment',
       type: 'routerLink',
       path: '/admin/enroll',
@@ -59,6 +55,7 @@ export class AppNavbarService {
       role: 'admin'
     },
     {
+      enabled: true,
       text: 'Site',
       type: 'routerLink',
       path: '/admin/site',
@@ -68,6 +65,17 @@ export class AppNavbarService {
       role: 'admin'
     },
     {
+      enabled: true,
+      text: 'Profile',
+      type: 'routerLink',
+      path: '/admin/profile',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'admin'
+    },
+    {
+      enabled: false,
       text: 'Dashboard',
       type: 'routerLink',
       path: '/student/dashboard',
@@ -77,15 +85,7 @@ export class AppNavbarService {
       role: 'student'
     },
     {
-      text: 'Profile',
-      type: 'routerLink',
-      path: '/student/profile',
-      loggedInRequired: true,
-      loggedOutRequired: false,
-      requiresRole: true,
-      role: 'student'
-    },
-    {
+      enabled: true,
       text: 'Exams',
       type: 'routerLink',
       path: '/student/exams',
@@ -95,6 +95,17 @@ export class AppNavbarService {
       role: 'student'
     },
     {
+      enabled: true,
+      text: 'Profile',
+      type: 'routerLink',
+      path: '/student/profile',
+      loggedInRequired: true,
+      loggedOutRequired: false,
+      requiresRole: true,
+      role: 'student'
+    },
+    {
+      enabled: true,
       text: 'Login',
       type: 'routerLink',
       path: '/login',
@@ -103,6 +114,7 @@ export class AppNavbarService {
       requiresRole: false
     },
     {
+      enabled: true,
       text: 'Logout',
       type: 'routerLink',
       path: '/logout',
@@ -111,6 +123,7 @@ export class AppNavbarService {
       requiresRole: false
     },
     {
+      enabled: true,
       text: 'Register',
       type: 'routerLink',
       path: '/register',
@@ -121,7 +134,8 @@ export class AppNavbarService {
   ];
 
   getNavbarLinks() {
-    return this.navbarLinks.slice();
+    // return this.navbarLinks.slice();
+    return this.navbarLinks.filter(link => link.enabled).slice();
   }
 
 }

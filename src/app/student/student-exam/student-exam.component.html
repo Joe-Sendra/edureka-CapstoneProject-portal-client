@@ -1,1 +1,13 @@
-student exams works
+<div class="container">
+  <h3> Exam Management </h3>
+  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
+    <ngb-panel>
+      <ng-template ngbPanelHeader let-opened="opened">
+        <button ngbPanelToggle class="btn"><h4>Gate Passes</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-student-gatepass [user]="user"></app-student-gatepass>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

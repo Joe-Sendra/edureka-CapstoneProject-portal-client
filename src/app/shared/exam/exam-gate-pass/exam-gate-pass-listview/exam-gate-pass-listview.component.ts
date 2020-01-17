@@ -13,33 +13,34 @@ export class ExamGatePassListviewComponent implements OnInit, OnChanges, OnDestr
 
   @Input()isStudentsWithGatepass: boolean;
   @Input() examId: string;
+  @Input() shiftId: string;
 
   studentSub$: Subscription;
   studentList: string[];
 
-  students: Student[];
+  students: any[]; // TODO fix Student type to handle gatepass
 
   constructor(private examService: ExamService) {}
 
   ngOnInit() {
-    this.studentSub$ = this.examService.getStudents(this.examId, this.isStudentsWithGatepass).subscribe(students => {
+    this.studentSub$ = this.examService.getStudents(this.examId, this.shiftId, this.isStudentsWithGatepass).subscribe(students => {
       this.students = students;
     });
   }
 
   ngOnChanges() {
-    this.studentSub$ = this.examService.getStudents(this.examId, this.isStudentsWithGatepass).subscribe(students => {
+    this.studentSub$ = this.examService.getStudents(this.examId, this.shiftId, this.isStudentsWithGatepass).subscribe(students => {
       this.students = students;
     });
   }
 
   // TODO disable buttons and add updating spinner when add or remove is clicked
   onAddGatePass(studentID: string) {
-    this.examService.addGatePass(this.examId, studentID);
+    this.examService.addGatePass(this.examId, this.shiftId, studentID);
   }
 
-  onRemoveGatePass(studentID: string) {
-    this.examService.removeGatePass(this.examId, studentID);
+  onRemoveGatePass(gpID: string) {
+    this.examService.removeGatePass(this.examId, this.shiftId, gpID);
   }
 
   ngOnDestroy() {

@@ -1,0 +1,27 @@
+<h4>Exam info</h4>
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pass of gatePasses">
+      <td>
+        <button type="button" class="btn btn-success" (click)="openModal(pass)">
+          view / download
+        </button>
+      </td>
+      <td>{{ pass.gpID }}</td>
+      <td>{{ pass.examName }}</td>
+      <td>{{ pass.shiftDate }}</td>
+      <td>{{ pass.shiftTime }}</td>
+      <td>{{ pass.examLocation }}</td>
+    </tr>
+  </tbody>
+</table>

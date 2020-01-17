@@ -47,7 +47,7 @@ export class StudentService {
   // Students *******************************
   private getAllStudents() {
     this.httpClient.get<{students: []}>
-      ('http://localhost:3000/api/v1/users/students')
+      ('http://localhost:3000/api/v1/students')
       .subscribe(
         students => {
           this.students = students.students;
@@ -60,7 +60,7 @@ export class StudentService {
   getStudent(_id: string): Promise< Student> {
     return new Promise(resolve => {
       this.httpClient.get<Student>
-        ('http://localhost:3000/api/v1/users/students/' + _id)
+        ('http://localhost:3000/api/v1/students/' + _id)
         .subscribe(
           student => {
             resolve(student);
@@ -131,7 +131,7 @@ export class StudentService {
             endDate: string
         }
       }]>
-      (`http://localhost:3000/api/v1/users/students/leave/pending`)
+      (`http://localhost:3000/api/v1/leaves/pending`)
         .subscribe(leaveRequestData => {
           this.studentLeavePending = leaveRequestData;
           this.leavePendingSub.next(this.studentLeavePending.slice());
@@ -147,7 +147,7 @@ export class StudentService {
   addLeave(leaveRequest: LeaveRequest, studentID) {
     return new Promise(resolve => {
       this.httpClient.post<{ message: string, id: string}>
-      (`http://localhost:3000/api/v1/users/students/${studentID}/leave`, {
+      (`http://localhost:3000/api/v1/students/${studentID}/leave`, {
         requestDate: leaveRequest.requestDate,
         status: leaveRequest.status,
         startDate: leaveRequest.startDate,
@@ -170,7 +170,7 @@ export class StudentService {
       const newStatus = isApproved ? 'approved' : 'denied';
 
       this.httpClient.patch<{ message: string}>
-      (`http://localhost:3000/api/v1/users/students/${studentID}/leave/${leaveId}`, {status: newStatus})
+      (`http://localhost:3000/api/v1/students/${studentID}/leave/${leaveId}`, {status: newStatus})
         .subscribe(responseData => {
           this.updateSubs();
           resolve(true);
@@ -186,7 +186,7 @@ export class StudentService {
     return new Promise<LeaveRequest[]>(resolve => {
 
       this.httpClient.get<LeaveRequest[]>
-      (`http://localhost:3000/api/v1/users/students/${studentID}/leave`)
+      (`http://localhost:3000/api/v1/students/${studentID}/leave`)
         .subscribe(studentLeaveData => {
           resolve(studentLeaveData);
         },
@@ -197,6 +197,22 @@ export class StudentService {
     });
   }
 
+
+  // GatePass ***********************************
+  getStudentGatePasses(studentID) {
+    return new Promise<LeaveRequest[]>(resolve => {
+
+      this.httpClient.get<LeaveRequest[]>
+      (`http://localhost:3000/api/v1/students/${studentID}/gp`)
+        .subscribe(studentGatePassData => {
+          resolve(studentGatePassData);
+        },
+        (error => {
+          resolve([]);
+        })
+      );
+    });
+  }
 
   // Registration *******************************
   private getNonRegisteredStudents() {
