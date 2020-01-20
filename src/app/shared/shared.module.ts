@@ -21,6 +21,7 @@ import { ChangePasswordComponent } from './password/change-password/change-passw
 import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
 import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-pass-listview/exam-gate-pass-listview.component';
 import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
+import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-
     ChangePasswordComponent,
     ExamDetailComponent,
     ExamGatePassListviewComponent,
-    ExamGatePassDashboardComponent
+    ExamGatePassDashboardComponent,
+    ExamSelectionComponent
   ],
   imports: [
     FormsModule,
@@ -57,6 +59,7 @@ import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-
     ExamDetailComponent,
     ExamGatePassListviewComponent,
     ExamGatePassDashboardComponent,
+    ExamSelectionComponent,
     NgxPrintModule,
     ExportAsModule
   ],
