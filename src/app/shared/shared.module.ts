@@ -22,6 +22,7 @@ import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
 import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-pass-listview/exam-gate-pass-listview.component';
 import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
 import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.component';
+import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.com
     ExamDetailComponent,
     ExamGatePassListviewComponent,
     ExamGatePassDashboardComponent,
-    ExamSelectionComponent
+    ExamSelectionComponent,
+    ExamTimeTableComponent
   ],
   imports: [
     FormsModule,
@@ -60,6 +62,7 @@ import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.com
     ExamGatePassListviewComponent,
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
+    ExamTimeTableComponent,
     NgxPrintModule,
     ExportAsModule
   ],
