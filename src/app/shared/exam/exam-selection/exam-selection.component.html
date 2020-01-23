@@ -27,7 +27,7 @@
               formControlName="location"
               placeholder="Exam location"
               (change)="onExamChangeLocation()">
-              <option *ngFor="let examLocation of examLocations" [ngValue]="examLocation">{{examLocation.location}}</option>
+              <option *ngFor="let examLocation of examLocations" [ngValue]="examLocation._id">{{examLocation.location}}</option>
             </select>
             <div *ngIf="f.location.touched && f.location.errors" class="invalid-feedback">
               <div *ngIf="f.location.errors.required">Exam location is required</div>

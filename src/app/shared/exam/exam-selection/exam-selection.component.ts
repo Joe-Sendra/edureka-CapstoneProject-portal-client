@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExamService } from '../exam.service';
 import { Subscription } from 'rxjs';
+import { Exam } from '../exam.model';
 
 @Component({
   selector: 'app-exam-selection',
@@ -11,12 +12,12 @@ import { Subscription } from 'rxjs';
 export class ExamSelectionComponent implements OnInit, OnDestroy {
 
   examSelectionForm: FormGroup;
-  examNames = [];
-  examLocations = [];
-  examShifts = [];
+  examNames: string[] = [];
+  examLocations: Exam[] = [];
+  exams: Exam[] = [];
   examsSub$: Subscription;
 
-  @Output() selectedExamLocation = new EventEmitter<any>();
+  @Output() selectedExam = new EventEmitter<Exam>();
 
   constructor(private formBuilder: FormBuilder, private examService: ExamService) {}
 
@@ -25,7 +26,9 @@ export class ExamSelectionComponent implements OnInit, OnDestroy {
 
     this.examService.getExams().then(examsSubject => {
       this.examsSub$ = examsSubject.subscribe(exams => {
-        this.examShifts = exams;
+        this.exams = exams;
+        this.emitExam(this.examSelectionForm.controls.location.value);
+        // Get unique exam names
         this.examNames = [...new Set(exams.map(exam => exam.name))];
       });
     });
@@ -44,17 +47,35 @@ export class ExamSelectionComponent implements OnInit, OnDestroy {
   onExamChangeName() {
     const examName = this.examSelectionForm.controls.name;
     const examLocation = this.examSelectionForm.controls.location;
-    this.examLocations = this.examShifts.filter((exam) => exam.name === examName.value);
+
+    // filter locations based on selected exam.name
+    this.examLocations = this.exams.filter((exam) => exam.name === examName.value);
     if (examName) {
       examLocation.enable();
     }
+
+    // reset locations
     examLocation.setValue([]);
-    this.selectedExamLocation.emit(examLocation.value);
+    this.emitExam(examLocation.value);
+
   }
 
   onExamChangeLocation() {
     const examLocation = this.examSelectionForm.controls.location;
-    this.selectedExamLocation.emit(examLocation.value);
+    this.emitExam(examLocation.value);
+
+  }
+
+  emitExam(selectedExamId) {
+    const examLocation = this.examSelectionForm.controls.location;
+    if (selectedExamId.length > 0 && examLocation.value.length > 0) {
+      this.examService.getExam(selectedExamId).then(exam => {
+        this.selectedExam.emit(exam);
+      });
+    } else {
+      this.selectedExam.emit(null);
+    }
+
   }
 
   ngOnDestroy() {
