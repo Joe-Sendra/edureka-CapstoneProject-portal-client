@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
 import { ExportAsModule } from 'ngx-export-as';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 import { AuthService } from './auth/auth.service';
 
@@ -23,6 +24,7 @@ import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-p
 import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
 import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.component';
 import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.component';
+import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.com
     ExamGatePassListviewComponent,
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
-    ExamTimeTableComponent
+    ExamTimeTableComponent,
+    DateTimePickerComponent
   ],
   imports: [
     FormsModule,
@@ -49,7 +52,9 @@ import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.com
     ReactiveFormsModule,
     NgbModule,
     NgxPrintModule,
-    ExportAsModule
+    ExportAsModule,
+    DlDateTimeDateModule,
+    DlDateTimePickerModule
   ],
   exports: [
     CommonModule,
@@ -64,17 +69,22 @@ import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.com
     ExamSelectionComponent,
     ExamTimeTableComponent,
     NgxPrintModule,
-    ExportAsModule
+    ExportAsModule,
+    DlDateTimeDateModule,
+    DlDateTimePickerModule,
+    DateTimePickerComponent
   ],
   providers: [
-    AuthService
+    AuthService,
+    FormsModule
   ],
   entryComponents: [
     RegisterComponent,
     LoginComponent,
     ResetPasswordComponent,
     ResetPasswordResponseComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    DateTimePickerComponent
   ]
 })
 export class SharedModule {}
