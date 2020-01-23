@@ -19,7 +19,6 @@ import { RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
 import { ResetPasswordResponseComponent } from './password/reset-password/reset-password-response/reset-password-response.component';
 import { ChangePasswordComponent } from './password/change-password/change-password.component';
-import { ExamDetailComponent } from './exam/exam-detail/exam-detail.component';
 import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-pass-listview/exam-gate-pass-listview.component';
 import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
 import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.component';
@@ -38,7 +37,6 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     ResetPasswordComponent,
     ResetPasswordResponseComponent,
     ChangePasswordComponent,
-    ExamDetailComponent,
     ExamGatePassListviewComponent,
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
@@ -63,7 +61,6 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     NotificationEditComponent,
     NotificationListComponent,
     AlertComponent,
-    ExamDetailComponent,
     ExamGatePassListviewComponent,
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
