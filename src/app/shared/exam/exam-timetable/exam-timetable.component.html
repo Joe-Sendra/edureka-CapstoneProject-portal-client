@@ -4,8 +4,8 @@
       <tr>
         <th>Date</th>
         <th>Time</th>
-        <th *ngIf="isAdmin">
-          <button [disabled]="!selectedExam" class="btn btn-success btn-sm" (click)="addShift()">Add</button>
+        <th>
+          <button *ngIf="isAdmin" [disabled]="!selectedExam" class="btn btn-success btn-sm" (click)="addShift()">Add</button>
         </th>
       </tr>
     </thead>
@@ -13,9 +13,9 @@
       <tr *ngFor="let shift of selectedExam.timeTable">
         <td>{{shift.examDate}}</td>
         <td>{{shift.examTime}}</td>
-        <td *ngIf="isAdmin">
-          <button disabled class="btn btn-warning btn-sm mr-2" (click)="onEdit(shift._id)">Edit</button>
-          <button disabled class="btn btn-danger btn-sm ml-2" (click)="onDelete(shift._id)">Delete</button>
+        <td>
+          <button *ngIf="isAdmin" disabled class="btn btn-warning btn-sm mr-2" (click)="onEdit(shift._id)">Edit</button>
+          <button *ngIf="isAdmin" disabled class="btn btn-danger btn-sm ml-2" (click)="onDelete(shift._id)">Delete</button>
         </td>
       </tr>
     </tbody>

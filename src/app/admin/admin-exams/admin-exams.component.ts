@@ -9,7 +9,6 @@ import { Exam } from 'src/app/shared/exam/exam.model';
 export class AdminExamsComponent {
 
   selectedExam: Exam;
-  updateExams: boolean = null;
 
   onSelectedExam(exam) {
     this.selectedExam = exam;
