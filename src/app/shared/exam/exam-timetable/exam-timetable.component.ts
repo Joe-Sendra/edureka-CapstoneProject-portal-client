@@ -34,7 +34,20 @@ export class ExamTimeTableComponent {
   }
 
   onEdit(shiftID) {
-    console.log('TODO edit: ', shiftID);
+    // Open modal date time picker
+    const modalRef = this.modalService.open(DateTimePickerComponent);
+
+    // Once date and time are selected update via examService
+    modalRef.componentInstance.dtEmitter.subscribe(selectedDT => {
+      if (!!selectedDT) {
+        const newExamShift = {
+          date: selectedDT.selDate,
+          time: selectedDT.selTime
+        };
+        modalRef.close();
+        this.examService.updateExamShift(this.selectedExam._id, shiftID, newExamShift);
+      }
+    });
   }
 
   onDelete(shiftID) {

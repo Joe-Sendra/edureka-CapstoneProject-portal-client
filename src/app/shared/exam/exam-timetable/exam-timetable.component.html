@@ -14,7 +14,7 @@
         <td>{{shift.examDate}}</td>
         <td>{{shift.examTime}}</td>
         <td>
-          <button *ngIf="isAdmin" disabled class="btn btn-warning btn-sm mr-2" (click)="onEdit(shift._id)">Edit</button>
+          <button *ngIf="isAdmin" class="btn btn-warning btn-sm mr-2" (click)="onEdit(shift._id)">Edit</button>
           <button *ngIf="isAdmin" class="btn btn-danger btn-sm ml-2" (click)="onDelete(shift._id)">Delete</button>
         </td>
       </tr>

@@ -92,7 +92,27 @@ export class ExamService {
       this.httpClient.delete<{ message: string}>
       (`http://localhost:3000/api/v1/exams/${examID}/shifts/${shiftID}`)
         .subscribe(responseData => {
-          console.log(responseData);
+          this.getExamData();
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
+
+  updateExamShift(examID, shiftID, newExamShift) {
+    return new Promise(resolve => {
+      this.httpClient.patch<{ message: string}>
+      (`http://localhost:3000/api/v1/exams/${examID}/shifts/${shiftID}`,
+      {
+        examShift: {
+          examDate: newExamShift.date,
+          examTime: newExamShift.time
+        }
+      })
+        .subscribe(responseData => {
           this.getExamData();
           resolve(true);
         },
