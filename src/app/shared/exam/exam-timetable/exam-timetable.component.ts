@@ -38,6 +38,6 @@ export class ExamTimeTableComponent {
   }
 
   onDelete(shiftID) {
-    console.log('TODO delete: ', shiftID);
+    this.examService.deleteExamShift(this.selectedExam._id, shiftID);
   }
 }
