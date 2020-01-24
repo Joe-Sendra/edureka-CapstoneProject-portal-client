@@ -1,0 +1,18 @@
+<!-- TODO print/download-->
+<button
+  [disabled]="!selectedExam"
+  ngxPrint
+  printSectionId="print-section"
+  class="btn btn-primary btn-sm mr-2">
+  Print
+</button>
+<button
+  [disabled]="!selectedExam"
+  (click)="onDownloadTimeTable()"
+  class="btn btn-info btn-sm ml-2">
+  Download
+</button>
+<div id="print-section">
+  <app-exam-selection (selectedExam)="onSelectedExam($event)"></app-exam-selection>
+  <app-exam-timetable [selectedExam]="selectedExam" [isAdmin]="false"></app-exam-timetable>
+</div>

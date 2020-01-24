@@ -9,5 +9,13 @@
         <app-student-gatepass [user]="user"></app-student-gatepass>
       </ng-template>
     </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+        <button ngbPanelToggle class="btn"><h4>Time tables</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-student-exam-view></app-student-exam-view>
+      </ng-template>
+    </ngb-panel>
   </ngb-accordion>
 </div>

@@ -2,7 +2,7 @@
   <div class="card">
     <h5 class="card-header">
       Gate Pass ID: {{gatePass.gpID}}
-      <ngx-barcode [bc-height]="30" [bc-value]="gatePass._id" [bc-width]="1"></ngx-barcode>
+      <ngx-barcode [bc-height]="30" [bc-value]="gatePass.gpID" [bc-width]="1"></ngx-barcode>
     </h5>
     <div class="card-body">
       <h5 class="card-title">{{gatePass.examName}}</h5>
@@ -13,7 +13,6 @@
       <p class="card-text">Date: {{gatePass.shiftDate}}</p>
       <p class="card-text">Time: {{gatePass.shiftTime}}</p>
       <p class="card-text">Location: {{gatePass.examLocation}}</p>
-
       <div class="row d-flex justify-content-center">
         <button class="btn btn-secondary btn-sm m-2" (click)="activeModal.close('Close click')">Close</button>
         <button

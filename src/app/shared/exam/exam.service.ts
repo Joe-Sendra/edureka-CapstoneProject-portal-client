@@ -45,6 +45,75 @@ export class ExamService {
       this.httpClient.post<{ message: string}>
       ('http://localhost:3000/api/v1/exams', {exam})
         .subscribe(responseData => {
+          this.getExamData();
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
+
+  getExam(examId) {
+    return new Promise<Exam>(resolve => {
+      this.httpClient.get<Exam>(`http://localhost:3000/api/v1/exams/${examId}`)
+      .subscribe(exam => {
+        resolve(exam);
+      },
+      (error => {
+        resolve(null);
+      }));
+    });
+  }
+
+  addExamShift(examID, examDate, examTime) {
+    return new Promise(resolve => {
+      this.httpClient.post<{ message: string}>
+      (`http://localhost:3000/api/v1/exams/${examID}`, {
+        examShift: {
+          examDate,
+          examTime
+        }
+      })
+        .subscribe(responseData => {
+          this.getExamData();
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
+
+  deleteExamShift(examID, shiftID) {
+    return new Promise(resolve => {
+      this.httpClient.delete<{ message: string}>
+      (`http://localhost:3000/api/v1/exams/${examID}/shifts/${shiftID}`)
+        .subscribe(responseData => {
+          this.getExamData();
+          resolve(true);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
+
+  updateExamShift(examID, shiftID, newExamShift) {
+    return new Promise(resolve => {
+      this.httpClient.patch<{ message: string}>
+      (`http://localhost:3000/api/v1/exams/${examID}/shifts/${shiftID}`,
+      {
+        examShift: {
+          examDate: newExamShift.date,
+          examTime: newExamShift.time
+        }
+      })
+        .subscribe(responseData => {
+          this.getExamData();
           resolve(true);
         },
         (error => {

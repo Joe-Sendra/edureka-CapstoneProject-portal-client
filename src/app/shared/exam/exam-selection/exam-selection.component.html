@@ -1,0 +1,42 @@
+<section id="examSelectionSection">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <div class="px-2">
+        <form class="justify-content-center" [formGroup]="examSelectionForm">
+
+          <div class="form-group">
+            <select
+              class="form-control m-2"
+              type="text"
+              formControlName="name"
+              placeholder="Exam name"
+              list="examNames"
+              (ngModelChange)="onExamChangeName()"
+              [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors }">
+              <option *ngFor="let examName of examNames" [ngValue]="examName">{{examName}}</option>
+            </select>
+            <div *ngIf="f.name.touched && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Exam name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <select
+              class="form-control m-2"
+              formControlName="location"
+              placeholder="Exam location"
+              (change)="onExamChangeLocation()">
+              <option *ngFor="let examLocation of examLocations" [ngValue]="examLocation._id">{{examLocation.location}}</option>
+            </select>
+            <div *ngIf="f.location.touched && f.location.errors" class="invalid-feedback">
+              <div *ngIf="f.location.errors.required">Exam location is required</div>
+            </div>
+          </div>
+
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
