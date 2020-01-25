@@ -17,6 +17,8 @@ import { RegisterComponent } from './shared/register/register.component';
 import { ResetPasswordComponent } from './shared/password/reset-password/reset-password.component';
 import { ResetPasswordResponseComponent } from './shared/password/reset-password/reset-password-response/reset-password-response.component';
 import { ChangePasswordComponent } from './shared/password/change-password/change-password.component';
+import { CircularListviewComponent } from './shared/circular/circular-listview/circular-listview.component';
+import { CircularDetailComponent } from './shared/circular/circular-detail/circular-detail.component';
 
 
 @Component({

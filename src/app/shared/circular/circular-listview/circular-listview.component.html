@@ -1,0 +1,5 @@
+<div class="ml-4" *ngFor="let circular of circulars">
+  <a *ngIf="circular.isActive || includeInactive" href="/circular/{{circular._id}}">
+    {{circular.date}} - {{circular.title}} - {{circular.author}}
+  </a>
+</div>
