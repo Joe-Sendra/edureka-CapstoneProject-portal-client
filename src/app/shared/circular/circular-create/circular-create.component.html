@@ -33,10 +33,9 @@
               </div>
             </div>
 
-            <!-- <div formArrayName="paragraphs" *ngFor="let paragraph of circularCreateForm.controls.paragraphs; let i = index"> -->
             <div formArrayName="paragraphs" *ngFor="let paragraphGroup of paragraphData.controls; let i = index">
               <div [formGroupName]="i">
-                <div class="form-group">
+                <div class="form-group mb-0">
                   <textarea class="form-control" type="text" formControlName="paragraph" placeholder="Paragraph" rows="8" cols="100"></textarea>
                   <div *ngIf="f.paragraphs.touched && f.paragraphs.errors" class="invalid-feedback">
                     <div *ngIf="f.paragraphs.errors.required">Paragraph of circular is required</div>
@@ -45,12 +44,10 @@
               </div>
             </div>
 
+            <button class="btn btn-info mt-0 mb-4" (click)="addParagraphButtonClick()">Add another paragraph</button>
 
             <div class="form-group">
-              <button class="btn btn-info" (click)="addParagraphButtonClick()">Add another paragraph</button>
-            </div>
-            <div class="form-group">
-              <button [disabled]="!circularCreateForm.valid" class="btn btn-success" (click)="onCreateCircular()">Post</button>
+              <button [disabled]="!circularCreateForm.valid" class="btn btn-success" (click)="onCreateCircular()">Publish</button>
             </div>
 
           </form>
@@ -59,27 +56,3 @@
     </div>
   </div>
 </section>
-
-<table border="1">
-  <tr>
-    <th style="padding: 10px;">FormGroup</th>
-    <th style="padding: 10px;">FormControl (paragraphs)</th>
-    <th style="padding: 10px;">FormControl (title)</th>
-  </tr>
-  <tr>
-    <td style="padding: 10px;">
-      touched : {{ circularCreateForm.touched }} <br/>
-      dirty : {{ circularCreateForm.dirty }} <br/>
-      valid : {{ circularCreateForm.valid }} <br/>
-      Form Values: {{ circularCreateForm.value | json}}
-    </td>
-    <td style="padding: 10px;">
-      <!-- paragraphs : {{ circularCreateForm.controls.paragraphs. | json }} -->
-      paragraphs Value: {{ circularCreateForm.controls.paragraphs.value | json}}
-    </td>
-    <td style="padding: 10px;">
-      title touched: {{ circularCreateForm.controls.title.touched }} <br/>
-      title errors: {{ circularCreateForm.controls.title.errors | json}}
-    </td>
-  </tr>
-</table>
