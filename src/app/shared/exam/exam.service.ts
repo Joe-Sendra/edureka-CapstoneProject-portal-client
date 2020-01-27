@@ -43,7 +43,7 @@ export class ExamService {
   addExam(exam) {
     return new Promise(resolve => {
       this.httpClient.post<{ message: string}>
-      ('http://localhost:3000/api/v1/exams', {exam})
+      ('http://localhost:3000/api/v1/exams', exam)
         .subscribe(responseData => {
           this.getExamData();
           resolve(true);

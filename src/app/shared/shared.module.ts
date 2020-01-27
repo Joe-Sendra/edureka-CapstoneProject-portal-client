@@ -24,6 +24,7 @@ import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-p
 import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
 import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.component';
 import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.component';
+import { ExamCreateComponent } from './exam/exam-create/exam-create.component';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 import { CircularListviewComponent } from './circular/circular-listview/circular-listview.component';
 import { CircularDetailComponent } from './circular/circular-detail/circular-detail.component';
@@ -46,6 +47,7 @@ import { CircularCreateComponent } from './circular/circular-create/circular-cre
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
     ExamTimeTableComponent,
+    ExamCreateComponent,
     DateTimePickerComponent,
     CircularListviewComponent,
     CircularDetailComponent,
@@ -73,6 +75,7 @@ import { CircularCreateComponent } from './circular/circular-create/circular-cre
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
     ExamTimeTableComponent,
+    ExamCreateComponent,
     NgxPrintModule,
     ExportAsModule,
     DlDateTimeDateModule,

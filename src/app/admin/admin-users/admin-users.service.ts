@@ -41,4 +41,42 @@ export class AdminUsersService {
     });
   }
 
+  getUser(userID) {
+    return new Promise(resolve => {
+      this.httpClient.get<any>
+      (`http://localhost:3000/api/v1/faculty/${userID}`)
+        .subscribe(user => {
+          console.log(user);
+          resolve(user);
+        },
+        (error => {
+          resolve(false);
+        })
+      );
+    });
+  }
+
+  updateUser(_id, updateUserInfo): Promise<{isSuccess: boolean, message: string}> {
+    return new Promise(resolve => {
+      this.httpClient.patch<any>('http://localhost:3000/api/v1/users',
+        {
+          _id,
+          updateUserInfo
+        }
+      )
+        .subscribe(
+          response => {
+            if (response.isSuccess) {
+              resolve({isSuccess: true, message: response.message});
+            }
+            resolve({isSuccess: false, message: response.message});
+          },
+          err => {
+            resolve({isSuccess: true, message: 'Error retrieving users'});
+            console.log(err, 'Error retrieving users');
+          }
+        );
+    });
+  }
+
 }

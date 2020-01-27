@@ -1,0 +1,38 @@
+<section id="examCreateSection">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <div class="px-2">
+        <form class="justify-content-center" [formGroup]="createExamForm">
+
+          <div class="form-group">
+            <input
+              class="form-control m-2"
+              type="text"
+              formControlName="name"
+              placeholder="Exam name"
+              [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors }"/>
+            <div *ngIf="f.name.touched && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Exam name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              class="form-control m-2"
+              type="text"
+              formControlName="location"
+              placeholder="Exam location"
+              [ngClass]="{ 'is-invalid': f.location.touched && f.location.errors }"/>
+            <div *ngIf="f.location.touched && f.location.errors" class="invalid-feedback">
+              <div *ngIf="f.location.errors.required">Exam location is required</div>
+            </div>
+          </div>
+
+          <div class="form-group"><button [disabled]="!createExamForm.valid" class="btn btn-success" (click)="onAddExam()">Add Exam</button></div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
