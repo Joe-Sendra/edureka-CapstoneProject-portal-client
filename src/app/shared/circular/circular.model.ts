@@ -3,7 +3,7 @@ export class Circular {
   date: string;
   title: string;
   author: string;
-  paragraph: string[];
+  paragraphs: string[];
   imgUrl: string;
   isActive: boolean;
 }

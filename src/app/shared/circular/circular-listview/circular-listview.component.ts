@@ -17,7 +17,6 @@ export class CircularListviewComponent implements OnInit {
   ngOnInit() {
     this.circularService.subCirculars().subscribe(circulars => {
       this.circulars = circulars;
-      console.log(this.circulars);
     });
   }
 
