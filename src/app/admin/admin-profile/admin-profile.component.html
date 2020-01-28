@@ -1,2 +1,41 @@
-<p>admin profile works!</p>
+<div class="container">
+  <h3> Profile Management </h3>
+  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+        <button ngbPanelToggle class="btn"><h4>Account Details</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <button class="btn btn-info btn-sm change-password mb-2" type="button" (click)="onChangePassword()">Change Password</button>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input disabled formControlName="email" class="form-control" type="email"/>
+          </div>
+          <div class="form-group">
+            <label for="nameFirst">First Name</label>
+            <input formControlName="nameFirst" class="form-control" type="nameFirst"/>
+          </div>
+          <div class="form-group">
+            <label for="nameLast">Last Name</label>
+            <input formControlName="nameLast" class="form-control" type="nameLast"/>
+          </div>
+          <div class="form-group">
+            <label for="building">Office Building</label>
+            <input formControlName="building" class="form-control" type="building"/>
+          </div>
+          <div class="form-group">
+            <label for="number">Office Number</label>
+            <input formControlName="number" class="form-control" type="number"/>
+          </div>
+          <button type="submit" class="btn btn-success" [disabled]="!profileForm.valid">Save</button>
+          <button (click)="onCancel()" type="button" class="btn btn-danger">Cancel</button>
+        </form>
+        <br>
+        <app-alert [type]="'Large'" [isSuccess]="updateUserMessage.isSuccess" [message]="updateUserMessage.message"></app-alert>
 
+      </ng-template>
+    </ngb-panel>
+
+  </ngb-accordion>
+</div>

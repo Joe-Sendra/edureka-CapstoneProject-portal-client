@@ -1,0 +1,8 @@
+<div *ngIf="selectedCircular" class="ml-4">
+  <h2>{{ selectedCircular.title}}</h2>
+  <p class="text-muted">{{selectedCircular.date}}</p>
+  <p>Author: {{selectedCircular.author}}</p>
+  <br>
+  <img src="{{selectedCircular.imgUrl}}" style="display: block; max-height: 300px; margin-left: auto; margin-right: auto;">
+  <p *ngFor="let paragraph of selectedCircular.paragraphs"> {{paragraph}}</p>
+</div>

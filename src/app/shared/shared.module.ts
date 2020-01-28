@@ -7,6 +7,7 @@ import { ExportAsModule } from 'ngx-export-as';
 import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 import { AuthService } from './auth/auth.service';
+import { CircularService } from './circular/circular.service';
 
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +24,12 @@ import { ExamGatePassListviewComponent } from './exam/exam-gate-pass/exam-gate-p
 import { ExamGatePassDashboardComponent } from './exam/exam-gate-pass/exam-gate-pass-dashboard/exam-gate-pass-dashboard.component';
 import { ExamSelectionComponent } from './exam/exam-selection/exam-selection.component';
 import { ExamTimeTableComponent } from './exam/exam-timetable/exam-timetable.component';
+import { ExamCreateComponent } from './exam/exam-create/exam-create.component';
 import { DateTimePickerComponent } from './date-time-picker/date-time-picker.component';
+import { CircularListviewComponent } from './circular/circular-listview/circular-listview.component';
+import { CircularDetailComponent } from './circular/circular-detail/circular-detail.component';
+import { CircularCreateComponent } from './circular/circular-create/circular-create.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +47,11 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
     ExamTimeTableComponent,
-    DateTimePickerComponent
+    ExamCreateComponent,
+    DateTimePickerComponent,
+    CircularListviewComponent,
+    CircularDetailComponent,
+    CircularCreateComponent
   ],
   imports: [
     FormsModule,
@@ -65,14 +75,19 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
     ExamGatePassDashboardComponent,
     ExamSelectionComponent,
     ExamTimeTableComponent,
+    ExamCreateComponent,
     NgxPrintModule,
     ExportAsModule,
     DlDateTimeDateModule,
     DlDateTimePickerModule,
-    DateTimePickerComponent
+    DateTimePickerComponent,
+    CircularListviewComponent,
+    CircularDetailComponent,
+    CircularCreateComponent
   ],
   providers: [
     AuthService,
+    CircularService,
     FormsModule
   ],
   entryComponents: [

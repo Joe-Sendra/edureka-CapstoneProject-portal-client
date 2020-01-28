@@ -234,12 +234,12 @@ export class StudentService {
 
 
   // Profile ************************************
-  updateStudent(_id, updateStudentInfo: Student): Promise<{isSuccess: boolean, message: string}> {
+  updateStudent(_id, updateUserInfo: Student): Promise<{isSuccess: boolean, message: string}> {
     return new Promise(resolve => {
       this.httpClient.patch<any>('http://localhost:3000/api/v1/users',
         {
           _id,
-          updateStudentInfo
+          updateUserInfo
         }
       )
         .subscribe(

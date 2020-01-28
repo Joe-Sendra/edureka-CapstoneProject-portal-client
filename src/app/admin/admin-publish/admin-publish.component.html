@@ -2,7 +2,7 @@
   <h3> Publish / Post </h3>
   <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
     <ngb-panel>
-      <ng-template ngbPanelHeader let-opened="opened">
+      <ng-template ngbPanelHeader>
           <button ngbPanelToggle class="btn"><h4>Notifications</h4></button>
       </ng-template>
       <ng-template ngbPanelContent>
@@ -22,7 +22,15 @@
           <button ngbPanelToggle class="btn"><h4>Circular</h4></button>
       </ng-template>
       <ng-template ngbPanelContent>
-        To do - circular component
+        <app-circular-create></app-circular-create>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelHeader>
+          <button ngbPanelToggle class="btn"><h4>Exam/Location</h4></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-exam-create></app-exam-create>
       </ng-template>
     </ngb-panel>
     <ngb-panel>
