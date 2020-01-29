@@ -2,7 +2,7 @@
   <h3> Student Management </h3>
   <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
     <ngb-panel>
-      <ng-template ngbPanelHeader let-opened="opened">
+      <ng-template ngbPanelHeader>
           <button ngbPanelToggle class="btn"><h4>All Students</h4></button>
       </ng-template>
       <ng-template ngbPanelContent>
@@ -17,7 +17,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let student of students">
+              <tr *ngFor="let student of studentsPage">
                 <td>
                   <button
                     class="btn btn-sm"
@@ -36,11 +36,20 @@
               </tr>
             </tbody>
           </table>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+              <option [ngValue]="10">10 items per page</option>
+              <option [ngValue]="20">20 items per page</option>
+              <option [ngValue]="100">100 items per page</option>
+            </select>
+          </div>
         </div>
       </ng-template>
     </ngb-panel>
     <ngb-panel>
-      <ng-template ngbPanelHeader let-opened="opened">
+      <ng-template ngbPanelHeader>
           <button ngbPanelToggle class="btn"><h4>Leave Requests</h4></button>
       </ng-template>
       <ng-template ngbPanelContent>

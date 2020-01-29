@@ -24,7 +24,7 @@ export class StudentService {
     }
   }[] = [];
 
-  private studentsSub = new BehaviorSubject<any>(this.students.slice());
+  private studentsSub = new BehaviorSubject<Student[]>(this.students.slice());
   private nonRegisteredStudentsSub = new BehaviorSubject<any>(this.nonRegisteredStudents.slice());
   private leavePendingSub = new BehaviorSubject<any>(this.studentLeavePending.slice());
 
@@ -45,7 +45,7 @@ export class StudentService {
 
 
   // Students *******************************
-  private getAllStudents() {
+  private getAllStudents(): (Student[] | any) {
     this.httpClient.get<{students: []}>
       ('http://localhost:3000/api/v1/students')
       .subscribe(
