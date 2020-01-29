@@ -8,7 +8,7 @@
         <th>Enroll</th>
       </tr>
     </thead>
-    <tbody *ngFor="let student of students">
+    <tbody *ngFor="let student of enrollPage">
         <tr>
           <td>{{ student.email }}</td>
           <td>{{ student.registrationNumber }}</td>
@@ -20,9 +20,15 @@
             <app-alert class="d-flex justify-content-center" [type]="'Small'" [isSuccess]="emailMessage.isSuccess" [message]="emailMessage.message"></app-alert>
           </td>
         </tr>
-
-
-
     </tbody>
   </table>
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="enrollTable.collectionSize" [(page)]="enrollTable.page" [pageSize]="enrollTable.pageSize">
+    </ngb-pagination>
+    <select class="custom-select" style="width: auto" [(ngModel)]="enrollTable.pageSize">
+      <option [ngValue]="10">10 items per page</option>
+      <option [ngValue]="20">20 items per page</option>
+      <option [ngValue]="100">100 items per page</option>
+    </select>
+  </div>
 </div>
