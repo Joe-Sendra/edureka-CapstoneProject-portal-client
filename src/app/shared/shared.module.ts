@@ -8,6 +8,7 @@ import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-
 
 import { AuthService } from './auth/auth.service';
 import { CircularService } from './circular/circular.service';
+import { AuthGuard } from './auth/auth.guard';
 
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +30,9 @@ import { DateTimePickerComponent } from './date-time-picker/date-time-picker.com
 import { CircularListviewComponent } from './circular/circular-listview/circular-listview.component';
 import { CircularDetailComponent } from './circular/circular-detail/circular-detail.component';
 import { CircularCreateComponent } from './circular/circular-create/circular-create.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 
 @NgModule({
@@ -51,7 +55,8 @@ import { CircularCreateComponent } from './circular/circular-create/circular-cre
     DateTimePickerComponent,
     CircularListviewComponent,
     CircularDetailComponent,
-    CircularCreateComponent
+    CircularCreateComponent,
+    PageNotFoundComponent
   ],
   imports: [
     FormsModule,
@@ -65,6 +70,7 @@ import { CircularCreateComponent } from './circular/circular-create/circular-cre
     DlDateTimePickerModule
   ],
   exports: [
+    FormsModule,
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
@@ -83,12 +89,19 @@ import { CircularCreateComponent } from './circular/circular-create/circular-cre
     DateTimePickerComponent,
     CircularListviewComponent,
     CircularDetailComponent,
-    CircularCreateComponent
+    CircularCreateComponent,
+    PageNotFoundComponent
   ],
   providers: [
     AuthService,
     CircularService,
-    FormsModule
+    FormsModule,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   entryComponents: [
     RegisterComponent,
