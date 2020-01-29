@@ -37,9 +37,9 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            <ngb-pagination [collectionSize]="studentsTable.collectionSize" [(page)]="studentsTable.page" [pageSize]="studentsTable.pageSize">
             </ngb-pagination>
-            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+            <select class="custom-select" style="width: auto" [(ngModel)]="studentsTable.pageSize">
               <option [ngValue]="10">10 items per page</option>
               <option [ngValue]="20">20 items per page</option>
               <option [ngValue]="100">100 items per page</option>
@@ -66,7 +66,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let request of leaveRequests">
+              <tr *ngFor="let request of leavesPage">
                   <td *ngIf="request"><button class="btn btn-success btn-sm" (click)="onLeaveReview(request, true)">Approve</button></td>
                   <td *ngIf="request"><button class="btn btn-danger btn-sm" (click)="onLeaveReview(request, false)">Deny</button></td>
                   <td *ngIf="request">{{ request.email }}</td>
@@ -76,6 +76,15 @@
                 </tr>
               </tbody>
           </table>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="leavesTable.collectionSize" [(page)]="leavesTable.page" [pageSize]="leavesTable.pageSize">
+            </ngb-pagination>
+            <select class="custom-select" style="width: auto" [(ngModel)]="leavesTable.pageSize">
+              <option [ngValue]="10">10 items per page</option>
+              <option [ngValue]="20">20 items per page</option>
+              <option [ngValue]="100">100 items per page</option>
+            </select>
+          </div>
         </div>
       </ng-template>
     </ngb-panel>

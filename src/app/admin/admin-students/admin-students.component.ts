@@ -15,23 +15,39 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
   leaveSub: Subscription;
   students: Student[] = [];
   leaveRequests = [];
-  test = [];
-  page = 1;
-  pageSize = 10;
-  collectionSize = 0;
+
+  studentsTable = {
+    page: 1,
+    pageSize: 10,
+    collectionSize: 0
+  };
+
+  leavesTable = {
+    page: 1,
+    pageSize: 10,
+    collectionSize: 0
+  };
 
   constructor(private studentService: StudentService) {}
 
   get studentsPage(): Student[] {
     return this.students
       .map((student, i) => ({id: i + 1, ...student}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      .slice((this.studentsTable.page - 1) * this.studentsTable.pageSize,
+        (this.studentsTable.page - 1) * this.studentsTable.pageSize + this.studentsTable.pageSize);
+  }
+
+  get leavesPage() {
+    return this.leaveRequests
+      .map((leave, i) => ({id: i + 1, ...leave}))
+      .slice((this.leavesTable.page - 1) * this.leavesTable.pageSize,
+        (this.leavesTable.page - 1) * this.leavesTable.pageSize + this.leavesTable.pageSize);
   }
 
   ngOnInit() {
     this.studentsSub = this.studentService.getStudents().subscribe(students => {
       this.students = students;
-      this.collectionSize = this.students.length;
+      this.studentsTable.collectionSize = this.students.length;
     });
     this.leaveSub = this.studentService.getLeavePending().subscribe(pendingLeaveRequests => {
       if (pendingLeaveRequests.length > 0) {
@@ -39,6 +55,7 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
       } else {
         this.leaveRequests = [];
       }
+      this.leavesTable.collectionSize = this.leaveRequests.length;
     });
   }
 
