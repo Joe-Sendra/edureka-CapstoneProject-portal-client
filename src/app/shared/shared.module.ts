@@ -9,6 +9,7 @@ import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-
 import { AuthService } from './auth/auth.service';
 import { CircularService } from './circular/circular.service';
 import { AuthGuard } from './auth/auth.guard';
+import { NgbdSortableHeader } from './directives/sortable.directive';
 
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
@@ -56,7 +57,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
     CircularListviewComponent,
     CircularDetailComponent,
     CircularCreateComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NgbdSortableHeader
   ],
   imports: [
     FormsModule,
@@ -90,7 +92,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
     CircularListviewComponent,
     CircularDetailComponent,
     CircularCreateComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NgbdSortableHeader
   ],
   providers: [
     AuthService,

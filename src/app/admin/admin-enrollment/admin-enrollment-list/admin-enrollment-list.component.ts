@@ -19,13 +19,26 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
     pageSize: 10,
     collectionSize: 0
   };
+  searchTerm = '';
+
   constructor(private studentService: StudentService, private router: Router) {}
 
   get enrollPage() {
-    return this.students
+    if (this.searchTerm === '') {
+      return this.students
       .map((student, i) => ({id: i + 1, ...student}))
       .slice((this.enrollTable.page - 1) * this.enrollTable.pageSize,
-        (this.enrollTable.page - 1) * this.enrollTable.pageSize + this.enrollTable.pageSize);
+      (this.enrollTable.page - 1) * this.enrollTable.pageSize + this.enrollTable.pageSize);
+    } else {
+      const filteredStudents = this.students.filter(student => {
+        return student.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+        || student.registrationNumber.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });
+      return filteredStudents
+      .map((student, i) => ({id: i + 1, ...student}))
+      .slice((this.enrollTable.page - 1) * this.enrollTable.pageSize,
+      (this.enrollTable.page - 1) * this.enrollTable.pageSize + this.enrollTable.pageSize);
+    }
   }
 
   ngOnInit() {

@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy, OnChanges, ViewChildren, QueryList } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 
 import { StudentService } from 'src/app/student/student.service';
-import { Student, LeaveRequest } from 'src/app/student/student.model';
+import { Student } from 'src/app/student/student.model';
+import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/sortable.directive';
 
 @Component({
   selector: 'app-admin-students',
@@ -11,16 +12,21 @@ import { Student, LeaveRequest } from 'src/app/student/student.model';
 })
 export class AdminStudentsComponent implements OnInit, OnDestroy {
 
-  studentsSub: Subscription;
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+
+  students$: Observable<Student[]>;
+  total$: Observable<number>;
+
+  // studentsSub: Subscription;
+  // students: Student[] = [];
   leaveSub: Subscription;
-  students: Student[] = [];
   leaveRequests = [];
 
-  studentsTable = {
-    page: 1,
-    pageSize: 10,
-    collectionSize: 0
-  };
+  // studentsTable = {
+  //   page: 1,
+  //   pageSize: 10,
+  //   collectionSize: 0
+  // };
 
   leavesTable = {
     page: 1,
@@ -28,14 +34,30 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
     collectionSize: 0
   };
 
-  constructor(private studentService: StudentService) {}
-
-  get studentsPage(): Student[] {
-    return this.students
-      .map((student, i) => ({id: i + 1, ...student}))
-      .slice((this.studentsTable.page - 1) * this.studentsTable.pageSize,
-        (this.studentsTable.page - 1) * this.studentsTable.pageSize + this.studentsTable.pageSize);
+  constructor(public studentService: StudentService) {
+    this.students$ = studentService.students$;
+    this.total$ = studentService.total$;
   }
+
+  onSort({column, direction}: SortEvent) {
+    console.log({column, direction});
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+
+    this.studentService.sortColumn = column;
+    this.studentService.sortDirection = direction;
+  }
+
+  // get studentsPage(): Student[] {
+  //   return this.students
+  //     .map((student, i) => ({id: i + 1, ...student}))
+  //     .slice((this.studentsTable.page - 1) * this.studentsTable.pageSize,
+  //       (this.studentsTable.page - 1) * this.studentsTable.pageSize + this.studentsTable.pageSize);
+  // }
 
   get leavesPage() {
     return this.leaveRequests
@@ -45,10 +67,10 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.studentsSub = this.studentService.getStudents().subscribe(students => {
-      this.students = students;
-      this.studentsTable.collectionSize = this.students.length;
-    });
+    // this.studentsSub = this.studentService.getStudents().subscribe(students => {
+    //   this.students = students;
+    //   this.studentsTable.collectionSize = this.students.length;
+    // });
     this.leaveSub = this.studentService.getLeavePending().subscribe(pendingLeaveRequests => {
       if (pendingLeaveRequests.length > 0) {
         this.leaveRequests = pendingLeaveRequests;
@@ -68,7 +90,7 @@ export class AdminStudentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.studentsSub.unsubscribe();
+    // this.studentsSub.unsubscribe();
     this.leaveSub.unsubscribe();
   }
 }

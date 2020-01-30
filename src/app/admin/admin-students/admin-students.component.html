@@ -6,46 +6,54 @@
           <button ngbPanelToggle class="btn"><h4>All Students</h4></button>
       </ng-template>
       <ng-template ngbPanelContent>
-        <div class="table-responsive"> <!-- TODO add search and filter -->
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>Block</th>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let student of studentsPage">
-                <td>
-                  <button
-                    class="btn btn-sm"
-                    [ngClass]="{
-                      'btn-success': student.isLockedOut,
-                      'btn-danger': !student.isLockedOut
-                    }"
-                    (click)="onBlockStudent(student)">
-                    <span *ngIf="student.isLockedOut">Unblock</span>
-                    <span *ngIf="!student.isLockedOut">Block</span>
-                  </button>
-                </td>
-                <td>{{ student.email }}</td>
-                <td><span *ngIf="student.name">{{ student.name.first }}</span></td>
-                <td><span *ngIf="student.name">{{ student.name.last }}</span></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="studentsTable.collectionSize" [(page)]="studentsTable.page" [pageSize]="studentsTable.pageSize">
-            </ngb-pagination>
-            <select class="custom-select" style="width: auto" [(ngModel)]="studentsTable.pageSize">
-              <option [ngValue]="10">10 items per page</option>
-              <option [ngValue]="20">20 items per page</option>
-              <option [ngValue]="100">100 items per page</option>
-            </select>
+
+        <form>
+          <div class="form-group form-inline">
+            Search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="studentService.searchTerm"/>
+            <span class="ml-3" *ngIf="studentService.loading$ | async">Loading...</span>
           </div>
-        </div>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Block</th>
+                  <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+                  <th scope="col" sortable="name.first" (sort)="onSort($event)">First Name</th>
+                  <th scope="col" sortable="name.last" (sort)="onSort($event)">Last Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let student of students$ | async">
+                  <td>
+                    <button
+                      class="btn btn-sm"
+                      [ngClass]="{
+                        'btn-success': student.isLockedOut,
+                        'btn-danger': !student.isLockedOut
+                      }"
+                      (click)="onBlockStudent(student)">
+                      <span *ngIf="student.isLockedOut">Unblock</span>
+                      <span *ngIf="!student.isLockedOut">Block</span>
+                    </button>
+                  </td>
+                  <td>{{ student.email }}</td>
+                  <td><span *ngIf="student.name">{{ student.name.first }}</span></td>
+                  <td><span *ngIf="student.name">{{ student.name.last }}</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="total$ | async" [(page)]="studentService.page" [pageSize]="studentService.pageSize">
+              </ngb-pagination>
+              <select class="custom-select" name="pageSize" style="width: auto" [(ngModel)]="studentService.pageSize">
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="20">20 items per page</option>
+                <option [ngValue]="100">100 items per page</option>
+              </select>
+            </div>
+          </div>
+        </form>
       </ng-template>
     </ngb-panel>
     <ngb-panel>
