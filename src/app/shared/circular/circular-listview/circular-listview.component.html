@@ -9,8 +9,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let circular of circulars">
-        <td><a href="/circular/{{circular._id}}">{{circular.date}}</a></td>
-        <td><a href="/circular/{{circular._id}}">{{circular.title}}</a></td>
+        <td><a [routerLink]="['/circular', circular._id]">{{circular.date}}</a></td>
+        <td><a [routerLink]="['/circular', circular._id]">{{circular.title}}</a></td>
         <td>{{circular.author}}</td>
       </tr>
     </tbody>
