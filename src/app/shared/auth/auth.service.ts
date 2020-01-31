@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
   authenticateUser(user: {email: string, password: string}, returnUrl): Promise<boolean | {error: string}> {
     return new Promise(resolve => {
       this.httpClient.post<{_id: string, token: string, role: string}>
-        ('http://localhost:3000/api/v1/auth/login', user).subscribe(res => {
+        (`${environment.apiUrl}/auth/login`, user).subscribe(res => {
 
         const token = res.token;
         const role = res.role;

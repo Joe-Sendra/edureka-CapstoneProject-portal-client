@@ -12,15 +12,12 @@ import { AdminUsersEditComponent } from './admin-users/admin-users-edit/admin-us
 import { AdminEnrollmentListComponent } from './admin-enrollment/admin-enrollment-list/admin-enrollment-list.component';
 import { AdminExamsComponent } from './admin-exams/admin-exams.component';
 
-import { AdminDevComponent } from './admin-dev/admin-dev.component'; // TODO remove - For development purposes only
-import { AdminDevService } from './admin-dev/admin-dev.service'; // TODO remove - For development purposes only
 
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     AdminProfileComponent,
-    AdminDevComponent,
     AdminStudentsComponent,
     AdminPublishComponent,
     AdminEnrollmentComponent,
@@ -42,9 +39,7 @@ import { SharedModule } from '../shared/shared.module';
     AdminEnrollmentComponent,
     AdminSiteComponent
   ],
-  providers: [
-    AdminDevService
-  ],
+  providers: [],
   exports: []
 })
 export class AdminModule { }

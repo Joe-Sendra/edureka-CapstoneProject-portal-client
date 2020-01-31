@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Circular } from './circular.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class CircularService {
   private getCirculars() {
     return new Promise(resolve => {
       this.httpClient.get<Circular[]>
-      ('http://localhost:3000/api/v1/circulars/')
+      (`${environment.apiUrl}/circulars/`)
         .subscribe(circularData => {
           this.circulars = circularData;
           this.circularsSub.next(this.circulars.slice());
@@ -43,7 +44,7 @@ export class CircularService {
   getCircular(circularID) {
     return new Promise<Circular>(resolve => {
       this.httpClient.get<Circular>
-      (`http://localhost:3000/api/v1/circulars/${circularID}`)
+      (`${environment.apiUrl}/circulars/${circularID}`)
         .subscribe(circular => {
           resolve(circular);
         },
@@ -57,7 +58,7 @@ export class CircularService {
   addCircular(circular) {
     return new Promise<boolean>(resolve => {
       this.httpClient.post<{string, Circular}>
-      (`http://localhost:3000/api/v1/circulars/`, {circular})
+      (`${environment.apiUrl}/circulars/`, {circular})
         .subscribe(postResponseData => {
           console.log(postResponseData);
           this.getCirculars();

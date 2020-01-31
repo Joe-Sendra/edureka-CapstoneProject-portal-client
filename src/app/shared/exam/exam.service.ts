@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Exam } from './exam.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class ExamService {
   addExam(exam) {
     return new Promise(resolve => {
       this.httpClient.post<{ message: string}>
-      ('http://localhost:3000/api/v1/exams', exam)
+      (`${environment.apiUrl}/exams`, exam)
         .subscribe(responseData => {
           this.getExamData();
           resolve(true);
@@ -57,7 +58,7 @@ export class ExamService {
 
   getExam(examId) {
     return new Promise<Exam>(resolve => {
-      this.httpClient.get<Exam>(`http://localhost:3000/api/v1/exams/${examId}`)
+      this.httpClient.get<Exam>(`${environment.apiUrl}/exams/${examId}`)
       .subscribe(exam => {
         resolve(exam);
       },
@@ -70,7 +71,7 @@ export class ExamService {
   addExamShift(examID, examDate, examTime) {
     return new Promise(resolve => {
       this.httpClient.post<{ message: string}>
-      (`http://localhost:3000/api/v1/exams/${examID}`, {
+      (`${environment.apiUrl}/exams/${examID}`, {
         examShift: {
           examDate,
           examTime
@@ -90,7 +91,7 @@ export class ExamService {
   deleteExamShift(examID, shiftID) {
     return new Promise(resolve => {
       this.httpClient.delete<{ message: string}>
-      (`http://localhost:3000/api/v1/exams/${examID}/shifts/${shiftID}`)
+      (`${environment.apiUrl}/exams/${examID}/shifts/${shiftID}`)
         .subscribe(responseData => {
           this.getExamData();
           resolve(true);
@@ -105,7 +106,7 @@ export class ExamService {
   updateExamShift(examID, shiftID, newExamShift) {
     return new Promise(resolve => {
       this.httpClient.patch<{ message: string}>
-      (`http://localhost:3000/api/v1/exams/${examID}/shifts/${shiftID}`,
+      (`${environment.apiUrl}/exams/${examID}/shifts/${shiftID}`,
       {
         examShift: {
           examDate: newExamShift.date,
@@ -126,7 +127,7 @@ export class ExamService {
   addGatePass(examId, shiftId, studentId) {
     return new Promise(resolve => {
       this.httpClient.post<{ message: string}>
-      (`http://localhost:3000/api/v1/exams/${examId}/shifts/${shiftId}`, {
+      (`${environment.apiUrl}/exams/${examId}/shifts/${shiftId}`, {
         studentID: studentId
       })
         .subscribe(responseData => {
@@ -145,7 +146,7 @@ export class ExamService {
     return new Promise(resolve => {
       // TODO add authorization header
       this.httpClient.delete<{ message: string}>
-      (`http://localhost:3000/api/v1/exams/${examId}/shifts/${shiftId}/gp/${gpId}`)
+      (`${environment.apiUrl}/exams/${examId}/shifts/${shiftId}/gp/${gpId}`)
         .subscribe(responseData => {
           this.getStudentsWithGatePass(examId, shiftId);
           this.getStudentsWithoutGatePass(examId, shiftId);
@@ -158,17 +159,15 @@ export class ExamService {
     });
   }
 
-  // TODO can getStudentsWithGatePass and getStudentsWithoutGatePass be refactored into 1 function by adding a parameter?
   private getStudentsWithGatePass(examId, shiftId) {
     if (examId) {
       return new Promise(resolve => {
         this.httpClient.get<{gatePassList: any[]}>
-        // ('http://localhost:3000/api/v1/exams/gp/' + examId)
-        (`http://localhost:3000/api/v1/exams/${examId}/shifts/${shiftId}/gp`)
+        (`${environment.apiUrl}/exams/${examId}/shifts/${shiftId}/gp`)
           .subscribe(gatePassData => {
 
             this.httpClient.get<any>
-            (`http://localhost:3000/api/v1/students`)
+            (`${environment.apiUrl}/students`)
             .subscribe(
               students => {
                 const studentsWithGatepass = students.students.filter(student => {
@@ -206,10 +205,10 @@ export class ExamService {
     if (examId && shiftId) {
       return new Promise(resolve => {
         this.httpClient.get<{gatePassList: any[]}>
-        (`http://localhost:3000/api/v1/exams/${examId}/shifts/${shiftId}/gp`)
+        (`${environment.apiUrl}/exams/${examId}/shifts/${shiftId}/gp`)
           .subscribe(gatePassData => {
             this.httpClient.get<any>
-            (`http://localhost:3000/api/v1/students`)
+            (`${environment.apiUrl}/students`)
             .subscribe(
               students => {
                 const studentsWithoutGatepass = students.students.filter(student => {
@@ -236,7 +235,7 @@ export class ExamService {
   private getExamData() {
     return new Promise(resolve => {
       this.httpClient.get<Exam[]>
-      ('http://localhost:3000/api/v1/exams/')
+      (`${environment.apiUrl}/exams/`)
         .subscribe(examData => {
           this.exams = examData;
           this.examsSub.next(this.exams.slice());

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class PasswordService {
   sendResetEmail(email) {
     return new Promise(resolve => {
       this.httpClient.post<{message: string}>
-      ('http://localhost:3000/api/v1/users/reset-password', {email})
+      (`${environment.apiUrl}/users/reset-password`, {email})
       .subscribe(
         response => {
           resolve(true);
@@ -27,7 +28,7 @@ export class PasswordService {
   resetPassword(email, token, newPassword) {
     return new Promise(resolve => {
       this.httpClient.post<{message: string}>
-      ('http://localhost:3000/api/v1/auth/reset', {email, token, newPassword})
+      (`${environment.apiUrl}/auth/reset`, {email, token, newPassword})
       .subscribe(
         response => {
           resolve(true);
@@ -44,7 +45,7 @@ export class PasswordService {
     return new Promise(resolve => {
       // /api/v1/auth/change
       this.httpClient.post<{message: string}>
-      ('http://localhost:3000/api/v1/auth/change', {email, oldPassword, newPassword})
+      (`${environment.apiUrl}/auth/change`, {email, oldPassword, newPassword})
       .subscribe(
         response => {
           resolve(true);
