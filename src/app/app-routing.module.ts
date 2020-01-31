@@ -4,11 +4,13 @@ import { HomeComponent } from './shared/home/home.component';
 import { CircularListviewComponent } from './shared/circular/circular-listview/circular-listview.component';
 import { CircularDetailComponent } from './shared/circular/circular-detail/circular-detail.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { NotificationResolverService } from './shared/notification/notification-resolver.service';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    resolve: { notifications: NotificationResolverService }
   },
   {
     path: 'circular',

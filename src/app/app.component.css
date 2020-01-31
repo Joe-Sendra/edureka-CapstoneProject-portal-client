@@ -1,0 +1,10 @@
+.loading-spinner {
+  position: absolute;
+  z-index: 100;
+  width: 10rem;
+  height: 10rem;
+  top: 25%;
+  left: 50%;
+  margin-left: -5rem;
+  margin-top: -5rem;
+}

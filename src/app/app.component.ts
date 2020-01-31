@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+import { NotificationResolverService } from './shared/notification/notification-resolver.service';
 
 import { LoginComponent } from './shared/login/login.component';
 import { AuthService } from './shared/auth/auth.service';
@@ -33,11 +35,17 @@ export class AppComponent implements OnInit, OnDestroy {
   loggedInRole = '';
   loggedInUser = null;
   authSub: Subscription;
+  loading = true;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private navbarService: AppNavbarService) {
+
+    router.events.subscribe((routerEvent: RouterEvent) => {
+      this.checkRouterEvent(routerEvent);
+    });
+
     // TODO add auth guards, maybe move this to a service/config file
     this.router.config.unshift(
       { path: 'login', component: LoginComponent },
@@ -47,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
         { path: '', redirectTo: '/admin/students', pathMatch: 'full'},
         { path: 'profile', component: AdminProfileComponent},
         { path: 'students', component: AdminStudentsComponent},
-        { path: 'publish', component: AdminPublishComponent},
+        { path: 'publish', component: AdminPublishComponent, resolve: { notifications: NotificationResolverService }},
         { path: 'publish/:id', component: AdminPublishComponent},
         { path: 'enroll', component: AdminEnrollmentComponent},
         { path: 'register', component: RegisterComponent },
@@ -82,6 +90,18 @@ export class AppComponent implements OnInit, OnDestroy {
       this.loggedInRole = status.role;
       this.loggedInUser = status.user;
     });
+  }
+
+  checkRouterEvent(routerEvent: RouterEvent): void {
+    if (routerEvent instanceof NavigationStart) {
+      this.loading = true;
+    }
+
+    if (routerEvent instanceof NavigationEnd ||
+        routerEvent instanceof NavigationCancel ||
+        routerEvent instanceof NavigationEnd) {
+          this.loading = false;
+        }
   }
 
   ngOnDestroy() {
