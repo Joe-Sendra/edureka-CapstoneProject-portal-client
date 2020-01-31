@@ -45,11 +45,6 @@ export class AdminUsersEditComponent implements OnInit {
       class: [null]
     };
 
-    // if (this.editMode) {
-    //   newUser.email = 'fakeData'; // TODO get userEmail from service/DB/params, etc...
-    //   // TODO get all Admin fields
-    // }
-
     this.userForm = new FormGroup({
       email: new FormControl(newUser.email, [Validators.required, Validators.email]),
       password: new FormControl(newUser.password, [Validators.required, Validators.minLength(8)]),

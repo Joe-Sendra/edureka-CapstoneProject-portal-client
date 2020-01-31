@@ -1,6 +1,6 @@
 // TODO add password
 export class Admin {
-  email: string; // TODO determine if this will be the unique id
+  email: string;
   name: {
     first: string;
     last: string;

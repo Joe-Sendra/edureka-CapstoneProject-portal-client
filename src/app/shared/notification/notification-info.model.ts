@@ -1,5 +1,5 @@
 export class NotificationInfo {
-  id: string;
+  _id?: string;
   type: string;
   header: string;
   title: string;

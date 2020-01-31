@@ -11,7 +11,7 @@ import { NotificationService } from '../notification.service';
 })
 export class NotificationListComponent implements OnInit, OnDestroy {
   notifications: NotificationInfo[];
-  notificationsSub: Subscription;
+  notifications$: Subscription;
 
   @Input() showEditButton = false;
   @Input() showDeleteButton = false;
@@ -20,7 +20,7 @@ export class NotificationListComponent implements OnInit, OnDestroy {
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit() {
-    this.notificationsSub = this.notificationService.notificationSub
+    this.notifications$ = this.notificationService.notifications$
       .subscribe(notifications => {
         this.notifications = notifications;
       });
@@ -31,11 +31,11 @@ export class NotificationListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(notification: NotificationInfo) {
-    this.notificationService.deleteNotification(notification.id);
+    this.notificationService.deleteNotification(notification._id);
   }
 
   ngOnDestroy() {
-    this.notificationsSub.unsubscribe();
+    this.notifications$.unsubscribe();
   }
 
 }
