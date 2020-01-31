@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Student, LeaveRequest } from './student.model';
 import { SortDirection } from '../shared/directives/sortable.directive';
+import { environment } from 'src/environments/environment';
 
 interface SearchResult {
   students: Student[];
@@ -157,7 +158,7 @@ export class StudentService {
   // Students *******************************
   private getAllStudents(): (Student[] | any) {
     this.httpClient.get<{students: []}>
-      ('http://localhost:3000/api/v1/students')
+      (`${environment.apiUrl}/students`)
       .subscribe(
         students => {
           this.students = students.students;
@@ -170,7 +171,7 @@ export class StudentService {
   getStudent(_id: string): Promise< Student> {
     return new Promise(resolve => {
       this.httpClient.get<Student>
-        ('http://localhost:3000/api/v1/students/' + _id)
+        (`${environment.apiUrl}/students/${_id}`)
         .subscribe(
           student => {
             resolve(student);
@@ -202,7 +203,7 @@ export class StudentService {
 
   // Block **************************************
   blockStudentToggle(_id, isLockedOut) {
-    this.httpClient.patch<any>('http://localhost:3000/api/v1/users', {
+    this.httpClient.patch<any>(`${environment.apiUrl}/users`, {
         _id,
         updateStudentInfo: {
           isLockedOut
@@ -241,7 +242,7 @@ export class StudentService {
             endDate: string
         }
       }]>
-      (`http://localhost:3000/api/v1/leaves/pending`)
+      (`${environment.apiUrl}/leaves/pending`)
         .subscribe(leaveRequestData => {
           this.studentLeavePending = leaveRequestData;
           this.leavePendingSub.next(this.studentLeavePending.slice());
@@ -257,7 +258,7 @@ export class StudentService {
   addLeave(leaveRequest: LeaveRequest, studentID) {
     return new Promise(resolve => {
       this.httpClient.post<{ message: string, id: string}>
-      (`http://localhost:3000/api/v1/students/${studentID}/leave`, {
+      (`${environment.apiUrl}/students/${studentID}/leave`, {
         requestDate: leaveRequest.requestDate,
         status: leaveRequest.status,
         startDate: leaveRequest.startDate,
@@ -280,7 +281,7 @@ export class StudentService {
       const newStatus = isApproved ? 'approved' : 'denied';
 
       this.httpClient.patch<{ message: string}>
-      (`http://localhost:3000/api/v1/students/${studentID}/leave/${leaveId}`, {status: newStatus})
+      (`${environment.apiUrl}/students/${studentID}/leave/${leaveId}`, {status: newStatus})
         .subscribe(responseData => {
           this.updateSubs();
           resolve(true);
@@ -296,7 +297,7 @@ export class StudentService {
     return new Promise<LeaveRequest[]>(resolve => {
 
       this.httpClient.get<LeaveRequest[]>
-      (`http://localhost:3000/api/v1/students/${studentID}/leave`)
+      (`${environment.apiUrl}/students/${studentID}/leave`)
         .subscribe(studentLeaveData => {
           resolve(studentLeaveData);
         },
@@ -313,7 +314,7 @@ export class StudentService {
     return new Promise<LeaveRequest[]>(resolve => {
 
       this.httpClient.get<LeaveRequest[]>
-      (`http://localhost:3000/api/v1/students/${studentID}/gp`)
+      (`${environment.apiUrl}/students/${studentID}/gp`)
         .subscribe(studentGatePassData => {
           resolve(studentGatePassData);
         },
@@ -327,7 +328,7 @@ export class StudentService {
   // Registration *******************************
   private getNonRegisteredStudents() {
     this.httpClient.get<[{_id: any, email: string}]>
-    ('http://localhost:3000/api/v1/users/enroll').pipe(
+    (`${environment.apiUrl}/users/enroll`).pipe(
       map((enrollUserData) => {
         return enrollUserData.map((user) => {
           return { email: user.email, registrationNumber: user._id };
@@ -346,7 +347,7 @@ export class StudentService {
   // Profile ************************************
   updateStudent(_id, updateUserInfo: Student): Promise<{isSuccess: boolean, message: string}> {
     return new Promise(resolve => {
-      this.httpClient.patch<any>('http://localhost:3000/api/v1/users',
+      this.httpClient.patch<any>(`${environment.apiUrl}/users`,
         {
           _id,
           updateUserInfo
@@ -373,7 +374,7 @@ export class StudentService {
   sendEmails(students: {email: string, registrationNumber: string}[]): Promise<boolean | {error: string}> {
     return new Promise(resolve => {
       this.httpClient.post<any>
-      ('http://localhost:3000/api/v1/users/enroll/register/email', {students})
+      (`${environment.apiUrl}/users/enroll/register/email`, {students})
         .subscribe(responseData => {
           resolve(true);
         },
@@ -390,7 +391,7 @@ export class StudentService {
 
     return new Promise(resolve => {
       this.httpClient.post<{ message: string, id: string}>
-      ('http://localhost:3000/api/v1/users/enroll', {email: studentEmail})
+      (`${environment.apiUrl}/users/enroll`, {email: studentEmail})
         .subscribe(responseData => {
           if (responseData.id) {
             this.getNonRegisteredStudents();
@@ -422,7 +423,7 @@ export class StudentService {
 
     return new Promise(resolve => {
       this.httpClient.post<any>
-      ('http://localhost:3000/api/v1/users/enroll/register', {studentEnroll})
+      (`${environment.apiUrl}/users/enroll/register`, {studentEnroll})
         .subscribe(responseData => {
           if (responseData.data.id) {
             this.updateSubs();
