@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { NotificationInfo } from './notification-info.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -79,20 +79,8 @@ export class NotificationService {
     });
   }
 
-  getNotifications() {
-    return new Promise(resolve => {
-      this.httpClient.get<NotificationInfo[]>
-      (`${environment.apiUrl}/notifications/`)
-        .subscribe(notificationData => {
-          this.notifications = notificationData;
-          this.notifications$.next(this.notifications.slice());
-          resolve(true);
-        },
-        (error => {
-          resolve(false);
-        })
-      );
-    });
+  public getNotifications(): Observable<NotificationInfo[]> {
+    return this.httpClient.get<NotificationInfo[]>(`${environment.apiUrl}/notifications/`);
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { NotificationInfo } from '../notification-info.model';
 import { NotificationService } from '../notification.service';
@@ -9,21 +9,19 @@ import { NotificationService } from '../notification.service';
   templateUrl: './notification-list.component.html',
   styleUrls: ['./notification-list.component.css']
 })
-export class NotificationListComponent implements OnInit, OnDestroy {
+export class NotificationListComponent implements OnInit {
   notifications: NotificationInfo[];
-  notifications$: Subscription;
 
   @Input() showEditButton = false;
   @Input() showDeleteButton = false;
   @Output() editedNotification = new EventEmitter<NotificationInfo>();
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notificationService: NotificationService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.notifications$ = this.notificationService.notifications$
-      .subscribe(notifications => {
-        this.notifications = notifications;
-      });
+    this.activatedRoute.data.subscribe((data: {notifications: NotificationInfo[]}) => {
+      this.notifications = data.notifications;
+    });
   }
 
   onEdit(notification: NotificationInfo) {
@@ -32,10 +30,6 @@ export class NotificationListComponent implements OnInit, OnDestroy {
 
   onDelete(notification: NotificationInfo) {
     this.notificationService.deleteNotification(notification._id);
-  }
-
-  ngOnDestroy() {
-    this.notifications$.unsubscribe();
   }
 
 }
