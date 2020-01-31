@@ -1,14 +1,71 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Subject, Observable, of } from 'rxjs';
+import { map, tap, debounceTime, switchMap, delay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 import { Student, LeaveRequest } from './student.model';
+import { SortDirection } from '../shared/directives/sortable.directive';
+
+interface SearchResult {
+  students: Student[];
+  total: number;
+}
+
+interface State {
+  page: number;
+  pageSize: number;
+  searchTerm: string;
+  sortColumn: string;
+  sortDirection: SortDirection;
+}
+
+function compare(v1, v2) {
+  return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+}
+
+function sort(students: Student[], column: string, direction: string): Student[] {
+  if (direction === '') {
+    return students;
+  } else {
+    return [...students].sort((a, b) => {
+      const prop = column.split('.');
+      let i = 0;
+      while ( i < prop.length) {
+        a = a[prop[i]];
+        b = b[prop[i]];
+        i++;
+      }
+      const res = compare(a, b);
+      return direction === 'asc' ? res : -res;
+    });
+  }
+}
+
+function matches(student: Student, term: string) {
+  return student.name.first.toLowerCase().includes(term.toLowerCase())
+    || student.name.last.toLowerCase().includes(term.toLowerCase())
+    || student.email.toLowerCase().includes(term.toLowerCase());
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
+
+  private _loading$ = new BehaviorSubject<boolean>(true);
+  private _search$ = new Subject<void>();
+  private _students$ = new BehaviorSubject<Student[]>([]);
+  private _total$ = new BehaviorSubject<number>(0);
+
+  private _state: State = {
+    page: 1,
+    pageSize: 10,
+    searchTerm: '',
+    sortColumn: '',
+    sortDirection: ''
+  };
+
 
   students: Student[] = [];
   nonRegisteredStudents: { email: string, registrationNumber: string }[] = [];
@@ -24,13 +81,66 @@ export class StudentService {
     }
   }[] = [];
 
-  private studentsSub = new BehaviorSubject<any>(this.students.slice());
+  private studentsSub = new BehaviorSubject<Student[]>(this.students.slice());
   private nonRegisteredStudentsSub = new BehaviorSubject<any>(this.nonRegisteredStudents.slice());
   private leavePendingSub = new BehaviorSubject<any>(this.studentLeavePending.slice());
 
   constructor(private httpClient: HttpClient) {
+
+    this._search$.pipe(
+      tap(() => this._loading$.next(true)),
+      debounceTime(200),
+      switchMap(() => this._search()),
+      delay(200),
+      tap(() => this._loading$.next(false))
+    ).subscribe(result => {
+      this._students$.next(result.students);
+      this._total$.next(result.total);
+    });
+    this._search$.next();
+
     this.loadInitialData();
   }
+
+  // Getters only
+  get students$() { return this._students$.asObservable(); }
+  get total$() { return this._total$.asObservable(); }
+  get loading$() { return this._loading$.asObservable(); }
+
+  // Setters only
+  set sortColumn(sortColumn: string) { this._set({sortColumn}); }
+  set sortDirection(sortDirection: SortDirection) { this._set({sortDirection}); }
+
+  // Getter and Setter pairs
+  get pageSize() { return this._state.pageSize; }
+  set pageSize(pageSize: number) { this._set({pageSize}); }
+
+  get page() { return this._state.page; }
+  set page(page: number) { this._set({page}); }
+
+  get searchTerm() { return this._state.searchTerm; }
+  set searchTerm(searchTerm: string) { this._set({searchTerm}); }
+
+  private _set(patch: Partial<State>) {
+    Object.assign(this._state, patch);
+    this._search$.next();
+  }
+
+  private _search(): Observable<SearchResult> {
+    const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
+
+    // 1. sort
+    let students = sort(this.students, sortColumn, sortDirection);
+
+    // 2. filter
+    students = students.filter(student => matches(student, searchTerm));
+    const total = students.length;
+
+    // 3. paginate
+    students = students.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+    return of({students, total});
+  }
+
 
   private loadInitialData() {
     // All Students
@@ -45,7 +155,7 @@ export class StudentService {
 
 
   // Students *******************************
-  private getAllStudents() {
+  private getAllStudents(): (Student[] | any) {
     this.httpClient.get<{students: []}>
       ('http://localhost:3000/api/v1/students')
       .subscribe(

@@ -14,12 +14,37 @@ export class AdminEnrollmentListComponent implements OnInit, OnDestroy {
   students: {email: string, registrationNumber: string}[];
   nonRegisteredSub: Subscription;
   emailMessage: {isSuccess: boolean, message: string, studentIndex: number} = { isSuccess: null, message: null, studentIndex: null};
+  enrollTable = {
+    page: 1,
+    pageSize: 10,
+    collectionSize: 0
+  };
+  searchTerm = '';
 
   constructor(private studentService: StudentService, private router: Router) {}
+
+  get enrollPage() {
+    if (this.searchTerm === '') {
+      return this.students
+      .map((student, i) => ({id: i + 1, ...student}))
+      .slice((this.enrollTable.page - 1) * this.enrollTable.pageSize,
+      (this.enrollTable.page - 1) * this.enrollTable.pageSize + this.enrollTable.pageSize);
+    } else {
+      const filteredStudents = this.students.filter(student => {
+        return student.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+        || student.registrationNumber.toLowerCase().includes(this.searchTerm.toLowerCase());
+      });
+      return filteredStudents
+      .map((student, i) => ({id: i + 1, ...student}))
+      .slice((this.enrollTable.page - 1) * this.enrollTable.pageSize,
+      (this.enrollTable.page - 1) * this.enrollTable.pageSize + this.enrollTable.pageSize);
+    }
+  }
 
   ngOnInit() {
     this.nonRegisteredSub = this.studentService.getNonRegistered().subscribe(students => {
       this.students = students;
+      this.enrollTable.collectionSize = this.students.length;
     });
   }
 

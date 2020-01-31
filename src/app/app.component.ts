@@ -17,8 +17,7 @@ import { RegisterComponent } from './shared/register/register.component';
 import { ResetPasswordComponent } from './shared/password/reset-password/reset-password.component';
 import { ResetPasswordResponseComponent } from './shared/password/reset-password/reset-password-response/reset-password-response.component';
 import { ChangePasswordComponent } from './shared/password/change-password/change-password.component';
-import { CircularListviewComponent } from './shared/circular/circular-listview/circular-listview.component';
-import { CircularDetailComponent } from './shared/circular/circular-detail/circular-detail.component';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 
 @Component({
@@ -53,19 +52,25 @@ export class AppComponent implements OnInit, OnDestroy {
         { path: 'enroll', component: AdminEnrollmentComponent},
         { path: 'register', component: RegisterComponent },
         { path: 'site', component: AdminSiteComponent}
-       ]
+       ],
+       canActivate: [AuthGuard]
       },
       { path: 'student',
         children: [
           { path: '', redirectTo: '/student/exams', pathMatch: 'full'},
           { path: 'profile', component: StudentProfileComponent},
           { path: 'exams', component: StudentExamComponent}
-        ]
+        ],
+        canActivate: [AuthGuard]
       },
       { path: 'register', component: RegisterComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
       { path: 'reset/:userID/:token', component: ResetPasswordResponseComponent},
-      { path: 'change-password', component: ChangePasswordComponent}
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        canActivate: [AuthGuard]
+      }
     );
 
     this.navbarLinks = this.navbarService.getNavbarLinks();

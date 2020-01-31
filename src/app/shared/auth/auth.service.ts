@@ -6,11 +6,12 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class AuthService {
 
-  private authStatusListener = new BehaviorSubject<{isLoggedIn: boolean, user: string, _id: string, role: string }>({
+  private authStatusListener = new BehaviorSubject<{isLoggedIn: boolean, user: string, _id: string, role: string, token: string }>({
     isLoggedIn: null,
     user: null,
     _id: null,
-    role: null
+    role: null,
+    token: null
   });
 
   constructor(private httpClient: HttpClient, private router: Router) {}
@@ -24,7 +25,8 @@ export class AuthService {
         const role = res.role;
         const _id = res._id;
         if (token) {
-          this.authStatusListener.next({isLoggedIn: true, user: user.email, _id, role});
+          this.authStatusListener.next({isLoggedIn: true, user: user.email, _id, role, token});
+          this.saveAuthData(token, user.email);
           if (returnUrl) {
             // login successful so redirect to return url
             this.router.navigateByUrl(returnUrl);
@@ -34,6 +36,7 @@ export class AuthService {
           resolve(true);
         }
       }, err => {
+        this.logout();
         resolve(false);
       });
     });
@@ -43,15 +46,42 @@ export class AuthService {
     return this.authStatusListener;
   }
 
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
   logout() {
     this.authStatusListener.next({
       isLoggedIn: false,
       user: null,
       _id: null,
-      role: null
+      role: null,
+      token: null
     });
 
-    this.router.navigate(['/']);
+    this.clearAuthData();
+    this.router.navigate(['/login']);
   }
 
+  private saveAuthData(token: string, user: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', user);
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
+  private getAuthData() {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (!token) {
+      return;
+    }
+    return {
+      token,
+      user
+    };
+  }
 }
