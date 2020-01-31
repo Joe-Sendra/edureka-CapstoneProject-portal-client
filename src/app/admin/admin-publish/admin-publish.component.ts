@@ -14,7 +14,7 @@ export class AdminPublishComponent {
   constructor(private router: Router) {}
 
   onEdit(notification: NotificationInfo) {
-    this.router.navigate(['/admin', 'publish', notification.id]);
+    this.router.navigate(['/admin', 'publish', notification._id]);
   }
 
 }

@@ -42,8 +42,7 @@ export class NotificationEditComponent implements OnInit {
 
   private initForm() {
 
-    const uniqueId = (this.notificationService.getCount() + 1).toString(); // TODO for testing only until DB is implemented
-    let notificationId = uniqueId; // TODO need to get unique id from backend on create
+    let notificationId = '';
     let notificationType = 'info';
     let notificationHeader = '';
     let notificationTitle = '';
@@ -52,12 +51,13 @@ export class NotificationEditComponent implements OnInit {
 
     // if in edit mode, populate form with existing values
     if (this.editMode) {
-      const notification = this.notificationService.getNotification(this.id);
-      notificationId = notification.id;
-      notificationType = notification.type;
-      notificationHeader = notification.header;
-      notificationTitle = notification.title;
-      notificationMessage = notification.message;
+      this.notificationService.getNotification(this.id).then(notification => {
+        notificationId = notification._id;
+        notificationType = notification.type;
+        notificationHeader = notification.header;
+        notificationTitle = notification.title;
+        notificationMessage = notification.message;
+      });
     }
 
     // this links the reactive code form to the html form
@@ -78,7 +78,7 @@ export class NotificationEditComponent implements OnInit {
 
   updateNotificationPreview() {
     this.notificationPreview = {
-      id: 'preview',
+      _id: 'preview',
       type: this.notificationForm.controls.type.value,
       header: this.notificationForm.controls.header.value ? this.notificationForm.controls.header.value : 'Header',
       title: this.notificationForm.controls.title.value ? this.notificationForm.controls.title.value : 'Title',
