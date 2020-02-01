@@ -47,7 +47,12 @@ export class NotificationEditComponent implements OnInit {
       this.notificationService.updateNotification(this.id, this.notificationForm.value);
       this.router.navigate(['../'], {relativeTo: this.route});
     } else {
+      // Adding a new notification
       this.notificationService.addNotification(this.notificationForm.value);
+      this.notificationForm.reset();
+      this.initForm();
+      // Navigate to current page to trigger notification-resolver.service
+      this.router.navigate(['./'], {relativeTo: this.route});
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NotificationInfo } from '../notification-info.model';
 import { NotificationService } from '../notification.service';
@@ -16,7 +16,9 @@ export class NotificationListComponent implements OnInit {
   @Input() showDeleteButton = false;
   @Output() editedNotification = new EventEmitter<NotificationInfo>();
 
-  constructor(private notificationService: NotificationService, private activatedRoute: ActivatedRoute) {}
+  constructor(private notificationService: NotificationService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
     this.activatedRoute.data.subscribe((data: {notifications: NotificationInfo[]}) => {
@@ -30,6 +32,7 @@ export class NotificationListComponent implements OnInit {
 
   onDelete(notification: NotificationInfo) {
     this.notificationService.deleteNotification(notification._id);
+    this.router.navigate(['./'], {relativeTo: this.activatedRoute});
   }
 
 }

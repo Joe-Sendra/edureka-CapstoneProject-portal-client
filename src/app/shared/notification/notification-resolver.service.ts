@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { NotificationInfo } from './notification-info.model';
 import { NotificationService } from './notification.service';
-import { Observable, of } from 'rxjs';
-import { asLiteral } from '@angular/compiler/src/render3/view/util';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,6 @@ export class NotificationResolverService implements Resolve<NotificationInfo[]> 
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): NotificationInfo[] | Observable<NotificationInfo[]> | Promise<NotificationInfo[]> {
-
     return this.notificationService.getNotifications();
   }
 
