@@ -64,23 +64,8 @@ export class NotificationService {
     });
   }
 
-  // getNotification(id: string) {
-  //   return new Promise<NotificationInfo>(resolve => {
-  //     this.httpClient.get<NotificationInfo>
-  //     (`${environment.apiUrl}/notifications/${id}`)
-  //       .subscribe(notification => {
-  //         resolve(notification);
-  //       },
-  //       (error => {
-  //         console.log(error);
-  //         resolve(null);
-  //       })
-  //     );
-  //   });
-  // }
-
   getNotification(id: string): Observable<NotificationInfo> {
-   return this.httpClient.get<NotificationInfo>(`${environment.apiUrl}/notifications/${id}`);
+    return this.httpClient.get<NotificationInfo>(`${environment.apiUrl}/notifications/${id}`);
   }
 
   public getNotifications(): Observable<NotificationInfo[]> {

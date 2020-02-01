@@ -49,31 +49,41 @@ export class AppComponent implements OnInit, OnDestroy {
     // TODO add auth guards, maybe move this to a service/config file
     this.router.config.unshift(
       { path: 'login', component: LoginComponent },
-      { path: 'logout', component: LoginComponent, data: {isLogout: true} },
-      { path: 'admin',
-       children: [
-        { path: '', redirectTo: '/admin/students', pathMatch: 'full'},
-        { path: 'profile', component: AdminProfileComponent},
-        { path: 'students', component: AdminStudentsComponent},
-        { path: 'publish', component: AdminPublishComponent, resolve: { notifications: NotificationResolverService }},
-        { path: 'publish/:id', component: AdminPublishComponent},
-        { path: 'enroll', component: AdminEnrollmentComponent},
-        { path: 'register', component: RegisterComponent },
-        { path: 'site', component: AdminSiteComponent}
-       ],
-       canActivate: [AuthGuard]
-      },
-      { path: 'student',
+      { path: 'logout', component: LoginComponent, data: { isLogout: true } },
+      {
+        path: 'admin',
         children: [
-          { path: '', redirectTo: '/student/exams', pathMatch: 'full'},
-          { path: 'profile', component: StudentProfileComponent},
-          { path: 'exams', component: StudentExamComponent}
+          { path: '', redirectTo: '/admin/students', pathMatch: 'full' },
+          { path: 'profile', component: AdminProfileComponent },
+          { path: 'students', component: AdminStudentsComponent },
+          {
+            path: 'publish',
+            runGuardsAndResolvers: 'always',
+            component: AdminPublishComponent,
+            resolve: { notifications: NotificationResolverService }
+          },
+          { path: 'publish/:id', component: AdminPublishComponent },
+          { path: 'enroll', component: AdminEnrollmentComponent },
+          { path: 'register', component: RegisterComponent },
+          { path: 'site', component: AdminSiteComponent }
+        ],
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'student',
+        children: [
+          { path: '', redirectTo: '/student/exams', pathMatch: 'full' },
+          { path: 'profile', component: StudentProfileComponent },
+          { path: 'exams', component: StudentExamComponent }
         ],
         canActivate: [AuthGuard]
       },
       { path: 'register', component: RegisterComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
-      { path: 'reset/:userID/:token', component: ResetPasswordResponseComponent},
+      {
+        path: 'reset/:userID/:token',
+        component: ResetPasswordResponseComponent
+      },
       {
         path: 'change-password',
         component: ChangePasswordComponent,
