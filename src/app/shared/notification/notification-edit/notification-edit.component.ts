@@ -4,6 +4,8 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { NotificationService } from '../notification.service';
 import { NotificationInfo } from '../notification-info.model';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-notification-edit',
   templateUrl: './notification-edit.component.html',
@@ -15,8 +17,11 @@ export class NotificationEditComponent implements OnInit {
   editMode = false;
   notificationForm: FormGroup;
   notificationPreview: NotificationInfo;
+  editNotification$: Observable<NotificationInfo>;
 
-  constructor(private notificationService: NotificationService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private notificationService: NotificationService,
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
     this.route.params
@@ -26,6 +31,12 @@ export class NotificationEditComponent implements OnInit {
         this.editMode = params.id != null;
         this.initForm();
         this.updateNotificationPreview();
+
+        if (this.editMode) {
+          this.editNotification$ = this.notificationService.getNotification(this.id).pipe(
+            tap(notification => this.notificationForm.patchValue(notification))
+          );
+        }
       }
     );
 
@@ -34,31 +45,20 @@ export class NotificationEditComponent implements OnInit {
   onSubmit() {
     if (this.editMode) {
       this.notificationService.updateNotification(this.id, this.notificationForm.value);
+      this.router.navigate(['../'], {relativeTo: this.route});
     } else {
       this.notificationService.addNotification(this.notificationForm.value);
     }
-    this.onCancel();
   }
 
   private initForm() {
 
-    let notificationId = '';
-    let notificationType = 'info';
-    let notificationHeader = '';
-    let notificationTitle = '';
-    let notificationMessage = '';
+    const notificationId = '';
+    const notificationType = 'info';
+    const notificationHeader = '';
+    const notificationTitle = '';
+    const notificationMessage = '';
     const notificationCreated = new Date(Date.now()).toLocaleString();
-
-    // if in edit mode, populate form with existing values
-    if (this.editMode) {
-      this.notificationService.getNotification(this.id).then(notification => {
-        notificationId = notification._id;
-        notificationType = notification.type;
-        notificationHeader = notification.header;
-        notificationTitle = notification.title;
-        notificationMessage = notification.message;
-      });
-    }
 
     // this links the reactive code form to the html form
     this.notificationForm = new FormGroup({
@@ -69,7 +69,6 @@ export class NotificationEditComponent implements OnInit {
       message: new FormControl(notificationMessage, [Validators.required, Validators.maxLength(300)]),
       created: new FormControl(notificationCreated)
     });
-
   }
 
   onFormInput() {
@@ -88,7 +87,12 @@ export class NotificationEditComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    if (this.editMode) {
+      this.router.navigate(['../'], {relativeTo: this.route});
+    } else {
+      this.notificationForm.reset();
+      this.initForm();
+    }
   }
 
 }
