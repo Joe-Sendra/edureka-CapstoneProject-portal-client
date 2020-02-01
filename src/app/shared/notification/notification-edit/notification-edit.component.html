@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8">
       <!-- TODO display validation errors / hints -->
-      <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()" (input)="onFormInput()">
+      <form *ngIf="(editNotification$ | async ) || !editMode" [formGroup]="notificationForm" (ngSubmit)="onSubmit()" (input)="onFormInput()">
         <div class="form-group">
           <input
             type="text"

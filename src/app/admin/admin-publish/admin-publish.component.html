@@ -1,14 +1,14 @@
 <div class="container">
   <h3> Publish / Post </h3>
-  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-0">
-    <ngb-panel>
+  <ngb-accordion #accPublish="ngbAccordion" [closeOthers]="true" activeIds="ngb-panel-notification">
+    <ngb-panel id="ngb-panel-notification">
       <ng-template ngbPanelHeader>
           <button ngbPanelToggle class="btn"><h4>Notifications</h4></button>
       </ng-template>
       <ng-template ngbPanelContent>
         <app-notification-edit></app-notification-edit>
         <br>
-        <button class="btn btn-primary" type="button" (click)="isListView = !isListView">show/hide list view</button>
+        <button *ngIf="showListViewButton" class="btn btn-primary" type="button" (click)="isListView = !isListView">show/hide list view</button>
         <app-notification-list
           *ngIf="isListView"
           [showEditButton]="true"
