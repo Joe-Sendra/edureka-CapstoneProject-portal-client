@@ -28,7 +28,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.1.4",
     "angular-bootstrap-datetimepicker": "^4.0.2",
     "bootstrap": "^4.4.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "moment": "^2.24.0",
     "ngx-barcode": "^0.2.4",
     "ngx-export-as": "^1.4.0",
